@@ -1,0 +1,8 @@
+Week 1
+-Read and discussed as a group the various project options and decided to attempt the Event Management Pro project
+-Spent some time thouroughly reading and understading the project objectives and the example description that could fulfill the requirements
+-Drafted some User Stories from 4 different user perspectives: potential customers, customers, potential 
+-Set up Jira and made sure all group members have a personal github account
+Week 2
+-Discussed the User Stories with the group and after some minor modifications uploaded them on Jira to form the project backlog
+-Discussed the requirements for the Project Proposal and split the workload for the task
