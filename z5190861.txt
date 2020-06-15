@@ -1,1 +1,6 @@
-
+Week 1
+-The first lab, discussed with my group members and chose the Event Management topic finally.
+-Created the github and jira account, and joined to my team.
+Week 2
+-Read the project description and objectives, completed a database ER model.
+-The scurm master assigned me to take charge of the back-end coding within the project.
