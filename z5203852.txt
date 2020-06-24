@@ -11,4 +11,5 @@ week 3 :
 Discussed as a group what technologies would be used for the project, these were included in the project proposal
 Discussed what the back end we choose 
 week 4 :
-finish a database ER model.
+make a better database ER model.
+study about java ,framework spring boot.
