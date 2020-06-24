@@ -1,0 +1,23 @@
+Dezhao Fang (Z5128650)
+
+== Week 1 ==
+* Joined a team - "CodeYesSleepingNo".
+* Selected a project - "Event Management Pro Project".
+* Assigned main tasks for everyone. I'm assigned to design and implement front-end web pages with Zihan Lai.
+* Joined Jira project and try to use it.
+
+== Week 2 ==
+* Discuss with Zihan Lai about the technology stack of front-end that we will need, and finally we decide to use Vue.js framework.
+* Discuss the requirements of Proposal and assign the tasks to every teammates.
+* Review the technology of front-end, such as, HTML5, CSS, JavaScript
+* Study the Vue.js.
+* Check the user stories writen by Thomas in Jira.
+* Start to design the UI with Zihan.
+
+== Week 3 ==
+* Review the technology of front-end, such as, HTML5, CSS, JavaScript
+* Study the Vue.js.
+* Complete the UI design with Zihan.
+
+== Week 4 ==
+* Discuss with teammates about the modules that we must complete before Week 5.
