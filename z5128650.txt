@@ -21,3 +21,5 @@ Dezhao Fang (Z5128650)
 
 == Week 4 ==
 * Discuss with teammates about the modules that we must complete before Week 5.
+* Create new branch in GitHub for front-end.
+* Build Vue.js framework and push into GitHub.
