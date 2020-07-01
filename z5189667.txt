@@ -15,3 +15,9 @@ Discussed the requirements for the Project Proposal and split the workload for t
 Design front-end page function flow and draw process sketches. 
 After discussion, determine the necessary functions and some special features of the website. 
 Participate in modifying the database structure.
+
+----------Week 4----------
+Start learning vue for the project and how to design components with front-end teammate.
+
+----------Week 4----------
+Finish demo about home page and login page. Try to connect the front and back ends.
