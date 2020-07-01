@@ -4,3 +4,10 @@ Week 1
 Week 2
 -Read the project description and objectives, completed a database ER model.
 -The scurm master assigned me to take charge of the back-end coding within the project.
+Week 3
+-Fixed the ER model and built database tables by writing sql files
+-Studied Java framwork springboot, database framwork mybatis and database mysql.
+Week 4
+-Set up the back-end development environment.
+-Completed user register,login and logout functions for the website back-end coding.
+
