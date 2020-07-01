@@ -23,3 +23,9 @@ Dezhao Fang (Z5128650)
 * Discuss with teammates about the modules that we must complete before Week 5.
 * Create new branch in GitHub for front-end.
 * Build Vue.js framework and push into GitHub.
+* Design the detail of the Main page and Login&Register page
+
+== Week 5 ==
+* Have a meeting for assgining tasks to Zihan and Thomas.
+* Implement the Main page and Login&Register page.
+* Talking with Chongshi about the API connecting with front-end and back-end.
