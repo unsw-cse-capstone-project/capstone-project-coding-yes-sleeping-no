@@ -13,6 +13,7 @@ Discussed what the back end we choose
 week 4 :
 make a better database ER model.
 study about java ,framework spring boot.
+week 5 :
 Set up the back-end development environment with chongshi
 Completed user register,login and logout functions for the website back-end coding.
 finish all mysql database according to ER.
