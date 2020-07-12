@@ -1,19 +1,50 @@
+/* eslint-disable */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
-import router from './router'
+import routes from './router/router'
+import VueRouter from 'vue-router';
 
-Vue.config.productionTip = false
+import moment from 'moment'
+import './assets/iconfont/iconfont.css'
+import http from './components/http'
 
-Vue.use(ElementUI)
+import './assets/style/app.css'
+import 'animate.css'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css'
 
-/* eslint-disable no-new */
+Vue.use(ElementUI);
+
+Vue.config.productionTip = true;
+Vue.prototype.$http = http;
+
+Vue.filter('dataformat', function (input, str, type, num, t) {
+  if (type == 'add') {
+    return moment(input).add(num, t).format(str);
+  } else if(type === 'sub'){
+    return moment(input).subtract(num, t).format(str);
+  } else {
+    return moment(input).format(str);
+  }
+})
+
+Vue.use(VueRouter);
+const router = new VueRouter({
+  routes,
+  // mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+		} else {
+      return { x: 0, y: 0 }
+		}
+	}
+});
+
 new Vue({
-  el: '#app',
   router,
   components: { App },
   template: '<App/>'
-})
+}).$mount('#app');
