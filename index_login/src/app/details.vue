@@ -1,6 +1,6 @@
 <template>
   <div class="contour" style="background-color: white;width: 1280px;text-align: center;margin: 0 auto;">
-    <el-row :gutter="20" style="margin: 0px;padding: 10px;background-color: black;color: white;border-radius: 15px 15px 0px 0px">
+    <el-row :gutter="20" style="margin: 0px;padding: 10px;background-color: white;color: black;">
       <el-col :span="16" style="padding: 0px;">
         <el-row :gutter="20" style="margin: 0px;">
           <el-col :span="8" style="padding: 0px;">
@@ -29,11 +29,13 @@
         </div>
       </el-col>
     </el-row>
-    <el-carousel indicator-position="none" height="700px" style="background-color: black; border-radius: 0px 0px 15px 15px">
-      <el-carousel-item v-for="(item, index) in carouselList" :key="index">
-        <img :src="item.img" alt="" height="100%" />
-      </el-carousel-item>
-    </el-carousel>
+    <el-row style="padding: 30px; height: 666px; background-color: white; color: black;">
+      <el-col :span="20" style="height: 100%; border-radius: 15px; overflow: hidden;">
+        <img src="../assets/img/Joker2.png" width="100%" height="100%" style="display: block;" />
+      </el-col>
+      <el-col :span="10">
+      </el-col>
+    </el-row>
     <div>
       <div style="background-color: white;padding: 80px 50px;">
         <div style="text-align: left;">
@@ -252,9 +254,7 @@ export default {
   data() {
     return {
       carouselList: [
-        {img: require('../assets/img/ColdplayPara.png')},
-        {img: require('../assets/img/FindMeSomeBodyToLove.png')},
-        {img: require('../assets/img/Joker2.png')}
+        {img: require('../assets/img/ColdplayPara.png')}
       ],
       signInVisible: false,
       signUpVisible: false,
