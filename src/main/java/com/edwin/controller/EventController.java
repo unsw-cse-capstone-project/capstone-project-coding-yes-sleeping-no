@@ -47,10 +47,10 @@ public class EventController {
         Map<String, Object> map = new HashMap<>();
         try {
             Event event = eventService.findOne(id);
-//            File file = new File(realPath,event.getPath());
-//            if (file.exists()){
-//                file.delete();
-//            }
+            File file = new File(realPath,event.getEvent_image());
+            if (file.exists()){
+                file.delete();
+            }
             eventService.delete(id);
             map.put("state", true);
             map.put("msg", "Event deletes success");

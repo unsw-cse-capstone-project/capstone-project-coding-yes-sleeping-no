@@ -20,33 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8f33321-d62b-43df-b3ea-c22b1d13149a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/dao/EventDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/EventService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/EventServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/EventDaoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/Consts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/StringUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/UserDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/UserDaoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/EventReview.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/EventReview.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/PaymentDetail.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/PaymentDetail.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/UsersBookEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/UsersBookEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/mapper/UserDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/mapper/UserDaoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/service/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/service/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/utlis/Consts.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/utlis/Consts.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +53,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -104,6 +79,7 @@
       <updated>1594547488697</updated>
       <workItem from="1594547490270" duration="2458000" />
       <workItem from="1594600522466" duration="5011000" />
+      <workItem from="1594615175694" duration="15000" />
     </task>
     <servers />
   </component>
