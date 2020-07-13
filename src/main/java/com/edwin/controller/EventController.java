@@ -36,9 +36,19 @@ public class EventController {
     }
 
     @GetMapping("/findOne")
-    public Event findOne(Integer id) {
+    public Map<String, Object> findOne(Integer id) {
+        Map<String, Object> map = new HashMap<>();
         log.info("event id:[{}]", id);
-        return eventService.findOne(id);
+        Event eventById = eventService.findOne(id);
+        if (eventById == null){
+            map.put("state", false);
+            map.put("msg", "Event id is invalid");
+        }else {
+            map.put("state", false);
+            map.put("msg", "Find event success");
+            map.put("event", eventById);
+        }
+        return map;
     }
 
     @GetMapping("/delete")
@@ -47,19 +57,26 @@ public class EventController {
         Map<String, Object> map = new HashMap<>();
         try {
             Event event = eventService.findOne(id);
-            File file = new File(realPath,event.getEvent_image());
-            if (file.exists()){
-                file.delete();
+            if (event == null){
+                map.put("state", false);
+                map.put("msg", "Event id is invalid");
+                return map;
+            }else {
+                File file = new File(realPath, event.getEvent_image());
+                if (file.exists()) {
+                    file.delete();
+                }
+                eventService.delete(id);
+                map.put("state", true);
+                map.put("msg", "Event deletes success");
+                return map;
             }
-            eventService.delete(id);
-            map.put("state", true);
-            map.put("msg", "Event deletes success");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("state", false);
             map.put("msg", "Event fails to delete");
+            return map;
         }
-        return map;
     }
 
     @PostMapping("/create")
@@ -85,27 +102,26 @@ public class EventController {
     }
 
     @PostMapping("/update")
-    public Map<String,Object> update(Event event, MultipartFile photo) throws IOException {
+    public Map<String, Object> update(Event event, MultipartFile photo) throws IOException {
         log.info("event info: [{}]", event.toString());
         Map<String, Object> map = new HashMap<>();
         try {
-            if (photo != null && photo.getSize() != 0){
+            if (photo != null && photo.getSize() != 0) {
                 log.info("photo info[{}]", photo.getOriginalFilename());
                 String fileName = FilenameUtils.getExtension(photo.getOriginalFilename());
-                photo.transferTo(new File(realPath,fileName));
+                photo.transferTo(new File(realPath, fileName));
                 event.setEvent_image(fileName);
             }
             event.setUpdate_at(new Date());
             event.setCreated_at(event.getCreated_at());
             eventService.update(event);
             map.put("state", true);
-            map.put("msg","Update event information success");
-            return map;
+            map.put("msg", "Update event information success");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("state", false);
-            map.put("msg","Fail to update event");
-            return map;
+            map.put("msg", "Fail to update event");
         }
+        return map;
     }
 }

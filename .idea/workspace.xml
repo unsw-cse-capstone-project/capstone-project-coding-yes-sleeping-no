@@ -20,6 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8f33321-d62b-43df-b3ea-c22b1d13149a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +80,7 @@
       <updated>1594547488697</updated>
       <workItem from="1594547490270" duration="2458000" />
       <workItem from="1594600522466" duration="5011000" />
-      <workItem from="1594615175694" duration="15000" />
+      <workItem from="1594615175694" duration="682000" />
     </task>
     <servers />
   </component>
