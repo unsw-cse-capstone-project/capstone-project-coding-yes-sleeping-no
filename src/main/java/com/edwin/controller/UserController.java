@@ -20,6 +20,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * user status:
+ * 1 => customer
+ * 2 => host
+ * 3 => back end staff
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
@@ -186,4 +192,15 @@ public class UserController {
             return map;
         }
     }
+
+    @GetMapping("/logout")
+    @ResponseBody
+    public Map<String, Object> logout(HttpSession session){
+        Map<String, Object> map = new HashMap<>();
+        session.removeAttribute(Consts.CURRENT_USER);
+        map.put("state", true);
+        map.put("msg", "Logout success");
+        return map;
+    }
+
 }
