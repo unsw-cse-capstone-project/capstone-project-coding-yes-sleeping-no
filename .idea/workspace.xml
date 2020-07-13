@@ -20,7 +20,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8f33321-d62b-43df-b3ea-c22b1d13149a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/EventReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/EventReview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/PaymentDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/PaymentDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/EventDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/EventDaoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/UserDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/UserDaoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/regist.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/EventMasterApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/EventMasterApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/config/MailConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/config/MailConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/controller/EventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/controller/EventController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/mapper/UserDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/mapper/UserDaoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/service/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/service/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/regist.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/edwin/EventMasterApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/edwin/EventMasterApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,11 +74,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="EventMasterApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -104,38 +130,38 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594614728587" />
-    <state width="1878" height="732" key="GridCell.Tab.0.bottom" timestamp="1594615091783">
+    <state width="1878" height="872" key="GridCell.Tab.0.bottom" timestamp="1594638588086">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.0.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594615091783" />
-    <state width="1878" height="732" key="GridCell.Tab.0.center" timestamp="1594615091781">
+    <state width="1878" height="872" key="GridCell.Tab.0.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594638588086" />
+    <state width="1878" height="872" key="GridCell.Tab.0.center" timestamp="1594638588085">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.0.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594615091781" />
-    <state width="1878" height="732" key="GridCell.Tab.0.left" timestamp="1594615091779">
+    <state width="1878" height="872" key="GridCell.Tab.0.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594638588085" />
+    <state width="1878" height="872" key="GridCell.Tab.0.left" timestamp="1594638588084">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.0.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594615091779" />
-    <state width="1878" height="732" key="GridCell.Tab.0.right" timestamp="1594615091782">
+    <state width="1878" height="872" key="GridCell.Tab.0.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594638588084" />
+    <state width="1878" height="872" key="GridCell.Tab.0.right" timestamp="1594638588086">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.0.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594615091782" />
-    <state width="1878" height="732" key="GridCell.Tab.1.bottom" timestamp="1594615091788">
+    <state width="1878" height="872" key="GridCell.Tab.0.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594638588086" />
+    <state width="1878" height="872" key="GridCell.Tab.1.bottom" timestamp="1594638588089">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.1.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594615091788" />
-    <state width="1878" height="732" key="GridCell.Tab.1.center" timestamp="1594615091786">
+    <state width="1878" height="872" key="GridCell.Tab.1.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594638588089" />
+    <state width="1878" height="872" key="GridCell.Tab.1.center" timestamp="1594638588088">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.1.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594615091786" />
-    <state width="1878" height="732" key="GridCell.Tab.1.left" timestamp="1594615091785">
+    <state width="1878" height="872" key="GridCell.Tab.1.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594638588088" />
+    <state width="1878" height="872" key="GridCell.Tab.1.left" timestamp="1594638588087">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.1.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594615091785" />
-    <state width="1878" height="732" key="GridCell.Tab.1.right" timestamp="1594615091787">
+    <state width="1878" height="872" key="GridCell.Tab.1.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594638588087" />
+    <state width="1878" height="872" key="GridCell.Tab.1.right" timestamp="1594638588088">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.1.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594615091787" />
+    <state width="1878" height="872" key="GridCell.Tab.1.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594638588088" />
     <state x="448" y="121" key="SettingsEditor" timestamp="1594547891425">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

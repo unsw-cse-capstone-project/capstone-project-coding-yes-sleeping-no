@@ -15,17 +15,19 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class Event {
-    private String id;
+    private Integer id;
     private String title;
     private String type;
+    private Integer rate;
     private Spring description;
     private String address;
     private String event_image;
-    private int available_tickets;
-    private int available_seats;
-    private DecimalFormat ticket_price;
+    private Integer available_tickets;
+    private Integer available_seats;
+    private double ticket_price;
     private Date start_date;
     private Date end_date;
+    private Date start_time;
     private Date update_at;
     private Date created_at;
 }

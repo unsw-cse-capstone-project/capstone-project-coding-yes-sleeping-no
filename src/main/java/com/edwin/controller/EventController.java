@@ -20,7 +20,6 @@ import java.util.*;
 @Slf4j
 public class EventController {
 
-
     @Value("${photo.dir}")
     private String realPath;
 
@@ -35,8 +34,8 @@ public class EventController {
         return eventService.findAll();
     }
 
-    @GetMapping("/findOne")
-    public Map<String, Object> findOne(Integer id) {
+    @GetMapping("/find/{id}")
+    public Map<String, Object> findOne(@PathVariable(value = "id") Integer id) {
         Map<String, Object> map = new HashMap<>();
         log.info("event id:[{}]", id);
         Event eventById = eventService.findOne(id);
@@ -51,8 +50,8 @@ public class EventController {
         return map;
     }
 
-    @GetMapping("/delete")
-    public Map<String, Object> delete(Integer id) {
+    @GetMapping("/delete/{id}")
+    public Map<String, Object> delete(@PathVariable(value = "id")Integer id) {
         log.info("deleter user id:[{}]", id);
         Map<String, Object> map = new HashMap<>();
         try {

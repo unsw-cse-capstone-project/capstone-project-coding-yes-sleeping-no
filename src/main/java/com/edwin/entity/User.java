@@ -16,10 +16,16 @@ import java.util.Date;
 @Accessors(chain = true)
 public class User {
     private Integer id;
-    private String username;
+    private String user_name;
+    private String last_name;
+    private String first_name;
+    private String street;
+    private String region;
+    private String postcode;
+    private String state;
     private String email;
     private String password;
-    private BigDecimal user_balance;
+    private double user_balance;
     private Integer status;
     private Date update_at;
     private Date created_at;

@@ -40,6 +40,10 @@ public class UserController {
     @Resource
     private JavaMailSender mailSender;
 
+    @RequestMapping(value = {"/","/index.html", "/index",})
+    public String index(){
+        return "index";
+    }
 
     @PostMapping("/login")
     @ResponseBody
@@ -51,7 +55,6 @@ public class UserController {
             session.setAttribute(Consts.CURRENT_USER, userByName);
             map.put("state", true);
             map.put("msg", "login success");
-            //TBD
             map.put("user", userByName);
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,7 +139,7 @@ public class UserController {
         User user = userDao.findByUserId(userId);
         user.setId(user.getId());
         user.setUser_balance(user.getUser_balance());
-        user.setUsername(user.getUsername());
+        user.setUser_name(user.getUser_name());
         user.setStatus(user.getStatus());
         user.setUpdate_at(new Date());
         user.setCreated_at(user.getCreated_at());

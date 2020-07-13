@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     public void register(User user) {
         User userByEmail = userDao.findByUserEmail(user.getEmail());
         if (userByEmail == null) {
-            if (StringUtils.isEmpty(user.getUsername())) {
+            if (StringUtils.isEmpty(user.getUser_name())) {
                 throw new RuntimeException("Username is empty");
             }
             if (StringUtils.isEmpty(user.getEmail())) {
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setStatus(1);
             user.setCreated_at(new Date());
-            user.setUser_balance(new BigDecimal("0.0"));
+            user.setUser_balance(0.00);
             user.setUpdate_at(new Date());
             userDao.save(user);
         } else {

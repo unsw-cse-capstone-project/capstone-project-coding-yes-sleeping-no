@@ -13,9 +13,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class EventReview {
-    private String id;
-    private int messagable_id;
-    private int to_user_id;
+    private Integer id;
+    private Integer messagable_id;
+    private Integer to_user_id;
     private String content;
     private Date updated_at;
     private Date created_at;

@@ -13,12 +13,12 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class PaymentDetail {
-    private String id;
+    private Integer id;
     private String category;
     private String card_number;
     private Date expiry_date;
     private Integer cvv;
-    private DecimalFormat account_balance;
+    private double account_balance;
     private Date update_at;
     private Date created_at;
 }

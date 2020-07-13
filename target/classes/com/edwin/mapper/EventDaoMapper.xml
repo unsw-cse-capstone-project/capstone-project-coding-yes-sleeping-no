@@ -7,12 +7,12 @@
 
     <!--findAll-->
     <select id="findAll" resultType="Event">
-        select id, title, `type`, description, event_image, address, available_tickets, available_seats, ticket_price, start_date, end_date, updated_at, created_at from event
+        select id, title, `type`, description, rate, event_image, address, available_tickets, available_seats, ticket_price, start_date, start_time, end_date, updated_at, created_at from event
     </select>
 
     <!--findOne-->
     <select id="findOne"  parameterType="Integer" resultType="Event">
-        select id, title, `type`, description, event_image, address, available_tickets, available_seats, ticket_price, start_date, end_date, updated_at, created_at from event where id = #{id}
+        select id, title, `type`, description, rate, event_image, address, available_tickets, available_seats, ticket_price, start_date, start_time, end_date, updated_at, created_at from event where id = #{id}
     </select>
 
     <!--delete-->
@@ -22,12 +22,12 @@
 
     <!--save-->
     <insert id="save" parameterType="Event" useGeneratedKeys="true" keyProperty="id">
-        insert into event values (#{id}, #{title}, #{type}, #{description}, #{event_image}, #{address}, #{available_tickets}, #{available_seats}, #{ticket_price}, #{start_date}, #{end_date}, #{updated_at}, #{created_at})
+        insert into event values (#{id}, #{title}, #{type}, #{description}, #{rate}, #{event_image}, #{address}, #{available_tickets}, #{available_seats}, #{ticket_price}, #{start_date}, #{start_time}, #{end_date}, #{updated_at}, #{created_at})
     </insert>
 
     <!--update-->
     <select id="update"  parameterType="Event">
-        update event set title = #{title}, `type` = #{type}, description = #{description}, event_image = #{event_image}, address = #{address}, available_tickets = #{available_tickets}, available_seats = #{available_seats}, ticket_price = #{ticket_price}, start_date = #{start_date}, end_date = #{end_date}, updated_at = #{updated_at}, created_at = #{created_at}  where id = #{id}
+        update event set title = #{title}, `type` = #{type}, description = #{description}, rate = #{rate}, event_image = #{event_image}, address = #{address}, available_tickets = #{available_tickets}, available_seats = #{available_seats}, ticket_price = #{ticket_price}, start_date = #{start_date},  start_time = #{start_time}, end_date = #{end_date}, updated_at = #{updated_at}, created_at = #{created_at}  where id = #{id}
     </select>
 
 </mapper>
