@@ -42,7 +42,7 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         try {
             User userByName = userService.login(user);
-            session.setAttribute(Consts.CURRENT_USER,userByName);
+            session.setAttribute(Consts.CURRENT_USER, userByName);
             map.put("state", true);
             map.put("msg", "login success");
             //TBD
@@ -113,7 +113,7 @@ public class UserController {
      * Check email verification code for password reset
      */
     @PostMapping("/checkVerificationCode")
-    public Map<String, Object> checkVerificationCode(String verificationCode, HttpSession session) {
+    public Map<String, Object> checkVerificationCode(String verificationCode, String password, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(verificationCode)) {
             map.put("state", false);
@@ -128,8 +128,14 @@ public class UserController {
         }
         // if correct: reset user password
         User user = userDao.findByUserId(userId);
-        user.setPassword(Consts.USER_DEFAULT_PASSWORD);
-        userDao.save(user);
+        user.setId(user.getId());
+        user.setUser_balance(user.getUser_balance());
+        user.setUsername(user.getUsername());
+        user.setStatus(user.getStatus());
+        user.setUpdate_at(new Date());
+        user.setCreated_at(user.getCreated_at());
+        user.setPassword(password);
+        userDao.update(user);
         map.put("state", true);
         map.put("msg", "password reset success");
         return map;
@@ -137,10 +143,10 @@ public class UserController {
 
     @GetMapping("/getUserInfo")
     @ResponseBody
-    public Map<String, Object> getUserInfo(HttpSession session){
+    public Map<String, Object> getUserInfo(HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         User user = (User) session.getAttribute(Consts.CURRENT_USER);
-        if(user == null){
+        if (user == null) {
             map.put("state", false);
             map.put("msg", "user dose not login, cannot get user information");
             return map;
@@ -154,10 +160,10 @@ public class UserController {
 
     @PostMapping("/updateUserInfo")
     @ResponseBody
-    public Map<String, Object> updateUserInfo(HttpSession session,User user){
+    public Map<String, Object> updateUserInfo(HttpSession session, User user) {
         Map<String, Object> map = new HashMap<>();
-        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
-        if(currentUser == null){
+        User currentUser = (User) session.getAttribute(Consts.CURRENT_USER);
+        if (currentUser == null) {
             map.put("state", false);
             map.put("msg", "user dose not login");
             return map;
@@ -171,12 +177,12 @@ public class UserController {
         try {
             userService.update(user);
             map.put("state", true);
-            map.put("msg","Update user information success");
+            map.put("msg", "Update user information success");
             return map;
         } catch (Exception e) {
             e.printStackTrace();
             map.put("state", false);
-            map.put("msg","Fail to update user");
+            map.put("msg", "Fail to update user");
             return map;
         }
     }

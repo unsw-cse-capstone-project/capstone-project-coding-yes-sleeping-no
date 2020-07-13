@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(User user) {
-        User userByName = userDao.findByUserId(user.getId());
-        if (userByName == null) {
+        User userByEmail = userDao.findByUserEmail(user.getEmail());
+        if (userByEmail == null) {
             if (StringUtils.isEmpty(user.getUsername())) {
                 throw new RuntimeException("Username is empty");
             }
@@ -40,16 +40,16 @@ public class UserServiceImpl implements UserService {
             user.setUpdate_at(new Date());
             userDao.save(user);
         } else {
-            throw new RuntimeException("User exists");
+            throw new RuntimeException("user exists");
         }
     }
 
     @Override
     public User login(User user) {
-        User userByName = userDao.findByUserName(user.getUsername());
-        if (!ObjectUtils.isEmpty(userByName)) {
-            if (userByName.getPassword().equals(user.getPassword())) {
-                return userByName;
+        User userByEmail = userDao.findByUserEmail(user.getEmail());
+        if (!ObjectUtils.isEmpty(userByEmail)) {
+            if (userByEmail.getPassword().equals(user.getPassword())) {
+                return userByEmail;
             } else {
                 throw new RuntimeException("Password is not correct");
             }

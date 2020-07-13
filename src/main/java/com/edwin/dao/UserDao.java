@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 public interface UserDao {
 
     void save(User user);
+
     User findByUserName(String username);
+
     User findByUserEmail(String email);
+
     User findByUserId(Integer id);
+
     void update(User user);
 }

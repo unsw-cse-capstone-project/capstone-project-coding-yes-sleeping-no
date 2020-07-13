@@ -20,6 +20,7 @@ public class Event {
     private String type;
     private Spring description;
     private String address;
+    private String event_image;
     private int available_tickets;
     private int available_seats;
     private DecimalFormat ticket_price;

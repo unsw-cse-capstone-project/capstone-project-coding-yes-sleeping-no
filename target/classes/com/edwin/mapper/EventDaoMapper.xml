@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edwin.dao.EventDao">
+
+    <!--findAll-->
+    <select id="findAll" resultType="Event">
+        select id, title, `type`, description, event_image, address, available_tickets, available_seats, ticket_price, start_date, end_date, updated_at, created_at from event
+    </select>
+
+    <!--findOne-->
+    <select id="findOne"  parameterType="Integer" resultType="Event">
+        select id, title, `type`, description, event_image, address, available_tickets, available_seats, ticket_price, start_date, end_date, updated_at, created_at from event where id = #{id}
+    </select>
+
+    <!--delete-->
+    <delete id="delete" parameterType="Integer">
+        delete from event where id = #{id}
+    </delete>
+
+    <!--save-->
+    <insert id="save" parameterType="Event" useGeneratedKeys="true" keyProperty="id">
+        insert into event values (#{id}, #{title}, #{type}, #{description}, #{event_image}, #{address}, #{available_tickets}, #{available_seats}, #{ticket_price}, #{start_date}, #{end_date}, #{updated_at}, #{created_at})
+    </insert>
+
+    <!--update-->
+    <select id="update"  parameterType="Event">
+        update event set title = #{title}, `type` = #{type}, description = #{description}, event_image = #{event_image}, address = #{address}, available_tickets = #{available_tickets}, available_seats = #{available_seats}, ticket_price = #{ticket_price}, start_date = #{start_date}, end_date = #{end_date}, updated_at = #{updated_at}, created_at = #{created_at}  where id = #{id}
+    </select>
+
+</mapper>

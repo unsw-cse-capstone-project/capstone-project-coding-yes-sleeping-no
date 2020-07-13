@@ -24,8 +24,13 @@
     </select>
 
     <!--find by user id-->
-    <select id="findByUserId" parameterType="String" resultType="User">
+    <select id="findByUserId" parameterType="Integer" resultType="User">
         select id,username,email,password,user_balance,status,updated_at,created_at
         from user where id = #{id}
+    </select>
+
+    <!--update-->
+    <select id="update" parameterType="User">
+        update `user` set `username` = #{username}, email = #{email}, password = #{password}, user_balance = #{user_balance}, status = #{status}, updated_at = #{updated_at}, created_at = #{created_at}  where id = #{id}
     </select>
 </mapper>

@@ -30,7 +30,7 @@
     </select>
 
     <!--update-->
-    <select id="update"  parameterType="User">
+    <select id="update" parameterType="User">
         update `user` set `username` = #{username}, email = #{email}, password = #{password}, user_balance = #{user_balance}, status = #{status}, updated_at = #{updated_at}, created_at = #{created_at}  where id = #{id}
     </select>
 </mapper>

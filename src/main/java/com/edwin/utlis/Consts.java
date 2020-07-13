@@ -1,7 +1,7 @@
 package com.edwin.utlis;
 
 /**
- *  Constant table
+ * Constant table
  */
 public class Consts {
     /**
@@ -13,11 +13,6 @@ public class Consts {
      * user id name
      */
     public static final String USER_ID_NAME = "userId";
-
-    /**
-     * user default password
-     */
-    public static final String USER_DEFAULT_PASSWORD = "123456";
 
     public static final String CURRENT_USER = "currentUser";
 
