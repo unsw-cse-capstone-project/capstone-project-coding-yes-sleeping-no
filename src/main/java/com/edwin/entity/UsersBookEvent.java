@@ -12,10 +12,10 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class UsersBookEvent {
-    private String id;
-    private int user_id;
-    private int event_id;
-    private int ticket_amount;
+    private Integer id;
+    private Integer user_id;
+    private Integer event_id;
+    private Integer ticket_amount;
     private Date update_at;
     private Date created_at;
 }

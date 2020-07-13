@@ -13,5 +13,6 @@ public interface UserDao {
     void save(User user);
     User findByUserName(String username);
     User findByUserEmail(String email);
-    User findByUserId(String id);
+    User findByUserId(Integer id);
+    void update(User user);
 }

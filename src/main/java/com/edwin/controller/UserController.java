@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,13 +36,16 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody User user) {
+    @ResponseBody
+    public Map<String, Object> login(@RequestBody User user, HttpSession session) {
         log.info("login user information: [{}]", user.toString());
         Map<String, Object> map = new HashMap<>();
         try {
             User userByName = userService.login(user);
+            session.setAttribute(Consts.CURRENT_USER,userByName);
             map.put("state", true);
-            map.put("msg", "Hint : login success");
+            map.put("msg", "login success");
+            //TBD
             map.put("user", userByName);
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,11 +62,11 @@ public class UserController {
         try {
             userService.register(user);
             map.put("state", true);
-            map.put("msg", "Hint : registration success");
+            map.put("msg", "registration success");
 
         } catch (Exception e) {
             map.put("state", false);
-            map.put("msg", "Hint" + e.getMessage());
+            map.put("msg", e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -77,13 +81,13 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(email)) {
             map.put("state", false);
-            map.put("msg", "Mail is empty !");
+            map.put("msg", "mail is empty");
             return map;
         }
         User userEmail = userDao.findByUserEmail(email);
         if (userEmail == null) {
             map.put("state", false);
-            map.put("msg", "Email dose not exist");
+            map.put("msg", "email dose not exist");
             return map;
         }
 
@@ -101,7 +105,7 @@ public class UserController {
         session.setAttribute(Consts.EMAIL_VERIFICATION_CODE_NAME, verificationCode);
         session.setAttribute(Consts.USER_ID_NAME, userEmail.getId());
         map.put("state", true);
-        map.put("msg", "Password reset verification email has been sent");
+        map.put("msg", "password reset verification email has been sent");
         return map;
     }
 
@@ -113,14 +117,13 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(verificationCode)) {
             map.put("state", false);
-            map.put("msg", "Verification code can not be empty !");
+            map.put("msg", "verification code can not be empty");
         }
         String mailCode = (String) session.getAttribute(Consts.EMAIL_VERIFICATION_CODE_NAME);
-        // TBD maybe Integer type
-        String userId = (String) session.getAttribute(Consts.USER_ID_NAME);
+        Integer userId = (Integer) session.getAttribute(Consts.USER_ID_NAME);
         if (!verificationCode.equals(mailCode)) {
             map.put("state", false);
-            map.put("msg", "Verification code is not correct !");
+            map.put("msg", "verification code is not correct");
             return map;
         }
         // if correct: reset user password
@@ -128,7 +131,53 @@ public class UserController {
         user.setPassword(Consts.USER_DEFAULT_PASSWORD);
         userDao.save(user);
         map.put("state", true);
-        map.put("msg", "Password reset success !");
+        map.put("msg", "password reset success");
         return map;
+    }
+
+    @GetMapping("/getUserInfo")
+    @ResponseBody
+    public Map<String, Object> getUserInfo(HttpSession session){
+        Map<String, Object> map = new HashMap<>();
+        User user = (User) session.getAttribute(Consts.CURRENT_USER);
+        if(user == null){
+            map.put("state", false);
+            map.put("msg", "user dose not login, cannot get user information");
+            return map;
+        }
+        map.put("state", true);
+        map.put("msg", "get user information success");
+        map.put("user", user);
+        return map;
+    }
+
+
+    @PostMapping("/updateUserInfo")
+    @ResponseBody
+    public Map<String, Object> updateUserInfo(HttpSession session,User user){
+        Map<String, Object> map = new HashMap<>();
+        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
+        if(currentUser == null){
+            map.put("state", false);
+            map.put("msg", "user dose not login");
+            return map;
+        }
+        user.setId(currentUser.getId());
+        user.setPassword(currentUser.getPassword());
+        user.setUser_balance(currentUser.getUser_balance());
+        user.setStatus(currentUser.getStatus());
+        user.setUpdate_at(new Date());
+        user.setCreated_at(currentUser.getCreated_at());
+        try {
+            userService.update(user);
+            map.put("state", true);
+            map.put("msg","Update user information success");
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state", false);
+            map.put("msg","Fail to update user");
+            return map;
+        }
     }
 }

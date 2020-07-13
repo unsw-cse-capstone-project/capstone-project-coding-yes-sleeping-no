@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -19,15 +23,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(User user) {
-        User userByName = userDao.findByUserName(user.getUsername());
+        User userByName = userDao.findByUserId(user.getId());
         if (userByName == null) {
-        user.setStatus(1);
-        user.setCreated_at(new Date());
-        user.setUser_balance(0);
-        user.setUpdate_at(new Date());
-        userDao.save(user);
+            if (StringUtils.isEmpty(user.getUsername())) {
+                throw new RuntimeException("Username is empty");
+            }
+            if (StringUtils.isEmpty(user.getEmail())) {
+                throw new RuntimeException("Email is empty");
+            }
+            if (StringUtils.isEmpty(user.getPassword())) {
+                throw new RuntimeException("Password is empty");
+            }
+            user.setStatus(1);
+            user.setCreated_at(new Date());
+            user.setUser_balance(new BigDecimal("0.0"));
+            user.setUpdate_at(new Date());
+            userDao.save(user);
         } else {
-            throw new RuntimeException("User exists !");
+            throw new RuntimeException("User exists");
         }
     }
 
@@ -38,10 +51,20 @@ public class UserServiceImpl implements UserService {
             if (userByName.getPassword().equals(user.getPassword())) {
                 return userByName;
             } else {
-                throw new RuntimeException("Password is not correct !");
+                throw new RuntimeException("Password is not correct");
             }
         } else {
-            throw new RuntimeException("Username is not correct !");
+            throw new RuntimeException("User does not exist");
+        }
+    }
+
+    @Override
+    public void update(User user) {
+        User userByUserId = userDao.findByUserId(user.getId());
+        if (userByUserId == null) {
+            throw new RuntimeException("User does not exist");
+        } else {
+            userDao.update(user);
         }
     }
 }

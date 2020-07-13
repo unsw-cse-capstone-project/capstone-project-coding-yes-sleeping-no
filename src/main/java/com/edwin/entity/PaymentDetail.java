@@ -17,7 +17,7 @@ public class PaymentDetail {
     private String category;
     private String card_number;
     private Date expiry_date;
-    private int cvv;
+    private Integer cvv;
     private DecimalFormat account_balance;
     private Date update_at;
     private Date created_at;

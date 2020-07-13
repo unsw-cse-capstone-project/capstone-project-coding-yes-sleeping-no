@@ -18,4 +18,10 @@ public class Consts {
      * user default password
      */
     public static final String USER_DEFAULT_PASSWORD = "123456";
+
+    public static final String CURRENT_USER = "currentUser";
+
+    public static final String EMAIL = "email";
+
+    public static final String USERNAME = "username";
 }

@@ -16,7 +16,7 @@ public class EventReview {
     private String id;
     private int messagable_id;
     private int to_user_id;
-    private Text content;
+    private String content;
     private Date updated_at;
     private Date created_at;
 }
