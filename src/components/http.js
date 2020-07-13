@@ -8,7 +8,7 @@ let user = '';
 if(process.env.NODE_ENV === 'development'){
   axio.defaults.baseURL = '/api';
 }else if(process.env.NODE_ENV === 'production'){
-  axio.defaults.baseURL = 'http://192.168.9.31:40823';
+  axio.defaults.baseURL = 'http://localhost:9999';
   // axio.defaults.baseURL = unit.getStorage('baseUrl');
 }
 

@@ -11,7 +11,7 @@ import './assets/iconfont/iconfont.css'
 import http from './components/http'
 
 import './assets/style/app.css'
-import 'animate.css'
+// import 'animate.css'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
 

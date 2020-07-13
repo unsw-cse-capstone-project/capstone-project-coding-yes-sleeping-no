@@ -1,10 +1,12 @@
 <template>
   <div class="contour" style="width: 1280px;text-align: center;margin: 0 auto;">
     <el-row :gutter="20" style="margin: 0px;padding: 10px;background-color: black;color: white;">
-      <el-col :span="16" style="padding: 0px;">
+      <el-col :span="3" style="padding: 0px 0px 0px 20px; text-align: left;">
+        <span class="curPoi" style="font-size: 28px;vertical-align: middle;font-style: italic;">CYSN</span>
+      </el-col>
+      <el-col :span="15" style="padding: 0px;">
         <el-row :gutter="20" style="margin: 0px;">
-          <el-col :span="8" style="padding: 0px;">
-            <span class="curPoi" style="font-size: 28px;vertical-align: middle;font-style: italic;">CYSN</span>
+          <el-col :span="8" style="padding: 0px;line-height: 40px;">
             <span class="curPoi">
               <img src="../assets/img/location.png" alt="" width="10px;" style="vertical-align: middle;" />
               <span style="font-size: 14px;">Los Abgeles</span>
@@ -22,10 +24,14 @@
           </el-col>
         </el-row>
       </el-col>
-      <el-col :span="8" style="padding: 0px 20px 0px 0px;text-align: right;">
-        <div class="curPoi">
+      <el-col :span="6" style="padding: 0px 20px 0px 0px;text-align: right;">
+        <div class="curPoi" v-if="Object.keys(user).length === 0">
           <img src="../assets/img/login.png" alt="" width="40px;" style="vertical-align: middle;" @click="dialogVisible = true" />
           <span @click="dialogVisible = true">Sign In/Sign Up</span>
+        </div>
+        <div class="curPoi" v-else>
+          <el-avatar src="../assets/img/Jannabi.png" :size="50"></el-avatar>
+          <span @click="dialogVisible = true">{{user.user_name}}</span>
         </div>
       </el-col>
     </el-row>
@@ -172,22 +178,22 @@
         </el-col>
         <el-col :span="13">
           <div style="text-align: right; padding: 20px 20px 0px 0px;"><img @click="dialogVisible = false"  src="../assets/img/close.png" alt="" width="20px" height="20px" class="curPoi" /></div>
-          <div v-if="showLogin === true">
+          <div v-if="showLogin">
             <el-row style="padding: 50px 40px;">
               <el-col :span="12" class="curDefault" style="font-size: 22px;font-weight: bold;text-align: left;">Sign In to CYSN</el-col>
-              <el-col :span="12" class="curPoi" style="font-size: 14px;color: blue;text-align: right;" @click="showLogin=false" v-model="showLogin"><span>Sign&nbsp;up</span></el-col><!-- @click="checkType" -->
+              <el-col :span="12" class="curPoi" style="font-size: 14px;color: blue;text-align: right;" @click="showLogin=false"><span>Sign&nbsp;up</span></el-col><!-- @click="checkType" -->
             </el-row>
-            <el-input placeholder="Username or Email Address" v-model="account" style="margin: 0px 50px;width: 80%;" :clearable="true">
+            <el-input placeholder="Email" v-model="user.email" style="margin: 0px 50px;width: 80%;" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/account.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <el-input placeholder="Password" v-model="pwd" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
+            <el-input placeholder="Password" v-model="user.password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <button class="curPoi" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;">Sign&nbsp;in</button>
+            <button class="curPoi" @click="login" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;">Sign&nbsp;in</button>
             <div class="curPoi" style="text-align: right;padding: 10px 50px 0px 0px;color: #4386F5;">Forget&nbsp;Password?</div>
             <div class="curDefault" style="padding: 40px 0px 20px 50px;font-family: PingFangSC-Regular;font-size: 15px;color: #B3B3B3;text-align: left;">Or</div>
             <button class="curPoi" style="background-color: #4386F5;border: none;border-radius: 4px;font-size: 15px;color: #FFFFFF;line-height:44px;width: 300px;"><img src="../assets/img/google.png" alt="" width="24px;" height="24px" style="vertical-align:middle;" />Sign&nbsp;in&nbsp;with&nbsp;Google</button>
@@ -197,22 +203,22 @@
             <el-row style="padding: 50px 40px;">
               <el-col :span="12" class="curDefault" style="font-size: 22px;font-weight: bold;text-align: left;">Sign Up to CYSN</el-col>
             </el-row>
-            <el-input placeholder="Username" v-model="account" style="margin: 0px 50px;width: 80%;" :clearable="true">
+            <el-input placeholder="Username" v-model="user.user_name" style="margin: 0px 50px;width: 80%;" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/account.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <el-input placeholder="Password" v-model="pwd" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
+            <el-input placeholder="Password" v-model="user.password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <el-input placeholder="Confirm Password" v-model="pwd" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
+            <el-input placeholder="Confirm Password" v-model="user.password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <el-input placeholder="Enter email" v-model="email" style="margin: 20px 50px 0px;width: 80%;" :clearable="true">
+            <el-input placeholder="Enter email" v-model="user.email" style="margin: 20px 50px 0px;width: 80%;" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
               </template>
@@ -238,18 +244,30 @@ export default {
         {img: require('../assets/img/Joker2.png')}
       ],
       dialogVisible: false,
-      account: null,
-      pwd: null,
-      email: null,
+      user: {},
       showLogin: true
     }
   },
   mounted: function () {},
   methods: {
-    // checkType: function() {
-    //   this.showLogin = false;
-    //   this.showRegister = true;
-    // }
+    // login
+    login() {
+      // send request
+      this.$http.post("http://localhost:9999/user/login", this.user).then(
+              res=>{
+                console.log(res.data.state);
+                if(res.data.state){
+                  console.log(res.data.user);
+                  this.user = res.data.user;
+                  console.log(this.user)
+                  localStorage.setItem("user", JSON.stringify(res.data.user));
+                  location.href="/";
+                }
+                else {
+                  alert(res.data.msg)
+                }
+      })
+    }
   }
 }
 </script>

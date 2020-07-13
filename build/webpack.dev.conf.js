@@ -28,19 +28,21 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
     host: 'localhost',
-    port: 8080,
+    port: 9999,
     open: false,
     overlay: { warnings: false, errors: true },
     publicPath: '/',
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://192.168.9.31:40823',
-    //     changeOrigin: true,//true
-    //     pathRewrite:{
-    //         '^/api': ''
-    //     }
-    //   }
-    // },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9999',
+        ws: true,
+        secure: false,
+        changeOrigin: true,//true
+        pathRewrite:{
+            '^/api': ''
+        }
+      }
+    },
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: false,
@@ -63,7 +65,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 })
 
 module.exports = new Promise((resolve, reject) => {
-  portfinder.basePort = 4200
+  portfinder.basePort = 9999
   portfinder.getPort((err, port) => {
     if (err) {
       reject(err)
