@@ -61,10 +61,10 @@ export default {
       axio({ method: 'get', url: i, params: data})
         .then(res => {
           successState(res);
-          resolve(res)
+          resolve(res.data)
         }, res => {
           errorState(res);
-          reject(res);
+          reject(res.data);
         })
     })
   },
@@ -73,10 +73,10 @@ export default {
       axio({ method: 'post', url: i, data: JSON.stringify(data)})
         .then(res => {
           successState(res);
-          resolve(res)
+          resolve(res.data)
         }, res => {
           errorState(res);
-          reject(res);
+          reject(res.data);
         })
     })
   },
@@ -85,10 +85,10 @@ export default {
       axio({ method: 'post', url: i, params: data})
         .then(res => {
           successState(res);
-          resolve(res)
+          resolve(res.data)
         }, res => {
           errorState(res);
-          reject(res);
+          reject(res.data);
         })
     })
   }

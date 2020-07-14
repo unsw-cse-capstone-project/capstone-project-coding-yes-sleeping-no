@@ -4,7 +4,7 @@
 import Vue from 'vue'
 import App from './App'
 import routes from './router/router'
-import VueRouter from 'vue-router';
+import VueRouter from 'vue-router'
 
 import moment from 'moment'
 import './assets/iconfont/iconfont.css'
@@ -12,7 +12,7 @@ import http from './components/http'
 
 import './assets/style/app.css'
 // import 'animate.css'
-import ElementUI from 'element-ui';
+import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI);

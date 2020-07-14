@@ -1,7 +1,7 @@
 <template>
   <div class="contour" style="width: 1280px;text-align: center;margin: 0 auto;">
-    <el-row :gutter="20" style="margin: 0px;padding: 10px;background-color: black;color: white;">
-      <el-col :span="3" style="padding: 0px 0px 0px 20px; text-align: left;">
+    <el-row :gutter="20" style="margin: 0;padding: 10px;background-color: black;color: white;">
+      <el-col :span="3" style="padding: 0 0 0 20px; text-align: left;">
         <span class="curPoi" style="font-size: 28px;vertical-align: middle;font-style: italic;">CYSN</span>
       </el-col>
       <el-col :span="15" style="padding: 0px;">
@@ -26,12 +26,14 @@
       </el-col>
       <el-col :span="6" style="padding: 0px 20px 0px 0px;text-align: right;">
         <div class="curPoi" v-if="Object.keys(user).length === 0">
-          <img src="../assets/img/login.png" alt="" width="40px;" style="vertical-align: middle;" @click="dialogVisible = true" />
+          <img src="../assets/img/login.png" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0" @click="dialogVisible = true" />
           <span @click="dialogVisible = true">Sign In/Sign Up</span>
         </div>
         <div class="curPoi" v-else>
-          <el-avatar src="../assets/img/Jannabi.png" :size="50"></el-avatar>
-          <span @click="dialogVisible = true">{{user.user_name}}</span>
+          <router-link id="rlink" to="/myCenter" style="text-decoration: none;">
+            <el-avatar src="../assets/img/Jannabi.png" :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0"></el-avatar>
+            <span style="line-height: 40px;">{{user.user_name}}</span>
+          </router-link>
         </div>
       </el-col>
     </el-row>
@@ -181,7 +183,7 @@
           <div v-if="showLogin">
             <el-row style="padding: 50px 40px;">
               <el-col :span="12" class="curDefault" style="font-size: 22px;font-weight: bold;text-align: left;">Sign In to CYSN</el-col>
-              <el-col :span="12" class="curPoi" style="font-size: 14px;color: blue;text-align: right;" @click="showLogin=false"><span>Sign&nbsp;up</span></el-col><!-- @click="checkType" -->
+              <el-col :span="12" class="curPoi" style="font-size: 14px;color: blue;text-align: right;" @click.native="showLogin=false"><span>Sign&nbsp;up</span></el-col><!-- @click="checkType" -->
             </el-row>
             <el-input placeholder="Email" v-model="user.email" style="margin: 0px 50px;width: 80%;" :clearable="true">
               <template slot="prepend">
@@ -199,31 +201,31 @@
             <button class="curPoi" style="background-color: #4386F5;border: none;border-radius: 4px;font-size: 15px;color: #FFFFFF;line-height:44px;width: 300px;"><img src="../assets/img/google.png" alt="" width="24px;" height="24px" style="vertical-align:middle;" />Sign&nbsp;in&nbsp;with&nbsp;Google</button>
             <button class="curPoi" style="border: none;padding: 12px;margin-left: 10px;border-radius: 4px;"><img src="../assets/img/facebook_login.png" alt="" width="20px" height="20px" /></button>
           </div>
-          <div v-else>
+          <div v-if="!showLogin">
             <el-row style="padding: 50px 40px;">
               <el-col :span="12" class="curDefault" style="font-size: 22px;font-weight: bold;text-align: left;">Sign Up to CYSN</el-col>
             </el-row>
-            <el-input placeholder="Username" v-model="user.user_name" style="margin: 0px 50px;width: 80%;" :clearable="true">
+            <el-input placeholder="Username" v-model="register.user_name" style="margin: 0px 50px;width: 80%;" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/account.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <el-input placeholder="Password" v-model="user.password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
+            <el-input placeholder="Enter email" v-model="register.email" style="margin: 20px 50px 0px;width: 80%;" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <el-input placeholder="Confirm Password" v-model="user.password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
+            <el-input placeholder="Password" v-model="register.password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <el-input placeholder="Enter email" v-model="user.email" style="margin: 20px 50px 0px;width: 80%;" :clearable="true">
+            <el-input placeholder="Confirm Password" v-model="confirm_password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
                 <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
               </template>
             </el-input>
-            <button class="curPoi" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;">Create Account</button>
+            <button class="curPoi" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;" @click="signup">Create Account</button>
             <div class="curDefault" style="padding: 40px 0px 20px 50px;font-family: PingFangSC-Regular;font-size: 15px;color: #B3B3B3;text-align: left;">Or</div>
             <button class="curPoi" style="background-color: #4386F5;border: none;border-radius: 4px;font-size: 15px;color: #FFFFFF;line-height:44px;width: 300px;"><img src="../assets/img/google.png" alt="" width="24px;" height="24px" style="vertical-align:middle;" />Sign&nbsp;in&nbsp;with&nbsp;Google</button>
             <button class="curPoi" style="border: none;padding: 12px;margin-left: 10px;border-radius: 4px;"><img src="../assets/img/facebook_login.png" alt="" width="20px" height="20px" /></button>
@@ -245,7 +247,9 @@ export default {
       ],
       dialogVisible: false,
       user: {},
-      showLogin: true
+      register: {},
+      showLogin: true,
+      confirm_password: null
     }
   },
   mounted: function () {},
@@ -253,20 +257,59 @@ export default {
     // login
     login() {
       // send request
-      this.$http.post("http://localhost:9999/user/login", this.user).then(
+      this.$http.post("/user/login", this.user).then(
               res=>{
-                console.log(res.data.state);
-                if(res.data.state){
-                  console.log(res.data.user);
-                  this.user = res.data.user;
-                  console.log(this.user)
-                  localStorage.setItem("user", JSON.stringify(res.data.user));
-                  location.href="/";
+                if(res){
+                  this.user = res.user;
+                  this.$message({
+                    message: 'Login successfully!',
+                    type: 'success'
+                  });
+                  localStorage.setItem("user", JSON.stringify(res));
+                  this.dialogVisible = false;
                 }
                 else {
-                  alert(res.data.msg)
+                  alert(res.msg)
                 }
       })
+    },
+    signup() {
+      if(this.register.email !== null && this.register.email !== '' && this.register.email !== undefined) {
+        if(this.register.password !== null && this.register.password !== '' && this.register.password !== undefined){
+          if(this.confirm_password !== null && this.confirm_password !== '' && this.confirm_password !== undefined){
+            if(this.register.password === this.confirm_password) {
+              let obj = {
+                email: this.register.email,
+                user_name: this.register.user_name,
+                password: this.register.password
+              };
+              this.$http.post("/user/register", obj).then(
+                      res=>{
+                        if(res){
+                          this.user = obj;
+                          this.$message({
+                            message: 'Register successfully!',
+                            type: 'success'
+                          });
+                          localStorage.setItem("user", JSON.stringify(obj));
+                          this.dialogVisible = false;
+                        }
+                        else {
+                          alert(res.msg)
+                        }
+                      }
+              )
+
+            }
+          }
+        }
+      } else {
+        this.$message({
+          showClose: true,
+          message: 'Invalid email or password!',
+          type: 'error'
+        })
+      }
     }
   }
 }

@@ -28,7 +28,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
     host: 'localhost',
-    port: 9999,
+    port: 8080,
     open: false,
     overlay: { warnings: false, errors: true },
     publicPath: '/',
@@ -65,7 +65,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 })
 
 module.exports = new Promise((resolve, reject) => {
-  portfinder.basePort = 9999
+  portfinder.basePort = 8080
   portfinder.getPort((err, port) => {
     if (err) {
       reject(err)
