@@ -1,5 +1,5 @@
 <template>
-  <div class="contour" style="background-color: white;width: 1280px;text-align: center;margin: 0 auto;">
+  <div class="contour" style="background-color: white;width: 1280px;text-align: center;margin: 30px auto;">
     <el-row :gutter="20" style="margin: 0px;padding: 10px;background-color: white;color: black;">
       <el-col :span="16" style="padding: 0px;">
         <el-row :gutter="20" style="margin: 0px;">
@@ -29,121 +29,135 @@
         </div>
       </el-col>
     </el-row>
-    <el-row style="padding: 30px; height: 666px; background-color: white; color: black;">
-      <el-col :span="20" style="height: 100%; border-radius: 15px; overflow: hidden;">
-        <img src="../assets/img/Joker2.png" width="100%" height="100%" style="display: block;" />
+
+    <el-row style="padding: 30px; height: 666px">
+      <el-col :span="8" style="height: 100%; border-radius: 15px; overflow: hidden;">
+        <img src="../assets/img/Joker2.png" alt="" width="100%" height="100%" style="display: block;" />
       </el-col>
-      <el-col :span="10">
+      <el-col :span="7" :offset="1" style="height: 100%;">
+        <el-row style="text-align: left; padding: 5px">
+          <span style="font-size: 32px;">Joker (2019)</span>
+        </el-row>
+        <el-row style="text-align: left;padding: 10px">
+          <span>*RATING STAR IMAGES*</span>
+        </el-row>
+        <el-row style="text-align: left; padding: 10px; color: grey">
+          <span>Release Time: 2019</span>
+        </el-row>
+        <el-row style="text-align: left; padding: 10px;  color: grey">
+          <span>Introduction: 2019</span>
+        </el-row>
+        <el-row style="text-align: left; padding: 10px">
+          <el-col :span="6" style="padding: 10px 0px">
+            <span>Location: </span>
+          </el-col>
+          <el-col :span="18">
+            <el-select v-model="loc_value" placeholder="Select">
+             <el-option
+               v-for="item in location_options"
+               :key="item.loc_value"
+                :label="item.label"
+               :value="item.loc_value">
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-row>
+        <el-row style="text-align: left; padding: 10px">
+          <el-col :span="6" style="padding: 10px 0px">
+            <span>Date: </span>
+          </el-col>
+          <el-col :span="18">
+            <el-select v-model="value" placeholder="Select">
+              <el-option
+                v-for="item in date_options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-row>
+        <el-row style="text-align: left; padding: 10px">
+          <el-col :span="6" style="padding: 10px 0px">
+            <span>Time: </span>
+          </el-col>
+          <el-col :span="18">
+            <el-select v-model="time_value" placeholder="Select">
+              <el-option
+                v-for="item in time_options"
+                :key="item.time_value"
+                :label="item.label"
+                :value="item.time_value">
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-row>
+        <el-row style="text-align: left; padding: 5px">
+          <el-col :span="6" style="padding: 10px 0px">
+            <span style="font-size: 24px">Price: </span>
+          </el-col>
+          <el-col :span="18" style="padding:10px 0px">
+            <span style="color: red; font-size: 24px">$200</span>
+          </el-col>
+        </el-row>
+        <el-row style="text-align: left; padding: 5px">
+          <el-button type="primary">Book and Pay</el-button>
+        </el-row>
+      </el-col>
+      <el-col :span="8" style="=height: 100%; border-radius: 15px; padding: 15px; background-color: lightgrey">
+        <el-row>
+          <span style="font-size: 22px; padding-left: 10px; font-style: italic;">Description</span>
+        </el-row>
+        <el-row style="padding: 15px">
+          <span style="font-size: 18px;">This is the introduction of the event details</span>
+        </el-row>      
       </el-col>
     </el-row>
-    <div>
-      <div style="background-color: white;padding: 80px 50px;">
-        <div style="text-align: left;">
-          <img src="../assets/img/type.png" alt="" width="40px;" />
-          <span style="font-size: 22px;padding-left: 10px;font-style:italic">Live Concerts</span>
-        </div>
-        <el-row style="height: 666px;">
-          <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">
-            <img src="../assets/img/Up&Up.png" alt="" width="100%" height="100%" style="display: block;" />
-          </el-col>
-          <el-col :span="10" style="padding-left: 26px;">
-            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img src="../assets/img/Up&Up.png" alt="" width="100%" height="100%" style="display: block;" /></div>
-            <div style="height: 320px;border-radius: 15px;overflow: hidden;"><img src="../assets/img/Up&Up.png" alt="" width="100%" height="100%" style="display: block;" /></div>
-          </el-col>
-        </el-row>
-        <div class="flexNowarp" style="margin-top: 30px;">
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/FindMeSomeBodyToLove.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Find Me Some Body to Love</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
+
+    <el-row>
+        <el-col :span="18" style="padding: 30px">
+          <div style="margin: 15px; text-align: left;">
+            <span style="font-size: 24px">Event Images</span>  
           </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/FindMeSomeBodyToLove.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Find Me Some Body to Love</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
+          <div>
+            <el-col style="hieght: 100%; border-radius: 15px; overflow: hidden">
+              <img src="../assets/img/StarWars.png" alt="" width="100%" height="100%" style="display: block;">
+            </el-col>
           </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/FindMeSomeBodyToLove.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Find Me Some Body to Love</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
+
+        </el-col>
+
+        <el-col :span="6" style="padding: 30px">
+          <div style="margin: 15px; text-align: left;">
+            <span style="font-size: 24px;">Recommended for you</span>
           </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/FindMeSomeBodyToLove.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Find Me Some Body to Love</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
+          <div style="text-align: left; height: 160px">
+            <el-col :span="8" style="height: 100%; border-radius: 5px; overflow: hidden">
+              <img src="../assets/img/Joker2.png" alt="" width="100%" height="100%" style="display: block;" />
+            </el-col>
+            <el-col :span="15" :offset="1">
+              <el-row>
+                <span style="font-size: 24px">Joker (2019)</span>
+              </el-row>
+              <el-row>
+                <span style="color: grey">Description of event...</span>
+              </el-row>
+              <el-row>
+                <span style="color: grey">Date of the event...</span>
+              </el-row>
+              <el-row>
+                <span style="color: red">Price from $200</span>
+              </el-row>
+
+            </el-col>
           </div>
-        </div>
-        <div style="padding-top: 50px;">
-          <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div style="background-color: white;padding: 80px 50px;">
-        <div style="text-align: left;">
-          <img src="../assets/img/type.png" alt="" width="40px;" />
-          <span style="font-size: 22px;padding-left: 10px;font-style:italic">Movies</span>
-        </div>
-        <el-row style="height: 666px;">
-          <el-col :span="16" style="height: 100%;border-radius: 15px;overflow: hidden;">
-            <img src="../assets/img/StarWars.png" alt="" width="100%" height="100%" style="display: block;" />
-          </el-col>
-          <el-col :span="8" style="padding-left: 26px;">
-            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img src="../assets/img/StarWars.png" alt="" width="100%" height="100%" style="display: block;" /></div>
-            <div style="height: 320px;border-radius: 15px;overflow: hidden;"><img src="../assets/img/StarWars.png" alt="" width="100%" height="100%" style="display: block;" /></div>
-          </el-col>
-        </el-row>
-        <div class="flexNowarp" style="margin-top: 30px;">
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/joker.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Joker</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
-          </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/joker.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Joker</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
-          </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/joker.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Joker</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
-          </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/joker.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Joker</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
-          </div>
-        </div>
-        <div style="padding-top: 50px;">
-          <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>
-        </div>
-      </div>
-    </div>
-    <div style="margin-top: 80px;padding: 90px 0px;background-color: #f6f6f6;">
-      <div style="font-size: 24px;color: #121212;font-family: SourceHanSans-Medium;font-weight: bold;">Subscribe&nbsp;to&nbsp;Out&nbsp;Newsletter</div>
-      <div style="font-size: 16px;color: #666666;padding-top: 20px;text-align: center"> <div style="width: 400px; display: inline-block">Get&nbsp;the&nbsp;latest product updates, company news, and special offers delivered right to your inbox.</div> </div>
-      <div style="padding-top: 40px;">
-        <input type="text" placeholder="Enter your email" style="line-height: 50px;font-size: 16px;border-radius: 25px;border: none;width: 270px;padding-left: 30px;" />
-        <button style="background: #1A1A1A;box-shadow: 0 2px 4px 0 rgba(42,42,42,0.20);border-radius: 25px;line-height: 50px;width: 140px;color: #fff;font-size: 16px;border: none;margin-left: 20px;">SUBSCRIBE</button>
-      </div>
-    </div>
+        </el-col>
+
+
+    </el-row>
+
+
+    
     <div style="margin-top: 50px;padding: 40px 50px;border-top: 1px solid #121212;">
       <el-row>
         <el-col :span="8" style="text-align: left;font-size: 16px;color: #121212;">
@@ -202,7 +216,7 @@
       </el-row>
     </el-dialog>
 
-<el-dialog :visible.sync="signUpVisible">
+    <el-dialog :visible.sync="signUpVisible">
 
       <el-row style="height: 100%;">
         <el-col :span="11" style="height: 100%;">
@@ -253,17 +267,35 @@
 export default {
   data() {
     return {
-      carouselList: [
-        {img: require('../assets/img/ColdplayPara.png')}
-      ],
-      signInVisible: false,
-      signUpVisible: false,
-      account: null,
-      pwd: null,
-      showLogin: true,
-      showRegister: false
+      location_options: [{
+        loc_value: 'Sydney',
+        label: 'Sydney'
+      }, {
+        loc_value: 'Melbourne',
+        label: 'Melbourne'
+      }],
+      date_options: [{
+        value: '19072020',
+        label: 'July 19'
+      }, {
+        value: '20072020',
+        label: 'July 20'
+      }],
+      time_options: [{
+        time_value: '1300',
+        label: '13:00'
+      }, {
+        time_value: '1800',
+        label: '18:00'
+      }],
+      loc_value: '',
+      value: '',
+      time_value: ''
     }
   },
+
+
+
   mounted: function () {},
   methods: {
     // checkType: function() {
