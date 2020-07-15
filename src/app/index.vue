@@ -29,7 +29,7 @@
           <img src="../assets/img/login.png" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0" @click="dialogVisible = true" />
           <span @click="dialogVisible = true">Sign In/Sign Up</span>
         </div>
-        <div class="curPoi" v-else>
+        <div class="curPoi" v-if="Object.keys(user).length !== 0">
           <router-link id="rlink" to="/myCenter" style="text-decoration: none;">
             <el-avatar src="../assets/img/Jannabi.png" :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0"></el-avatar>
             <span style="line-height: 40px;">{{user.user_name}}</span>
@@ -208,22 +208,26 @@
             </el-row>
             <el-input placeholder="Username" v-model="register.user_name" style="margin: 0px 50px;width: 80%;" :clearable="true">
               <template slot="prepend">
-                <img src="../assets/img/account.png" alt="" width="18px" height="18px" />
+<!--                <img src="../assets/img/account.png" alt="" width="18px" height="18px" />-->
+                <i class="el-icon-user" style="font-size: 20px"></i>
               </template>
             </el-input>
             <el-input placeholder="Enter email" v-model="register.email" style="margin: 20px 50px 0px;width: 80%;" :clearable="true">
               <template slot="prepend">
-                <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
+<!--                <img src="../assets/img/pwd.png"  />-->
+                <i class="el-icon-message" style="font-size: 20px"></i>
               </template>
             </el-input>
             <el-input placeholder="Password" v-model="register.password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
-                <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
+<!--                <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />-->
+                <i class="el-icon-lock" style="font-size: 20px"></i>
               </template>
             </el-input>
             <el-input placeholder="Confirm Password" v-model="confirm_password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
-                <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />
+<!--                <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />-->
+                <i class="el-icon-lock" style="font-size: 20px"></i>
               </template>
             </el-input>
             <button class="curPoi" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;" @click="signup">Create Account</button>
@@ -257,17 +261,22 @@ export default {
       // send request
       this.$http.post("/user/login", this.user).then(
               res=>{
-                if(res){
+                if(res.state){
                   this.user = res.user;
                   this.$message({
-                    message: 'Login successfully!',
+                    message: res.msg,
                     type: 'success'
                   });
                   localStorage.setItem("user", JSON.stringify(res));
                   this.dialogVisible = false;
                 }
                 else {
-                  alert(res.msg)
+                  this.user = res.user;
+                  this.$message({
+                    message: res.msg,
+                    type: 'fail'
+                  });
+                  this.user = {}
                 }
       })
     },
@@ -283,17 +292,21 @@ export default {
               };
               this.$http.post("/user/register", obj).then(
                       res=>{
-                        if(res){
+                        if(res.state){
                           this.user = obj;
                           this.$message({
-                            message: 'Register successfully!',
+                            message: res.msg,
                             type: 'success'
                           });
                           localStorage.setItem("user", JSON.stringify(obj));
                           this.dialogVisible = false;
                         }
                         else {
-                          alert(res.msg)
+                          this.user = obj;
+                          this.$message({
+                            message: res.msg,
+                            type: 'fail'
+                          })
                         }
                       }
               )
@@ -307,6 +320,12 @@ export default {
           message: 'Invalid email or password!',
           type: 'error'
         })
+      }
+    },
+    created() {
+      let userString = localStorage.getItem("user");
+      if(userString){
+        this.user =  JSON.parse(userString).user;
       }
     }
   }
