@@ -196,10 +196,11 @@
               </template>
             </el-input>
             <button class="curPoi" @click="login" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;">Sign&nbsp;in</button>
-            <div class="curPoi" style="text-align: right;padding: 10px 50px 0px 0px;color: #4386F5;">Forget&nbsp;Password?</div>
-            <div class="curDefault" style="padding: 40px 0px 20px 50px;font-family: PingFangSC-Regular;font-size: 15px;color: #B3B3B3;text-align: left;">Or</div>
-            <button class="curPoi" style="background-color: #4386F5;border: none;border-radius: 4px;font-size: 15px;color: #FFFFFF;line-height:44px;width: 300px;"><img src="../assets/img/google.png" alt="" width="24px;" height="24px" style="vertical-align:middle;" />Sign&nbsp;in&nbsp;with&nbsp;Google</button>
-            <button class="curPoi" style="border: none;padding: 12px;margin-left: 10px;border-radius: 4px;"><img src="../assets/img/facebook_login.png" alt="" width="20px" height="20px" /></button>
+            <div class="curPoi" style="text-align: right;padding: 10px 50px 0px 0px;color: #4386F5;">
+              <router-link to="/forgetPwd" style="text-decoration: none;">
+                <span style="line-height: 40px;">Forget password?</span>
+              </router-link>
+            </div>
           </div>
           <div v-if="!showLogin">
             <el-row style="padding: 50px 40px;">
@@ -226,9 +227,6 @@
               </template>
             </el-input>
             <button class="curPoi" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;" @click="signup">Create Account</button>
-            <div class="curDefault" style="padding: 40px 0px 20px 50px;font-family: PingFangSC-Regular;font-size: 15px;color: #B3B3B3;text-align: left;">Or</div>
-            <button class="curPoi" style="background-color: #4386F5;border: none;border-radius: 4px;font-size: 15px;color: #FFFFFF;line-height:44px;width: 300px;"><img src="../assets/img/google.png" alt="" width="24px;" height="24px" style="vertical-align:middle;" />Sign&nbsp;in&nbsp;with&nbsp;Google</button>
-            <button class="curPoi" style="border: none;padding: 12px;margin-left: 10px;border-radius: 4px;"><img src="../assets/img/facebook_login.png" alt="" width="20px" height="20px" /></button>
           </div>
         </el-col>
       </el-row>

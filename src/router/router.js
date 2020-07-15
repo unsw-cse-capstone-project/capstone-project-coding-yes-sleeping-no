@@ -7,6 +7,7 @@ const myCenter = r => require.ensure([], () => r(require('../app/myCenter')), 'm
 const accountSet = r => require.ensure([], () => r(require('../components/accountSet')), 'accountSet');
 const orderMgm = r => require.ensure([], () => r(require('../components/orderMgm')), 'orderMgm');
 const eventMgm = r => require.ensure([], () => r(require('../components/eventMgm')), 'eventMgm');
+const forgetPwd = r => require.ensure([], () => r(require('../app/forgetPwd')), 'forgetPwd');
 
 const routers = [
   {
@@ -17,6 +18,11 @@ const routers = [
     path: '/index',
     component: index,
     name: 'index'
+  },
+  {
+    path: '/forgetPwd',
+    component: forgetPwd,
+    name: 'forgetPwd'
   },
   // {
   //   path: '/detail',
