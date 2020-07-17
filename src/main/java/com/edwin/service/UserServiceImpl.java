@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
             user.setStatus(1);
             user.setCreated_at(new Date());
             user.setUser_balance(0.00);
-            user.setUpdate_at(new Date());
+            user.setUpdated_at(new Date());
             userDao.save(user);
         } else {
             throw new RuntimeException("user exists");

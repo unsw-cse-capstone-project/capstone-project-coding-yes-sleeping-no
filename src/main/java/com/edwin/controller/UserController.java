@@ -6,16 +6,20 @@ import com.edwin.service.UserService;
 import com.edwin.utlis.Consts;
 import com.edwin.utlis.StringUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +35,8 @@ import java.util.Map;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
+
+    @Value("${photo.dir}")
 
     @Autowired
     private UserService userService;
@@ -141,7 +147,7 @@ public class UserController {
         user.setUser_balance(user.getUser_balance());
         user.setUser_name(user.getUser_name());
         user.setStatus(user.getStatus());
-        user.setUpdate_at(new Date());
+        user.setUpdated_at(new Date());
         user.setCreated_at(user.getCreated_at());
         user.setPassword(password);
         userDao.update(user);
@@ -169,7 +175,7 @@ public class UserController {
 
     @PostMapping("/updateUserInfo")
     @ResponseBody
-    public Map<String, Object> updateUserInfo(HttpSession session, User user) {
+    public Map<String, Object> updateUserInfo(HttpSession session, User user, MultipartFile photo) {
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User) session.getAttribute(Consts.CURRENT_USER);
         if (currentUser == null) {
@@ -181,8 +187,22 @@ public class UserController {
         user.setPassword(currentUser.getPassword());
         user.setUser_balance(currentUser.getUser_balance());
         user.setStatus(currentUser.getStatus());
-        user.setUpdate_at(new Date());
+        user.setUpdated_at(new Date());
         user.setCreated_at(currentUser.getCreated_at());
+//        try {
+//            String fileName = FilenameUtils.getExtension(photo.getOriginalFilename());
+//            photo.transferTo(new File(realPath, fileName));
+//            event.setEvent_image(fileName);
+//            event.setCreated_at(new Date());
+//            event.setUpdate_at(new Date());
+//            eventService.save(event);
+//            map.put("state", true);
+//            map.put("msg", "Event information saves success");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            map.put("state", false);
+//            map.put("msg", "Event information fails to save");
+//        }
         try {
             userService.update(user);
             map.put("state", true);

@@ -19,7 +19,7 @@ public class Event {
     private String title;
     private String type;
     private Integer rate;
-    private Spring description;
+    private String description;
     private String address;
     private String event_image;
     private Integer available_tickets;

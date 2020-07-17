@@ -27,7 +27,7 @@ public class User {
     private String password;
     private double user_balance;
     private Integer status;
-    private Date update_at;
+    private Date updated_at;
     private Date created_at;
 }
 
