@@ -20,25 +20,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8f33321-d62b-43df-b3ea-c22b1d13149a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/config/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/OderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/dao/OrderDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/OrderServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/OrderNumber.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/OrderMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event_master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/event_master.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Event.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/EventReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/EventReview.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/PaymentDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/entity/UsersBookEvent.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/Consts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/utlis/StringUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/EventDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/EventDaoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/UserDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/UserDaoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/event_master.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/controller/EventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/controller/EventController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/EventReview.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/EventReview.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/Payment.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/mapper/EventDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/mapper/EventDaoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/mapper/UserDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/mapper/UserDaoMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/service/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/service/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/utlis/Consts.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/utlis/Consts.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +59,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Mapper" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
+        <option value="Mapper" />
       </list>
     </option>
   </component>
@@ -106,7 +117,7 @@
       <workItem from="1594600522466" duration="5011000" />
       <workItem from="1594615175694" duration="3514000" />
       <workItem from="1594851139496" duration="48000" />
-      <workItem from="1594899054035" duration="7934000" />
+      <workItem from="1594899054035" duration="25958000" />
     </task>
     <servers />
   </component>
@@ -130,49 +141,53 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="560" y="205" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594704665954" />
-    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser" timestamp="1594614728587">
+    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser" timestamp="1595068071781">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1594614728587" />
-    <state width="1878" height="732" key="GridCell.Tab.0.bottom" timestamp="1595046343391">
+    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595068071781" />
+    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1595054516770">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.0.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595046343391" />
+    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595054516770" />
+    <state width="1878" height="681" key="GridCell.Tab.0.bottom" timestamp="1595069026820">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="681" key="GridCell.Tab.0.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595069026820" />
     <state width="1878" height="659" key="GridCell.Tab.0.bottom/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1594705424961" />
-    <state width="1878" height="732" key="GridCell.Tab.0.center" timestamp="1595046343389">
+    <state width="1878" height="681" key="GridCell.Tab.0.center" timestamp="1595069026817">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.0.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595046343389" />
+    <state width="1878" height="681" key="GridCell.Tab.0.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595069026817" />
     <state width="1878" height="659" key="GridCell.Tab.0.center/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1594705424938" />
-    <state width="1878" height="732" key="GridCell.Tab.0.left" timestamp="1595046343388">
+    <state width="1878" height="681" key="GridCell.Tab.0.left" timestamp="1595069026816">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.0.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595046343388" />
+    <state width="1878" height="681" key="GridCell.Tab.0.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595069026816" />
     <state width="1878" height="659" key="GridCell.Tab.0.left/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1594705424926" />
-    <state width="1878" height="732" key="GridCell.Tab.0.right" timestamp="1595046343390">
+    <state width="1878" height="681" key="GridCell.Tab.0.right" timestamp="1595069026819">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.0.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595046343390" />
+    <state width="1878" height="681" key="GridCell.Tab.0.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595069026819" />
     <state width="1878" height="659" key="GridCell.Tab.0.right/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1594705424957" />
-    <state width="1878" height="732" key="GridCell.Tab.1.bottom" timestamp="1595046343394">
+    <state width="1878" height="681" key="GridCell.Tab.1.bottom" timestamp="1595069026825">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.1.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595046343394" />
+    <state width="1878" height="681" key="GridCell.Tab.1.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595069026825" />
     <state width="1878" height="659" key="GridCell.Tab.1.bottom/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1594705424982" />
-    <state width="1878" height="732" key="GridCell.Tab.1.center" timestamp="1595046343392">
+    <state width="1878" height="681" key="GridCell.Tab.1.center" timestamp="1595069026823">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.1.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595046343392" />
+    <state width="1878" height="681" key="GridCell.Tab.1.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595069026823" />
     <state width="1878" height="659" key="GridCell.Tab.1.center/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1594705424969" />
-    <state width="1878" height="732" key="GridCell.Tab.1.left" timestamp="1595046343392">
+    <state width="1878" height="681" key="GridCell.Tab.1.left" timestamp="1595069026821">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.1.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595046343392" />
+    <state width="1878" height="681" key="GridCell.Tab.1.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595069026821" />
     <state width="1878" height="659" key="GridCell.Tab.1.left/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1594705424968" />
-    <state width="1878" height="732" key="GridCell.Tab.1.right" timestamp="1595046343393">
+    <state width="1878" height="681" key="GridCell.Tab.1.right" timestamp="1595069026824">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="732" key="GridCell.Tab.1.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595046343393" />
+    <state width="1878" height="681" key="GridCell.Tab.1.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595069026824" />
     <state width="1878" height="659" key="GridCell.Tab.1.right/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1594705424972" />
     <state x="448" y="121" key="SettingsEditor" timestamp="1594547891425">
       <screen x="0" y="0" width="1920" height="1080" />

@@ -3,6 +3,7 @@ package com.edwin.controller;
 import com.edwin.dao.EventDao;
 import com.edwin.entity.Event;
 import com.edwin.service.EventService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,13 @@ public class EventController {
     @Autowired
     private EventDao eventDao;
 
+    @ApiOperation("get all event information router in event controller")
     @GetMapping("/findAll")
     public List<Event> findAll() {
         return eventService.findAll();
     }
 
+    @ApiOperation("get one event information by event id router in event controller")
     @GetMapping("/find/{id}")
     public Map<String, Object> findOne(@PathVariable(value = "id") Integer id) {
         Map<String, Object> map = new HashMap<>();
@@ -50,6 +53,7 @@ public class EventController {
         return map;
     }
 
+    @ApiOperation("delete one event by event id router in event controller")
     @GetMapping("/delete/{id}")
     public Map<String, Object> delete(@PathVariable(value = "id")Integer id) {
         log.info("deleter user id:[{}]", id);
@@ -77,7 +81,8 @@ public class EventController {
             return map;
         }
     }
-////user id
+
+    @ApiOperation("create one event with cover image router in event controller")
     @PostMapping("/create")
     public Map<String, Object> save(Event event, MultipartFile cover_image) throws IOException {
         Map<String, Object> map = new HashMap<>();
@@ -100,6 +105,7 @@ public class EventController {
         return map;
     }
 
+    @ApiOperation("update one event with cover image router in event controller")
     @PostMapping("/update")
     public Map<String, Object> update(Event event, MultipartFile cover_image) throws IOException {
         log.info("event info: [{}]", event.toString());

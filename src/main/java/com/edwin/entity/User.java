@@ -1,16 +1,19 @@
 package com.edwin.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@ApiModel("user database table")
 public class User {
     private Integer id;
     private String user_name;
@@ -24,7 +27,7 @@ public class User {
     private String state;
     private String postcode;
     private String password;
-    private double user_balance;
+    private BigDecimal user_balance;
     private Integer status;
     private String avatar;
     private Date updated_at;

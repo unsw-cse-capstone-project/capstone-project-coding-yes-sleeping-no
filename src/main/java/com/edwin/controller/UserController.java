@@ -5,6 +5,7 @@ import com.edwin.entity.User;
 import com.edwin.service.UserService;
 import com.edwin.utlis.Consts;
 import com.edwin.utlis.StringUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class UserController {
         return "index";
     }
 
+    @ApiOperation("login router in user controller")
     @PostMapping("/login")
     @ResponseBody
     public Map<String, Object> login(@RequestBody User user, HttpSession session) {
@@ -60,6 +62,8 @@ public class UserController {
         try {
             User userByName = userService.login(user);
             session.setAttribute(Consts.CURRENT_USER, userByName);
+            // TBD: test
+            log.info("current user:[{}]", session.getAttribute(Consts.CURRENT_USER).toString());
             map.put("state", true);
             map.put("msg", "login success");
             map.put("user", userByName);
@@ -71,15 +75,18 @@ public class UserController {
         return map;
     }
 
+    @ApiOperation("register router in user controller")
     @PostMapping("/register")
-    public Map<String, Object> register(@RequestBody User user, HttpServletRequest request) {
+    public Map<String, Object> register(@RequestBody User user, HttpServletRequest request, HttpSession session) {
         log.info("register user information:[{}]", user.toString());
         Map<String, Object> map = new HashMap<>();
         try {
             userService.register(user);
             map.put("state", true);
             map.put("msg", "registration success");
-
+            User userByEmail = userDao.findByUserEmail(user.getEmail());
+            map.put("user", userByEmail);
+            session.setAttribute(Consts.CURRENT_USER, userByEmail);
         } catch (Exception e) {
             map.put("state", false);
             map.put("msg", e.getMessage());
@@ -91,6 +98,7 @@ public class UserController {
     /**
      * Send password reset email with verification code
      */
+    @ApiOperation("forget password send email with verification code to user router in user controller")
     @ResponseBody
     @PostMapping("/sendEmail")
     public Map<String, Object> sendEmail(String email, HttpSession session) {
@@ -126,6 +134,7 @@ public class UserController {
     /**
      * Check email verification code for password reset
      */
+    @ApiOperation("forget password check user's verification code router in user controller")
     @PostMapping("/checkVerificationCode")
     public Map<String, Object> checkVerificationCode(String verificationCode, String password, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
@@ -156,6 +165,7 @@ public class UserController {
         return map;
     }
 
+    @ApiOperation("get user account information router in user controller")
     @GetMapping("/getUserInfo")
     @ResponseBody
     public Map<String, Object> getUserInfo(HttpSession session) {
@@ -172,6 +182,7 @@ public class UserController {
         return map;
     }
 
+    @ApiOperation("update user account information with avatar in account center router in user controller")
     @PostMapping("/updateUserInfo")
     @ResponseBody
     public Map<String, Object> updateUserInfo(HttpSession session, User user, MultipartFile avatar) {
@@ -199,7 +210,7 @@ public class UserController {
             return map;
         }
     }
-
+    @ApiOperation("logout router in user controller")
     @GetMapping("/logout")
     @ResponseBody
     public Map<String, Object> logout(HttpSession session){
@@ -209,5 +220,4 @@ public class UserController {
         map.put("msg", "Logout success");
         return map;
     }
-
 }

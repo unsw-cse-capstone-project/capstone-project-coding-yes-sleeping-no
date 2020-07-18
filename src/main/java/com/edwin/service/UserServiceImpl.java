@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Service
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setStatus(0);
             user.setCreated_at(new Date());
-            user.setUser_balance(0.00);
+            user.setUser_balance(new BigDecimal(Double.toString(0.00)));
             user.setUpdated_at(new Date());
             userDao.save(user);
         } else {

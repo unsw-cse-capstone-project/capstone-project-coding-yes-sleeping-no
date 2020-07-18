@@ -1,5 +1,6 @@
 package com.edwin.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,12 +12,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@ApiModel("event review database table")
 public class EventReview {
     private Integer id;
     private Integer messagable_id;
     private Integer to_user_id;
     private Integer event_id;
-    private Double rate;
+    private String rate;
     private String content;
     private Date updated_at;
     private Date created_at;
