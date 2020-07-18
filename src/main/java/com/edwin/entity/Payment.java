@@ -11,12 +11,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class UsersBookEvent {
+public class Payment {
     private Integer id;
-    private Integer user_id;
-    private Integer event_id;
-    private Integer ticket_amount;
+    private Integer order_id;
+    private String card_number;
+    private Date expiry_date;
+    private Integer cvv;
+    private double account_balance;
     private Date update_at;
     private Date created_at;
 }
-

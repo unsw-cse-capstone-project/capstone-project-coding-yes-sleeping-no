@@ -61,7 +61,7 @@ public class EventController {
                 map.put("msg", "Event id is invalid");
                 return map;
             }else {
-                File file = new File(realPath, event.getEvent_image());
+                File file = new File(realPath, event.getCover_image());
                 if (file.exists()) {
                     file.delete();
                 }
@@ -77,16 +77,16 @@ public class EventController {
             return map;
         }
     }
-
+////user id
     @PostMapping("/create")
-    public Map<String, Object> save(Event event, MultipartFile photo) throws IOException {
+    public Map<String, Object> save(Event event, MultipartFile cover_image) throws IOException {
         Map<String, Object> map = new HashMap<>();
         log.info("event:[{}]", event.toString());
-        log.info("photo:[{}]", photo.getOriginalFilename());
+        log.info("photo:[{}]", cover_image.getOriginalFilename());
         try {
-            String fileName = FilenameUtils.getExtension(photo.getOriginalFilename());
-            photo.transferTo(new File(realPath, fileName));
-            event.setEvent_image(fileName);
+            String fileName = FilenameUtils.getExtension(cover_image.getOriginalFilename());
+            cover_image.transferTo(new File(realPath, fileName));
+            event.setCover_image(fileName);
             event.setCreated_at(new Date());
             event.setUpdate_at(new Date());
             eventService.save(event);
@@ -101,18 +101,17 @@ public class EventController {
     }
 
     @PostMapping("/update")
-    public Map<String, Object> update(Event event, MultipartFile photo) throws IOException {
+    public Map<String, Object> update(Event event, MultipartFile cover_image) throws IOException {
         log.info("event info: [{}]", event.toString());
         Map<String, Object> map = new HashMap<>();
         try {
-            if (photo != null && photo.getSize() != 0) {
-                log.info("photo info[{}]", photo.getOriginalFilename());
-                String fileName = FilenameUtils.getExtension(photo.getOriginalFilename());
-                photo.transferTo(new File(realPath, fileName));
-                event.setEvent_image(fileName);
+            if (cover_image != null && cover_image.getSize() != 0) {
+                log.info("photo info[{}]", cover_image.getOriginalFilename());
+                String fileName = FilenameUtils.getExtension(cover_image.getOriginalFilename());
+                cover_image.transferTo(new File(realPath, fileName));
+                event.setCover_image(fileName);
             }
             event.setUpdate_at(new Date());
-            event.setCreated_at(event.getCreated_at());
             eventService.update(event);
             map.put("state", true);
             map.put("msg", "Update event information success");

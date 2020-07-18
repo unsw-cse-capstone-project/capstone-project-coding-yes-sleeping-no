@@ -15,8 +15,4 @@ public class Consts {
     public static final String USER_ID_NAME = "userId";
 
     public static final String CURRENT_USER = "currentUser";
-
-    public static final String EMAIL = "email";
-
-    public static final String USERNAME = "username";
 }

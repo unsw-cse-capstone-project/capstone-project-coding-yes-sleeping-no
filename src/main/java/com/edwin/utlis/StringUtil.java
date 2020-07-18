@@ -3,6 +3,7 @@ package com.edwin.utlis;
 import java.util.Random;
 
 public class StringUtil {
+
     public static String giveSixRandom() {
         Random random = new Random();
         String result = "";

@@ -8,11 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -34,7 +30,7 @@ public class UserServiceImpl implements UserService {
             if (StringUtils.isEmpty(user.getPassword())) {
                 throw new RuntimeException("Password is empty");
             }
-            user.setStatus(1);
+            user.setStatus(0);
             user.setCreated_at(new Date());
             user.setUser_balance(0.00);
             user.setUpdated_at(new Date());

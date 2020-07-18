@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.w3c.dom.Text;
 
-import javax.swing.*;
-import java.text.DecimalFormat;
 import java.util.Date;
 
 @Data
@@ -18,16 +15,16 @@ public class Event {
     private Integer id;
     private String title;
     private String type;
-    private Integer rate;
     private String description;
+    private Double rate;
+    private String cover_image;
     private String address;
-    private String event_image;
     private Integer available_tickets;
-    private Integer available_seats;
     private double ticket_price;
     private Date start_date;
     private Date end_date;
     private Date start_time;
     private Date update_at;
     private Date created_at;
+    private Integer user_id;
 }

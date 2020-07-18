@@ -5,20 +5,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class PaymentDetail {
+public class Order {
     private Integer id;
-    private String category;
-    private String card_number;
-    private Date expiry_date;
-    private Integer cvv;
-    private double account_balance;
-    private Date update_at;
+    private Integer order_number;
+    private Integer user_id;
+    private Integer event_id;
+    private Integer ticket_amount;
+    private Double total_price;
+    private Integer status;
     private Date created_at;
+    private Date updated_at;
 }

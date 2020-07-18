@@ -26,9 +26,9 @@ import java.util.Map;
 
 /**
  * user status:
- * 1 => customer
- * 2 => host
- * 3 => back end staff
+ * 0 => customer
+ * 1 => host
+ * 2 => back end staff
  */
 @RestController
 @CrossOrigin
@@ -37,6 +37,7 @@ import java.util.Map;
 public class UserController {
 
     @Value("${photo.dir}")
+    private String realPath;
 
     @Autowired
     private UserService userService;
@@ -107,16 +108,14 @@ public class UserController {
         }
 
         String verificationCode = StringUtil.giveSixRandom();
-        System.out.println(verificationCode);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("719204145@qq.com");
         message.setTo(email);
-        message.setSubject("Event management - password reset");
+        message.setSubject("CYSN - password reset");
         message.setText("Your verification code:" + verificationCode);
         mailSender.send(message);
-//        mail verification code saves in session
-//        HttpServletRequest request
-//        request.getServletContext().setAttribute("mailCode",mailCode);
+        // HttpServletRequest request
+        // request.getServletContext().setAttribute("mailCode",mailCode);
         session.setAttribute(Consts.EMAIL_VERIFICATION_CODE_NAME, verificationCode);
         session.setAttribute(Consts.USER_ID_NAME, userEmail.getId());
         map.put("state", true);
@@ -134,6 +133,10 @@ public class UserController {
             map.put("state", false);
             map.put("msg", "verification code can not be empty");
         }
+        if (StringUtils.isEmpty(password)) {
+            map.put("state", false);
+            map.put("msg", "password can not be empty");
+        }
         String mailCode = (String) session.getAttribute(Consts.EMAIL_VERIFICATION_CODE_NAME);
         Integer userId = (Integer) session.getAttribute(Consts.USER_ID_NAME);
         if (!verificationCode.equals(mailCode)) {
@@ -141,14 +144,11 @@ public class UserController {
             map.put("msg", "verification code is not correct");
             return map;
         }
+
         // if correct: reset user password
         User user = userDao.findByUserId(userId);
         user.setId(user.getId());
-        user.setUser_balance(user.getUser_balance());
-        user.setUser_name(user.getUser_name());
-        user.setStatus(user.getStatus());
         user.setUpdated_at(new Date());
-        user.setCreated_at(user.getCreated_at());
         user.setPassword(password);
         userDao.update(user);
         map.put("state", true);
@@ -172,10 +172,9 @@ public class UserController {
         return map;
     }
 
-
     @PostMapping("/updateUserInfo")
     @ResponseBody
-    public Map<String, Object> updateUserInfo(HttpSession session, User user, MultipartFile photo) {
+    public Map<String, Object> updateUserInfo(HttpSession session, User user, MultipartFile avatar) {
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User) session.getAttribute(Consts.CURRENT_USER);
         if (currentUser == null) {
@@ -184,26 +183,11 @@ public class UserController {
             return map;
         }
         user.setId(currentUser.getId());
-        user.setPassword(currentUser.getPassword());
-        user.setUser_balance(currentUser.getUser_balance());
-        user.setStatus(currentUser.getStatus());
         user.setUpdated_at(new Date());
-        user.setCreated_at(currentUser.getCreated_at());
-//        try {
-//            String fileName = FilenameUtils.getExtension(photo.getOriginalFilename());
-//            photo.transferTo(new File(realPath, fileName));
-//            event.setEvent_image(fileName);
-//            event.setCreated_at(new Date());
-//            event.setUpdate_at(new Date());
-//            eventService.save(event);
-//            map.put("state", true);
-//            map.put("msg", "Event information saves success");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            map.put("state", false);
-//            map.put("msg", "Event information fails to save");
-//        }
         try {
+            String fileName = FilenameUtils.getExtension(avatar.getOriginalFilename());
+            avatar.transferTo(new File(realPath, fileName));
+            user.setAvatar(fileName);
             userService.update(user);
             map.put("state", true);
             map.put("msg", "Update user information success");
