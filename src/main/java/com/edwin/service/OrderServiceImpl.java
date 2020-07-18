@@ -83,6 +83,9 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("current order is empty");
         }
         Date created_at = currentOrder.getCreated_at();
+        if (ObjectUtils.isEmpty(created_at)){
+            throw new RuntimeException("create at timestamp is empty");
+        }
         long timeDifference = new Date().getTime() - created_at.getTime();
         if (timeDifference/(1000 * 60) > 10){
             throw new RuntimeException("more than 10 minutes, order expires");

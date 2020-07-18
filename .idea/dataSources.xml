@@ -10,5 +10,23 @@
         <property name="serverTimezone" value="UTC" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="@localhost [2]" uuid="3a1ebd9c-1373-4a9e-a136-b129562391bb">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="AEST" />
+      </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="@localhost [3]" uuid="31803c2d-d3f2-4a94-8a7a-14b8d5d2f945">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="Australia/Sydney" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

@@ -46,8 +46,8 @@ public class OderController {
     }
 
     @ApiOperation("confirm the payment for one order router in order controller")
-    @PostMapping("/confirm")
-    public Map<String, Object> update(Integer orderId, HttpSession session) {
+    @GetMapping("/confirm/{id}")
+    public Map<String, Object> update(@PathVariable(value = "id") Integer orderId, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         try {
