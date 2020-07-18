@@ -87,6 +87,7 @@ public class UserController {
             User userByEmail = userDao.findByUserEmail(user.getEmail());
             map.put("user", userByEmail);
             session.setAttribute(Consts.CURRENT_USER, userByEmail);
+            log.info("current user:[{}]", session.getAttribute(Consts.CURRENT_USER).toString());
         } catch (Exception e) {
             map.put("state", false);
             map.put("msg", e.getMessage());

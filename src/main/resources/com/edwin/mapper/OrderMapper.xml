@@ -11,7 +11,7 @@
     </insert>
 
     <!--update-->
-    <select id="update"  parameterType="Order" parameterMap="Integer">
+    <select id="update"  parameterType="Order">
         update `order` set  `status` = #{status}, updated_at = #{updated_at} where id = #{id}
     </select>
 
@@ -22,7 +22,7 @@
     </select>
 
     <!--findAll-->
-    <select id="findAll" resultType="Order" parameterType="Integer">
+    <select id="findAll" parameterType="Integer" resultType="Order" >
         select `id`,`order_number`,`user_id`,`event_id`,`ticket_amount`,`total_price`, `status`, `created_at`, `updated_at` from `order` where `user_id` = #{user_id}
     </select>
 

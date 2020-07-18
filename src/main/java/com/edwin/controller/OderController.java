@@ -6,10 +6,7 @@ import com.edwin.service.OrderService;
 import com.edwin.utlis.Consts;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -68,7 +65,7 @@ public class OderController {
     }
 
     @ApiOperation("get all orders for one user router in order controller")
-    @PostMapping("/get")
+    @GetMapping("/get")
     public Map<String, Object> get(HttpSession session){
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
@@ -87,8 +84,9 @@ public class OderController {
 
 
     @ApiOperation("cancel the order for one order router in order controller")
-    @PostMapping("/cancel")
-    public Map<String, Object> cancel(Integer orderId, HttpSession session){
+//    @PostMapping("/cancel")
+    @PostMapping("/cancel/{id}")
+    public Map<String, Object> cancel(@PathVariable(value = "id") Integer orderId, HttpSession session){
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         try {
