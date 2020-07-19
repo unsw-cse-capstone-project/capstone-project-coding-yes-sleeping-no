@@ -83,7 +83,7 @@
         <el-col id="profile_pic" :span="12">
             <el-upload
                     class="avatar-uploader"
-                    action=""
+                    action="../assets/img"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
@@ -100,67 +100,76 @@
         data() {
             return {
                 options: [{
-                    value: 'option1',
+                    value: 'ACT',
                     label: 'ACT'
                 }, {
-                    value: 'option2',
+                    value: 'NSW',
                     label: 'NSW'
                 }, {
-                    value: 'option3',
+                    value: 'NT',
                     label: 'NT'
                 }, {
-                    value: 'option4',
+                    value: 'QLD',
                     label: 'QLD'
                 }, {
-                    value: 'option5',
+                    value: 'SA',
                     label: 'SA'
                 }, {
-                    value: 'option6',
+                    value: 'TAS',
                     label: 'TAS'
                 }, {
-                    value: 'option7',
+                    value: 'VIC',
                     label: 'VIC'
                 }, {
-                    value: 'option8',
+                    value: 'WA',
                     label: 'WA'
                 }, {
-                    value: 'option9',
+                    value: 'JBT',
                     label: 'JBT'
                 }],
                 user: {},
-                imageUrl: ''
+                imageUrl: '',
+                imageFile: {}
             }
         },
         methods: {
             handleAvatarSuccess(res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
+                this.imageUrl = URL.createObjectURL(file);
             },
             beforeAvatarUpload(file) {
                 const isJPG = file.type === 'image/jpeg';
+                const isPNG = file.type === 'image/png';
+                const isGIF = file.type === 'image/gif';
                 const isLt2M = file.size / 1024 / 1024 < 2;
+                console.log(file.type);
 
-                if (!isJPG) {
-                    this.$message.error('The format of profile picture must be JPG!');
+                if (!isJPG && !isPNG && !isGIF) {
+                    this.$message.error('The format of profile picture must be JPG or PNG or GIF!');
                 }
                 if (!isLt2M) {
                     this.$message.error('The size of profile picture must be less than 2MB!');
                 }
-                return isJPG && isLt2M;
+
+                console.log("图片为：");
+                console.log(file);
+                this.imageFile = file;
+                return false;
             },
             edit() {
-                // let formData = new FormData();
-                // formData.append("user_name",this.user.user_name);
-                // formData.append("email", this.user.email);
-                // formData.append("first_name", this.user.first_name);
-                // formData.append("last_name", this.user.last_name);
-                // formData.append("phone_number", this.user.phone_number);
-                // formData.append("address1", this.user.address1);
-                // formData.append("address2", this.user.address2);
-                // formData.append("city", this.user.city);
-                // formData.append("state", this.user.state);
-                // formData.append("zip_code", this.user.zip_code);
+                let formData = new FormData();
+                formData.append("user_name",this.user.user_name);
+                formData.append("email", this.user.email);
+                formData.append("first_name", this.user.first_name);
+                formData.append("last_name", this.user.last_name);
+                formData.append("phone", this.user.phone_number);
+                formData.append("address_1", this.user.address1);
+                formData.append("address_2", this.user.address2);
+                formData.append("city", this.user.city);
+                formData.append("state", this.user.state);
+                formData.append("postcode", this.user.zip_code);
+                formData.append("avatar", this.imageFile);
 
-                this.$http.post("/user/updateUserInfo", this.user).then(
+                this.$http.post("/user/updateUserInfo", formData).then(
                     res=>{
                         if(res.state){
                             this.$message({

@@ -8,6 +8,8 @@ const accountSet = r => require.ensure([], () => r(require('../components/accoun
 const orderMgm = r => require.ensure([], () => r(require('../components/orderMgm')), 'orderMgm');
 const eventMgm = r => require.ensure([], () => r(require('../components/eventMgm')), 'eventMgm');
 const forgetPwd = r => require.ensure([], () => r(require('../app/forgetPwd')), 'forgetPwd');
+const webHead = r => require.ensure([], () => r(require('../app/webHead')), 'webHead');
+const eventDetail = r => require.ensure([], () => r(require('../app/eventDetail')), 'eventDetail');
 
 const routers = [
   {
@@ -30,27 +32,40 @@ const routers = [
   //   name: 'detail'
   // },
   {
-    path: '/myCenter',
-    component: myCenter,
-    name: 'myCenter',
+    path: '/head',
+    component: webHead,
+    name: 'webHead',
     children: [
       {
-        path: '/accountSet',
-        component: accountSet,
-        name: 'accountSet'
+        path: '/myCenter',
+        component: myCenter,
+        name: 'myCenter',
+        children: [
+          {
+            path: '/accountSet',
+            component: accountSet,
+            name: 'accountSet'
+          },
+          {
+            path: '/orderMgm',
+            component: orderMgm,
+            name: 'orderMgm'
+          },
+          {
+            path: '/eventMgm',
+            component: eventMgm,
+            name: 'eventMgm'
+          }
+        ]
       },
       {
-        path: '/orderMgm',
-        component: orderMgm,
-        name: 'orderMgm'
-      },
-      {
-        path: '/eventMgm',
-        component: eventMgm,
-        name: 'eventMgm'
+        path: '/eventDetail',
+        component: eventDetail,
+        name: 'eventDetail'
       }
     ]
   }
+
 ]
 
 export default routers
