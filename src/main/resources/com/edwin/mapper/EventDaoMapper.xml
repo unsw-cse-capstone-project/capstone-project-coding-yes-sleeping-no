@@ -15,6 +15,11 @@
         select id, title, `type`, `description`, `rate`, `cover_image`, `address`, `available_tickets`, `ticket_price`, `start_date`, `end_date`, `start_time`, `updated_at`, `created_at`, `user_id` from event where id = #{id}
     </select>
 
+    <!--findHost-->
+    <select id="findHost" parameterMap="Integer" resultType="Event">
+        select `id`, `title`, `type`, `description`, `rate`, `cover_image`, `address`, `available_tickets`, `ticket_price`, `start_date`, `end_date`, `start_time`, `updated_at`, `created_at`, `user_id` from event where `user_id` = #{user_id}
+    </select>
+
     <!--delete-->
     <delete id="delete" parameterType="Integer">
         delete from event where id = #{id}

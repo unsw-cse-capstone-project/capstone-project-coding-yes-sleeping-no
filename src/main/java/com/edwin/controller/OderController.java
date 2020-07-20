@@ -19,6 +19,7 @@ import java.util.Map;
 /**
  * order status: 0 not pay
  * order status: 1 have paid
+ * order status: 2 refund
  */
 public class OderController {
 
@@ -94,6 +95,24 @@ public class OderController {
             map.put("state", true);
             map.put("msg", "confirm order payment success");
             map.put("cancelOrder", cancelOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state", true);
+            map.put("msg", e.getMessage());
+        }
+        return map;
+    }
+
+    @ApiOperation("find all customer orders through event created by host")
+    @GetMapping("/get/host")
+    public Map<String,Object> getHost(HttpSession session, Integer eventId){
+        Map<String, Object> map = new HashMap<>();
+        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
+        try {
+            List<Order> ordersByHost = orderService.findHost(eventId, currentUser);
+            map.put("state", true);
+            map.put("msg", "get order details through event created by host");
+            map.put("orders", ordersByHost);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("state", true);

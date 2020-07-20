@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * user status:
@@ -39,6 +40,12 @@ public class UserController {
 
     @Value("${photo.dir}")
     private String realPath;
+
+    @Value(value = "${image.path:./img}")
+    private String imagePath;
+
+    @Value(value = "${image.host:http://localhost}")
+    private String imageHost;
 
     @Autowired
     private UserService userService;
@@ -197,11 +204,13 @@ public class UserController {
         user.setId(currentUser.getId());
         user.setUpdated_at(new Date());
         try {
-            String fileName = FilenameUtils.getExtension(avatar.getOriginalFilename());
+            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
             avatar.transferTo(new File(realPath, fileName));
             user.setAvatar(fileName);
             userService.update(user);
+            session.setAttribute(Consts.CURRENT_USER, user);
             map.put("state", true);
+            map.put("user", user);
             map.put("msg", "Update user information success");
             return map;
         } catch (Exception e) {
@@ -219,6 +228,23 @@ public class UserController {
         session.removeAttribute(Consts.CURRENT_USER);
         map.put("state", true);
         map.put("msg", "Logout success");
+        return map;
+    }
+
+    @ApiOperation("user changes original password to new password")
+    @PostMapping("/resetPassword")
+    public Map<String,Object> resetPassword(String oldPassword, String newPassword, HttpSession session){
+        Map<String, Object> map = new HashMap<>();
+        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
+        try {
+            userService.resetPassword(oldPassword, newPassword, currentUser);
+            map.put("state", true);
+            map.put("msg", "Password reset");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state", false);
+            map.put("msg", "Fail to change password");
+        }
         return map;
     }
 }

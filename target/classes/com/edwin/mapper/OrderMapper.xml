@@ -31,4 +31,9 @@
         select `id`,`order_number`,`user_id`,`event_id`,`ticket_amount`,`total_price`, `status`, `created_at`, `updated_at` from `order` where `id` = #{id}
     </select>
 
+    <!--findOne-->
+    <select id="findByHost"  parameterType="Integer" resultType="Order">
+        select `id`,`order_number`,`user_id`,`event_id`,`ticket_amount`,`total_price`, `status`, `created_at`, `updated_at` from `order` where `user_id` = #{id} and `event_id` = #{event_id}
+    </select>
+
 </mapper>

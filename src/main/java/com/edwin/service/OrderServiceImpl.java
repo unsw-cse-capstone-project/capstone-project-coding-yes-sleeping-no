@@ -8,6 +8,7 @@ import com.edwin.entity.Event;
 import com.edwin.entity.Order;
 import com.edwin.entity.User;
 import com.edwin.utlis.OrderNumber;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -156,6 +157,19 @@ public class OrderServiceImpl implements OrderService {
         currentUser.setUser_balance(newUserBalance);
         currentUser.setUpdated_at(new Date());
         return currentOrder;
+    }
+
+    @Override
+    public List<Order> findHost(Integer eventId, User currentUser) {
+        if (eventId == null){
+            throw new RuntimeException("event id is empty");
+        }
+        if (ObjectUtils.isEmpty(currentUser)){
+            throw new RuntimeException("current user is empty");
+        }
+        Integer userId = currentUser.getId();
+        List<Order> ordersByHost = orderDao.findByHost(userId, eventId);
+        return ordersByHost;
     }
 
     // TBD precision problems

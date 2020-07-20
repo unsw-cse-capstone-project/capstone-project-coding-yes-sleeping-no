@@ -13,7 +13,8 @@ import java.util.List;
 public interface OrderDao {
     Order findByOrderNumber(Integer orderNumber);
     void  save(Order order);
-    Order findOne(Integer orderId);
-    void update(Integer orderId);
-    List<Order> findAll(Integer userId);
+    Order findOne(Integer id);
+    void update(Integer id);
+    List<Order> findAll(Integer user_id);
+    List<Order> findByHost(Integer user_id, Integer event_id);
 }

@@ -21,4 +21,6 @@ public interface EventDao {
     void save(Event event);
 
     void update(Event event);
+
+    List<Event> findHost(Integer user_id);
 }

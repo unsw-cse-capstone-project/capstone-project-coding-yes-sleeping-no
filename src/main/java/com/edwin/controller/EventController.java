@@ -89,7 +89,7 @@ public class EventController {
         log.info("event:[{}]", event.toString());
         log.info("photo:[{}]", cover_image.getOriginalFilename());
         try {
-            String fileName = FilenameUtils.getExtension(cover_image.getOriginalFilename());
+            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(cover_image.getOriginalFilename());
             cover_image.transferTo(new File(realPath, fileName));
             event.setCover_image(fileName);
             event.setCreated_at(new Date());
