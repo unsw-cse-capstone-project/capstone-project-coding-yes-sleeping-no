@@ -21,7 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e8f33321-d62b-43df-b3ea-c22b1d13149a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/EventController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +91,7 @@
       <workItem from="1594851139496" duration="48000" />
       <workItem from="1594899054035" duration="27820000" />
       <workItem from="1595154606055" duration="599000" />
-      <workItem from="1595214807509" duration="14682000" />
+      <workItem from="1595214807509" duration="15648000" />
     </task>
     <servers />
   </component>

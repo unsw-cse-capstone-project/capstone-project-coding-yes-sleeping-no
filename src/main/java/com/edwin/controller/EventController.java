@@ -84,14 +84,14 @@ public class EventController {
 
     @ApiOperation("create one event with cover image router in event controller")
     @PostMapping("/create")
-    public Map<String, Object> save(Event event, MultipartFile cover_image) throws IOException {
+    public Map<String, Object> save(@RequestBody  Event event) throws IOException {
         Map<String, Object> map = new HashMap<>();
         log.info("event:[{}]", event.toString());
-        log.info("photo:[{}]", cover_image.getOriginalFilename());
+//        log.info("photo:[{}]", cover_image.getOriginalFilename());
         try {
-            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(cover_image.getOriginalFilename());
-            cover_image.transferTo(new File(realPath, fileName));
-            event.setCover_image(fileName);
+//            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(cover_image.getOriginalFilename());
+//            cover_image.transferTo(new File(realPath, fileName));
+//            event.setCover_image(fileName);
             event.setCreated_at(new Date());
             event.setUpdate_at(new Date());
             eventService.save(event);
@@ -107,16 +107,16 @@ public class EventController {
 
     @ApiOperation("update one event with cover image router in event controller")
     @PostMapping("/update")
-    public Map<String, Object> update(Event event, MultipartFile cover_image) throws IOException {
+    public Map<String, Object> update(@RequestBody Event event) throws IOException {
         log.info("event info: [{}]", event.toString());
         Map<String, Object> map = new HashMap<>();
         try {
-            if (cover_image != null && cover_image.getSize() != 0) {
-                log.info("photo info[{}]", cover_image.getOriginalFilename());
-                String fileName = FilenameUtils.getExtension(cover_image.getOriginalFilename());
-                cover_image.transferTo(new File(realPath, fileName));
-                event.setCover_image(fileName);
-            }
+//            if (cover_image != null && cover_image.getSize() != 0) {
+//                log.info("photo info[{}]", cover_image.getOriginalFilename());
+//                String fileName = FilenameUtils.getExtension(cover_image.getOriginalFilename());
+//                cover_image.transferTo(new File(realPath, fileName));
+//                event.setCover_image(fileName);
+//            }
             event.setUpdate_at(new Date());
             eventService.update(event);
             map.put("state", true);
