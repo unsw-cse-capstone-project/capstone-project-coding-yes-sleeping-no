@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
         currentOrder.setUpdated_at(new Date());
         orderDao.update(currentOrder.getId());
         currentEvent.setAvailable_tickets(currentEvent.getAvailable_tickets() - currentOrder.getTicket_amount());
-        currentEvent.setUpdate_at(new Date());
+        currentEvent.setUpdated_at(new Date());
         eventDao.update(currentEvent);
 
         SimpleMailMessage message = new SimpleMailMessage();
@@ -150,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
         currentOrder.setUpdated_at(new Date());
         currentOrder.setStatus(2);
         currentEvent.setAvailable_tickets(availableTickets + currentOrder.getTicket_amount());
-        currentEvent.setUpdate_at(new Date());
+        currentEvent.setUpdated_at(new Date());
         BigDecimal userBalance = currentUser.getUser_balance();
         BigDecimal newUserBalance = userBalance.add(totalPrice);
         currentUser.setUser_balance(newUserBalance);

@@ -27,7 +27,7 @@ public class Event {
     private Date start_date;
     private Date end_date;
     private Date start_time;
-    private Date update_at;
+    private Date updated_at;
     private Date created_at;
     private Integer user_id;
 }

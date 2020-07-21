@@ -98,7 +98,7 @@ public class EventController {
 //            cover_image.transferTo(new File(realPath, fileName));
 //            event.setCover_image(fileName);
             event.setCreated_at(new Date());
-            event.setUpdate_at(new Date());
+            event.setUpdated_at(new Date());
             event.setUser_id(currentUser.getId());
             eventService.save(event);
             map.put("state", true);
@@ -123,7 +123,7 @@ public class EventController {
 //                cover_image.transferTo(new File(realPath, fileName));
 //                event.setCover_image(fileName);
 //            }
-            event.setUpdate_at(new Date());
+            event.setUpdated_at(new Date());
             eventService.update(event);
             map.put("state", true);
             map.put("msg", "Update event information success");
