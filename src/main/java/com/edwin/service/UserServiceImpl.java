@@ -73,56 +73,51 @@ public class UserServiceImpl implements UserService {
         if (userByUserId == null) {
             throw new RuntimeException("User does not exist");
         } else {
-            String base64Data = user.getAvatar();
-            String dataPrix = "";
-            String data = "";
-            if (base64Data == null || "".equals(base64Data)) {
-                throw new RuntimeException("image is empty");
-            } else {
-                String[] d = base64Data.split("base64,");
-                if (d != null && d.length == 2) {
-                    dataPrix = d[0];
-                    data = d[1];
-                } else {
-                    throw new RuntimeException("image format is invalid");
-                }
-            }
-            String suffix = "";
-            if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {
-                suffix = ".jpg";
-            } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {
-                suffix = ".ico";
-            } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {
-                suffix = ".gif";
-            } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {
-                suffix = ".png";
-            } else {
-                throw new RuntimeException("image extension is invalid");
-            }
-            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-            String tempFileName = uuid + suffix;
-            String imgFilePath = realPath + tempFileName;
-            Decoder decoder = Base64.getDecoder();
-            user.setAvatar(tempFileName);
-            try {
-                byte[] b = decoder.decode(data);
-                for(int i=0;i<b.length;++i) {
-                    if(b[i]<0) {
-                        b[i]+=256;
-                    }
-                }
-                OutputStream out = new FileOutputStream(imgFilePath);
-                out.write(b);
-                out.flush();
-                out.close();
+//            String base64Data = user.getAvatar();
+//            String dataPrix = "";
+//            String data = "";
+//            if (base64Data == null || "".equals(base64Data)) {
+//                throw new RuntimeException("image is empty");
+//            } else {
+//                String[] d = base64Data.split("base64,");
+//                if (d != null && d.length == 2) {
+//                    dataPrix = d[0];
+//                    data = d[1];
+//                } else {
+//                    throw new RuntimeException("image format is invalid");
+//                }
+//            }
+//            String suffix = "";
+//            if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {
+//                suffix = ".jpg";
+//            } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {
+//                suffix = ".ico";
+//            } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {
+//                suffix = ".gif";
+//            } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {
+//                suffix = ".png";
+//            } else {
+//                throw new RuntimeException("image extension is invalid");
+//            }
+//            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+//            String tempFileName = uuid + suffix;
+//            String imgFilePath = realPath + tempFileName;
+//            Decoder decoder = Base64.getDecoder();
+//            user.setAvatar(tempFileName);
+//            try {
+//                byte[] b = decoder.decode(data);
+//                for(int i=0;i<b.length;++i) {
+//                    if(b[i]<0) {
+//                        b[i]+=256;
+//                    }
+//                }
+//                OutputStream out = new FileOutputStream(imgFilePath);
+//                out.write(b);
+//                out.flush();
+//                out.close();
                 userDao.update(user);
-        } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
-    }
 
     @Override
     public void resetPassword(String oldPassword, String newPassword, User currentUser) {
