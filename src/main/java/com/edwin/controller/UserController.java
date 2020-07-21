@@ -109,7 +109,8 @@ public class UserController {
     @ApiOperation("forget password send email with verification code to user router in user controller")
     @ResponseBody
     @PostMapping("/sendEmail")
-    public Map<String, Object> sendEmail(String email, HttpSession session) {
+    public Map<String, Object> sendEmail(@RequestBody String email, HttpSession session) {
+        log.info("send email:[{}]", email);
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(email)) {
             map.put("state", false);

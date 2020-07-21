@@ -20,48 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8f33321-d62b-43df-b3ea-c22b1d13149a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/edwin/config/WebMvcConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/css/app.87f35e1c166296a80e9695f9ddfa0654.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/css/app.87f35e1c166296a80e9695f9ddfa0654.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/0.a5745c5630bbd2700b50.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/0.a5745c5630bbd2700b50.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/1.fc8632347741e8b029d3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/1.fc8632347741e8b029d3.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/2.f1a7985989f29a9afefb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/2.f1a7985989f29a9afefb.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/3.041125854b1f38497937.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/3.041125854b1f38497937.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/4.eee1a0b0859c337c646b.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/4.eee1a0b0859c337c646b.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/5.40112c70a867a45cc175.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/5.40112c70a867a45cc175.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/7.36c1f7ea43e57298b897.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/7.36c1f7ea43e57298b897.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/app.057ecfd523e43fc58d13.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/app.057ecfd523e43fc58d13.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.f6f24d3a3de8fb770f6c.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.f6f24d3a3de8fb770f6c.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.c3c677c3e77a921f69a4bee394d34b60.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.c3c677c3e77a921f69a4bee394d34b60.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.59bf2c3558c891aff19b.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.59bf2c3558c891aff19b.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/1.044418c82140cf633a38.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/1.044418c82140cf633a38.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/2.741610eaf2aea96dc2a3.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/2.741610eaf2aea96dc2a3.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.ff0252d13ab2287da3f5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.ff0252d13ab2287da3f5.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/4.436840df1cd423f1a513.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/6.cc4bb22c37014f8c0457.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/4.436840df1cd423f1a513.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/6.cc4bb22c37014f8c0457.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.03710866cc434fc216b0.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.03710866cc434fc216b0.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.da7c1979a0a8a11fb0b5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.da7c1979a0a8a11fb0b5.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/vendor.4d1f224a78db5eadd897.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/vendor.4e7b9f35a48134403779.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/vendor.4d1f224a78db5eadd897.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/vendor.4e7b9f35a48134403779.js.map" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +91,7 @@
       <workItem from="1594851139496" duration="48000" />
       <workItem from="1594899054035" duration="27820000" />
       <workItem from="1595154606055" duration="599000" />
-      <workItem from="1595214807509" duration="7235000" />
+      <workItem from="1595214807509" duration="7768000" />
     </task>
     <servers />
   </component>
