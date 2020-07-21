@@ -1,2 +1,0 @@
-webpackJsonp([2],{"dh+d":function(e,t){},mrBO:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var a={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("event management")])},staticRenderFns:[]};var r=n("VU/8")({name:"eventMgm"},a,!1,function(e){n("dh+d")},"data-v-bb85663a",null);t.default=r.exports}});
-//# sourceMappingURL=2.741610eaf2aea96dc2a3.js.map

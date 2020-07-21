@@ -109,7 +109,7 @@ public class UserController {
     @ApiOperation("forget password send email with verification code to user router in user controller")
     @ResponseBody
     @PostMapping("/sendEmail")
-    public Map<String, Object> sendEmail(@RequestBody String email, HttpSession session) {
+    public Map<String, Object> sendEmail(@RequestParam(value = "email") String email, HttpSession session) {
         log.info("send email:[{}]", email);
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(email)) {
@@ -145,7 +145,7 @@ public class UserController {
      */
     @ApiOperation("forget password check user's verification code router in user controller")
     @PostMapping("/checkVerificationCode")
-    public Map<String, Object> checkVerificationCode(String verificationCode, String password, HttpSession session) {
+    public Map<String, Object> checkVerificationCode(@RequestParam(value = "verificationCode") String verificationCode, @RequestParam(value = "password") String password, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(verificationCode)) {
             map.put("state", false);
@@ -194,8 +194,9 @@ public class UserController {
     @ApiOperation("update user account information with avatar in account center router in user controller")
     @PostMapping("/updateUserInfo")
     @ResponseBody
-    public Map<String, Object> updateUserInfo(HttpSession session, User user, MultipartFile avatar) {
+    public Map<String, Object> updateUserInfo(HttpSession session, @RequestBody User user) {
         Map<String, Object> map = new HashMap<>();
+        log.info("image base 64 dat:[{}]", user.getAvatar());
         User currentUser = (User) session.getAttribute(Consts.CURRENT_USER);
         if (currentUser == null) {
             map.put("state", false);
@@ -205,9 +206,9 @@ public class UserController {
         user.setId(currentUser.getId());
         user.setUpdated_at(new Date());
         try {
-            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
-            avatar.transferTo(new File(realPath, fileName));
-            user.setAvatar(fileName);
+//            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
+//            avatar.transferTo(new File(realPath, fileName));
+//            user.setAvatar(fileName);
             userService.update(user);
             session.setAttribute(Consts.CURRENT_USER, user);
             map.put("state", true);
@@ -234,7 +235,7 @@ public class UserController {
 
     @ApiOperation("user changes original password to new password")
     @PostMapping("/resetPassword")
-    public Map<String,Object> resetPassword(String oldPassword, String newPassword, HttpSession session){
+    public Map<String,Object> resetPassword(@RequestParam(value = "oldPassword") String oldPassword, @RequestParam(value = "newPassword") String newPassword, HttpSession session){
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         try {
