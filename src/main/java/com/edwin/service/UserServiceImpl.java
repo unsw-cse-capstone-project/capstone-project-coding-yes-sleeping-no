@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserService {
             String tempFileName = uuid + suffix;
             String imgFilePath = realPath + tempFileName;
             Decoder decoder = Base64.getDecoder();
+            user.setAvatar(tempFileName);
             try {
                 byte[] b = decoder.decode(data);
                 for(int i=0;i<b.length;++i) {

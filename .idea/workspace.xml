@@ -21,34 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e8f33321-d62b-43df-b3ea-c22b1d13149a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/event_master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/event_master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/OrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/mapper/EventDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/mapper/EventDaoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.c3c677c3e77a921f69a4bee394d34b60.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.c3c677c3e77a921f69a4bee394d34b60.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.59bf2c3558c891aff19b.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.59bf2c3558c891aff19b.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/1.044418c82140cf633a38.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/1.044418c82140cf633a38.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/2.741610eaf2aea96dc2a3.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/2.741610eaf2aea96dc2a3.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.ff0252d13ab2287da3f5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.ff0252d13ab2287da3f5.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/4.436840df1cd423f1a513.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/4.436840df1cd423f1a513.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.03710866cc434fc216b0.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.03710866cc434fc216b0.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.da7c1979a0a8a11fb0b5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.da7c1979a0a8a11fb0b5.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/vendor.4d1f224a78db5eadd897.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/vendor.4d1f224a78db5eadd897.js.map" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +91,7 @@
       <workItem from="1594851139496" duration="48000" />
       <workItem from="1594899054035" duration="27820000" />
       <workItem from="1595154606055" duration="599000" />
-      <workItem from="1595214807509" duration="12984000" />
+      <workItem from="1595214807509" duration="14197000" />
     </task>
     <servers />
   </component>
