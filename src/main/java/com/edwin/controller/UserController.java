@@ -33,7 +33,7 @@ import java.util.UUID;
  * 2 => back end staff
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/user")
 @Slf4j
 public class UserController {

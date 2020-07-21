@@ -1,0 +1,2 @@
+webpackJsonp([4],{i2Gn:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("forget password")])},staticRenderFns:[]};var a=n("VU/8")({name:"forgetPwd"},r,!1,function(e){n("m+lD")},"data-v-77a313cb",null);t.default=a.exports},"m+lD":function(e,t){}});
+//# sourceMappingURL=4.eee1a0b0859c337c646b.js.map

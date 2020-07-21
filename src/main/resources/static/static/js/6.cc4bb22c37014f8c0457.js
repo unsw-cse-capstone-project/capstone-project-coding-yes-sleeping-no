@@ -1,0 +1,2 @@
+webpackJsonp([6],{nyvT:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("order management")])},staticRenderFns:[]};var a=t("VU/8")({name:"orderMgm"},r,!1,function(e){t("sJ1C")},"data-v-45611017",null);n.default=a.exports},sJ1C:function(e,n){}});
+//# sourceMappingURL=6.cc4bb22c37014f8c0457.js.map
