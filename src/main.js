@@ -5,20 +5,22 @@ import Vue from 'vue'
 import App from './App'
 import routes from './router/router'
 import VueRouter from 'vue-router'
+import axios from 'axios'
 
 import moment from 'moment'
 import './assets/iconfont/iconfont.css'
 import http from './components/http'
 
 import './assets/style/app.css'
-// import 'animate.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI);
+//Vue.use(axios);
 
 Vue.config.productionTip = true;
 Vue.prototype.$http = http;
+// Vue.prototype.$axios = axios;
 
 Vue.filter('dataformat', function (input, str, type, num, t) {
   if (type == 'add') {

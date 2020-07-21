@@ -1,4 +1,5 @@
 <template>
+<!--    Scroll down to see the bottom-right button.-->
     <div class="contour" style="background-color: white">
         <el-row style="padding: 30px; height: 666px">
             <el-col :span="16">
@@ -182,6 +183,38 @@
                         <el-row>
                             <p>This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user.</p>
                         </el-row>
+                        <el-divider></el-divider>
+                        <el-row>
+                            <el-input
+                                    style="margin-top:20px"
+                                    type="textarea"
+                                    :rows="5"
+                                    placeholder="Enter comment"
+                                    v-model="textarea"
+                            >
+                            </el-input>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="6">
+                                <el-row>
+                                    <div style="margin-top: 20px" class="block">
+                                        <span class="demonstration" >Rate this event</span>
+                                        <el-rate
+                                                show-text
+                                                :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
+                                                style="margin-top: 20px"
+                                                v-model="rate_value"
+                                                :colors="colors">
+                                        </el-rate>
+                                    </div>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="18">
+                                <el-row>
+                                    <el-button style="margin-top:40px; margin-left: 400px" type="primary" round>Submit</el-button>
+                                </el-row>
+                            </el-col>
+                        </el-row>
                     </div>
                 </el-row>
             </el-col>
@@ -250,7 +283,7 @@
             </el-col>
         </el-row>
 
-        <div style="margin-top: 50px;padding: 40px 50px;border-top: 1px solid #121212;">
+        <div style="margin-top: 950px;padding: 40px 50px;border-top: 1px solid #121212;">
             <el-row>
                 <el-col :span="8" style="text-align: left;font-size: 16px;color: #121212;">
                     <div class="flexNowarp" style="font-size: 14px;">
@@ -276,7 +309,7 @@
 
 <script>
     export default {
-        data() {
+        data () {
             return {
                 num: 1,
                 activeIndex: '1',
@@ -307,7 +340,10 @@
                 star_value: 3.7,
                 comment_value: 4.5,
                 amount: 200,
-                price: 200
+                price: 200,
+                textarea: '',
+                rate_value: null,
+                colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
             }
         },
         mounted: function () {},
@@ -340,4 +376,5 @@
         padding: 0px;
         height: 100%;
     }
+
 </style>

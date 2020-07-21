@@ -29,7 +29,7 @@
             <el-row class="allWidth">
                 <el-col :span="8" class="abHeight">Phone number:</el-col>
                 <el-col :span="16">
-                    <el-input v-model="user.phone_number" placeholder="Input your phone number"></el-input>
+                    <el-input v-model="user.phone" placeholder="Input your phone number"></el-input>
                 </el-col>
             </el-row>
 
@@ -37,13 +37,13 @@
             <el-row class="allWidth">
                 <el-col :span="8" class="abHeight">Address line 1:</el-col>
                 <el-col :span="16">
-                    <el-input v-model="user.address1" placeholder="Street address, P.O. box, company name, c\o"></el-input>
+                    <el-input v-model="user.address_1" placeholder="Street address, P.O. box, company name, c\o"></el-input>
                 </el-col>
             </el-row>
             <el-row class="allWidth">
                 <el-col :span="8" class="abHeight">Address line 2:</el-col>
                 <el-col :span="16">
-                    <el-input v-model="user.address2" placeholder="Apartment, suite, unit, building, floor, etc."></el-input>
+                    <el-input v-model="user.address_2" placeholder="Apartment, suite, unit, building, floor, etc."></el-input>
                 </el-col>
             </el-row>
             <el-row class="allWidth">
@@ -68,7 +68,7 @@
             <el-row class="allWidth">
                 <el-col :span="8" class="abHeight">Zip Code:</el-col>
                 <el-col :span="16">
-                    <el-input v-model="user.zip_code" placeholder="Input your Zip code"></el-input>
+                    <el-input v-model="user.postcode" placeholder="Input your Zip code"></el-input>
                 </el-col>
             </el-row>
             <el-row class="allWidth">
@@ -84,6 +84,7 @@
             <el-upload
                     class="avatar-uploader"
                     action="../assets/img"
+                    :on-change="(file,fileList)=>{handleChange(file,fileList,3)}"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
@@ -94,7 +95,10 @@
     </div>
 </template>
 
+
 <script>
+    import axios from 'axios'
+
     export default {
         name: 'accountSet',
         data() {
@@ -129,10 +133,18 @@
                 }],
                 user: {},
                 imageUrl: '',
-                imageFile: {}
+                imageFile: {},
+                axios: null
             }
         },
+        mounted() {
+            this.axios = new axios.create();
+        },
         methods: {
+            handleChange(file, fileList, type){
+                this.imageFile = file.raw;
+                console.log(file.raw);
+            },
             handleAvatarSuccess(res, file) {
                 this.imageUrl = URL.createObjectURL(file);
             },
@@ -140,7 +152,7 @@
                 const isJPG = file.type === 'image/jpeg';
                 const isPNG = file.type === 'image/png';
                 const isGIF = file.type === 'image/gif';
-                const isLt2M = file.size / 1024 / 1024 < 2;
+                const isLt2M = file.size < 22097152;    // 小于2M
                 console.log(file.type);
 
                 if (!isJPG && !isPNG && !isGIF) {
@@ -150,47 +162,68 @@
                     this.$message.error('The size of profile picture must be less than 2MB!');
                 }
 
-                console.log("图片为：");
-                console.log(file);
-                this.imageFile = file;
-                return false;
+                return isJPG && isPNG && isGIF && isLt2M;
             },
-            edit() {
+            edit(){
+                console.log(this.user);
+                console.log(this.imageFile);
                 let formData = new FormData();
                 formData.append("user_name",this.user.user_name);
                 formData.append("email", this.user.email);
                 formData.append("first_name", this.user.first_name);
                 formData.append("last_name", this.user.last_name);
-                formData.append("phone", this.user.phone_number);
-                formData.append("address_1", this.user.address1);
-                formData.append("address_2", this.user.address2);
+                formData.append("phone", this.user.phone);
+                formData.append("address_1", this.user.address_1);
+                formData.append("address_2", this.user.address_2);
                 formData.append("city", this.user.city);
                 formData.append("state", this.user.state);
-                formData.append("postcode", this.user.zip_code);
+                formData.append("postcode", this.user.postcode);
                 formData.append("avatar", this.imageFile);
+                this.axios({
+                    url:  "http://localhost:9999/user/updataUserInfo",
+                    method: 'post',
+                    data: formData,
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }).then(
+                    (res)=> {
+                        console.log(res);
+                    }
+                );
+                // axios({
+                //     method: "post",
+                //     url: "http://localhost:9999/user/updataUserInfo",
+                //     data: formData,
+                //     headers: {
+                //         'content-type': 'multipart/form-data'
+                //     }
+                // }).then(res=>{
+                //     console.log(res.data);
+                // })
 
-                this.$http.post("/user/updateUserInfo", formData).then(
-                    res=>{
-                        if(res.state){
-                            this.$message({
-                                message: res.msg,
-                                type: 'success'
-                            });
-                            localStorage.setItem("user", JSON.stringify(res));
-                        }
-                        else {
-                            this.$message({
-                                message: res.msg,
-                                type: 'fail'
-                            });
-                        }
-                    })
+                // this.$http.post("/user/updateUserInfo", formData).then(
+                //     res=>{
+                //         if(res.state){
+                //             this.$message({
+                //                 message: res.msg,
+                //                 type: 'success'
+                //             });
+                //             localStorage.setItem("user", JSON.stringify(res));
+                //         }
+                //         else {
+                //             this.$message({
+                //                 message: res.msg,
+                //                 type: 'fail'
+                //             });
+                //         }
+                //     })
             }
         },
         created() {
             let userString = localStorage.getItem("user");
             if(userString){
-                this.user =  JSON.parse(userString).user;
+                this.user =  JSON.parse(userString);
             } else{
                 alert("You have not logged in yet, click OK to jump to the login page!");
                 location.href ="/";

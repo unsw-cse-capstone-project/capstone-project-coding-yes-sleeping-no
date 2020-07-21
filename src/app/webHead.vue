@@ -55,7 +55,7 @@
         created() {
             let userString = localStorage.getItem("user");
             if(userString){
-                this.user =  JSON.parse(userString).user;
+                this.user =  JSON.parse(userString);
             } else{
                 alert("You have not logged in yet, click OK to jump to the login page!");
                 location.href ="/";

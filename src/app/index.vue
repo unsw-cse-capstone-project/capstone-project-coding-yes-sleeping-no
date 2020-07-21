@@ -30,7 +30,7 @@
           <span @click="dialogVisible = true">Sign In/Sign Up</span>
         </div>
         <div class="curPoi" v-if="Object.keys(user).length !== 0">
-          <router-link id="rlink" to="/myCenter" style="text-decoration: none;">
+          <router-link id="rlink" to="/accountSet" style="text-decoration: none;">
             <el-avatar src="../assets/img/Jannabi.png" :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0"></el-avatar>
             <span style="line-height: 40px;">{{user.user_name}}</span>
           </router-link>
