@@ -29,7 +29,7 @@
                 </el-col>
                 <el-col :span="6" style="padding: 0px 20px 0px 0px;text-align: right;">
                     <div class="curPoi">
-                        <router-link id="rlink" to="/myCenter" style="text-decoration: none;">
+                        <router-link id="rlink" to="/accountSet" style="text-decoration: none;">
                             <el-avatar src="../assets/img/login.png" :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0"></el-avatar>
                             <span style="line-height: 40px;">{{user.user_name}}</span>
                         </router-link>
@@ -55,7 +55,7 @@
         created() {
             let userString = localStorage.getItem("user");
             if(userString){
-                this.user =  JSON.parse(userString);
+                this.user =  JSON.parse(userString).user;
             } else{
                 alert("You have not logged in yet, click OK to jump to the login page!");
                 location.href ="/";

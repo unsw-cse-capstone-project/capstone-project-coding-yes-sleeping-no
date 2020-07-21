@@ -9,10 +9,10 @@
                     </el-col>
                     <el-col :span="12" style="height: 100%;">
                         <el-row style="text-align: left; padding: 5px">
-                            <span style="font-size: 32px;">Joker (2019)</span>
+                            <span style="font-size: 32px;">{{event.title}}</span>
                         </el-row>
                         <el-rate
-                                v-model="star_value"
+                                v-model="event.rate"
                                 disabled
                                 show-score
                                 text-color="#ff9900"
@@ -23,45 +23,48 @@
                             <el-col :span="6" style="padding: 10px 0px">
                                 <span>Location: </span>
                             </el-col>
-                            <el-col :span="18">
-                                <el-select v-model="loc_value" placeholder="Select">
-                                    <el-option
-                                            v-for="item in location_options"
-                                            :key="item.loc_value"
-                                            :label="item.label"
-                                            :value="item.loc_value">
-                                    </el-option>
-                                </el-select>
+                            <el-col :span="18" style="padding: 10px 0px">
+                                <span>{{event.address}}</span>
+<!--                                <el-select v-model="loc_value" placeholder="Select">-->
+<!--                                    <el-option-->
+<!--                                            v-for="item in event.adderess"-->
+<!--                                            :key="item"-->
+<!--                                            :label="item"-->
+<!--                                            :value="item">-->
+<!--                                    </el-option>-->
+<!--                                </el-select>-->
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
                             <el-col :span="6" style="padding: 10px 0px">
                                 <span>Date: </span>
                             </el-col>
-                            <el-col :span="18">
-                                <el-select v-model="value" placeholder="Select">
-                                    <el-option
-                                            v-for="item in date_options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
+                            <el-col :span="18" style="padding: 10px 0px">
+                                <span>{{event.start_date}}</span>
+<!--                                <el-select v-model="date_value" placeholder="Select">-->
+<!--                                    <el-option-->
+<!--                                            v-for="item in event.start_date"-->
+<!--                                            :key="item"-->
+<!--                                            :label="item"-->
+<!--                                            :value="item">-->
+<!--                                    </el-option>-->
+<!--                                </el-select>-->
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
                             <el-col :span="6" style="padding: 10px 0px">
                                 <span>Time: </span>
                             </el-col>
-                            <el-col :span="18">
-                                <el-select v-model="time_value" placeholder="Select">
-                                    <el-option
-                                            v-for="item in time_options"
-                                            :key="item.time_value"
-                                            :label="item.label"
-                                            :value="item.time_value">
-                                    </el-option>
-                                </el-select>
+                            <el-col :span="18" style="padding: 10px 0px">
+                                <span>{{event.start_time}}</span>
+<!--                                <el-select v-model="time_value" placeholder="Select">-->
+<!--                                    <el-option-->
+<!--                                            v-for="item in event.start_time"-->
+<!--                                            :key="item"-->
+<!--                                            :label="item"-->
+<!--                                            :value="item">-->
+<!--                                    </el-option>-->
+<!--                                </el-select>-->
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
@@ -69,15 +72,15 @@
                                 <span>Price: </span>
                             </el-col>
                             <el-col :span="18" style="padding:10px 0px">
-                                <span style="color: red;">${{this.price}}</span>
+                                <span style="color: red;">${{event.ticket_price}}</span>
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left;padding: 10px">
                             <el-col :span="6" style="padding: 10px 0px">
                                 <span>Ticket: </span>
                             </el-col>
-                            <el-col :span="18" style="padding:10px 0px">
-                                <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+                            <el-col :span="18" >
+                                <el-input-number v-model="order.num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
@@ -85,11 +88,11 @@
                                 <span style="font-size: 24px">Amount: </span>
                             </el-col>
                             <el-col :span="18" style="padding:10px 0px">
-                                <span style="color: red; font-size: 24px">{{this.amount}}</span>
+                                <span style="color: red; font-size: 24px; padding: 0 20px">${{order.amount}}</span>
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 5px">
-                            <el-button type="primary">Book and Pay</el-button>
+                            <el-button type="primary" @click="dialogFormVisible = true">Book and Pay</el-button>
                         </el-row>
                     </el-col>
                 </el-row>
@@ -102,7 +105,7 @@
 
                 <el-row id="description" name="description" style="text-align: left">
                     <h2>Description</h2>
-                    <p>This is the introduction of the event details.This is the introduction of the event details.This is the introduction of the event details.This is the introduction of the event details.This is the introduction of the event details.</p>
+                    <p>{{event.description}}</p>
                 </el-row>
                 <el-row id="comment" name="comment" style="text-align: left">
                     <h2>Comments</h2>
@@ -304,6 +307,108 @@
                 </el-col>
             </el-row>
         </div>
+        <el-dialog
+                class="dialog"
+                :visible.sync="dialogFormVisible"
+                width="890px"
+        >
+            <el-row style="height: 80%;">
+                <el-tabs v-model="this.activeName" >
+                    <el-tab-pane label="1.Shipping Detail" name="first">
+                        <el-col :span="18" style="height: 100%;">
+                            <el-input style="margin-top: 80px; width: 280px; " v-model="order.first_name" placeholder="First name"></el-input>
+                            <el-input style="margin-top: 80px; margin-left:15px; width: 280px; " v-model="order.last_name" placeholder="Last name"></el-input>
+                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line1"></el-input>
+                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_2" placeholder="Address line2"></el-input>
+                            <el-input style="margin-top: 20px; width: 280px; " v-model="order.city" placeholder="City"></el-input>
+                            <el-select style="margin-left:15px; width:280px" v-model="order.valueState" placeholder="State/Province">
+                                <el-option
+                                        v-for="item in options"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                            <el-input style="margin-top: 20px; width: 280px; " v-model="order.postcode" placeholder="Zip code"></el-input>
+                            <el-input style="margin-top: 20px; margin-left:15px; width: 280px; " v-model="order.phone" placeholder="Phone number"></el-input>
+                            <el-button style="margin-top: 70px; margin-left:45px; float: left" type="primary" @click="stepTwo">NEXT</el-button>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-row>
+                                <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;font-size: larger">Summary</span>
+                                <img style="float: left; margin-top: 20px;" src="../assets/img/joker.png" alt="" width="80%" height="100%" />
+                            </el-row>
+                            <el-row>
+                                <el-col :span="14">
+                                    <el-row>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{event.title}}</span>
+                                    </el-row>
+                                    <el-row>
+                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">Tickets</span>
+                                    </el-row>
+                                    <el-row>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">Total</span>
+                                    </el-row>
+                                </el-col>
+                                <el-col :span="10">
+                                    <el-row>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;">{{event.ticket_price}}</span>
+                                    </el-row>
+                                    <el-row>
+                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">{{order.num}}</span>
+                                    </el-row>
+                                    <el-row>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{order.amount}}</span>
+                                    </el-row>
+                                </el-col>
+                            </el-row>
+                        </el-col>
+                    </el-tab-pane>
+                    <el-tab-pane label="2.Payment Options" name="second">
+                        <el-col :span="18" style="height: 100%;">
+                            <div>
+                                <el-radio v-model="radio1" label="1" border>
+                                    <span>Visa/Master</span>
+                                </el-radio>
+                                <el-radio v-model="radio1" label="2" border>
+                                    <span>Paypal</span>
+                                </el-radio>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-row>
+                                <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;font-size: larger">Summary</span>
+                                <img style="float: left; margin-top: 20px;" src="../assets/img/joker.png" alt="" width="80%" height="100%" />
+                            </el-row>
+                            <el-row>
+                                <el-col :span="14">
+                                    <el-row>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{event.title}}</span>
+                                    </el-row>
+                                    <el-row>
+                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">Tickets</span>
+                                    </el-row>
+                                    <el-row>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">Total</span>
+                                    </el-row>
+                                </el-col>
+                                <el-col :span="10">
+                                    <el-row>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;">{{event.ticket_price}}</span>
+                                    </el-row>
+                                    <el-row>
+                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">{{order.num}}</span>
+                                    </el-row>
+                                    <el-row>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{order.amount}}</span>
+                                    </el-row>
+                                </el-col>
+                            </el-row>
+                        </el-col>
+                    </el-tab-pane>
+                </el-tabs>
+            </el-row>
+        </el-dialog>
     </div>
 </template>
 
@@ -311,49 +416,89 @@
     export default {
         data () {
             return {
-                num: 1,
+                options: [{
+                    value: 'ACT',
+                    label: 'ACT'
+                }, {
+                    value: 'NSW',
+                    label: 'NSW'
+                }, {
+                    value: 'NT',
+                    label: 'NT'
+                }, {
+                    value: 'QLD',
+                    label: 'QLD'
+                }, {
+                    value: 'SA',
+                    label: 'SA'
+                }, {
+                    value: 'TAS',
+                    label: 'TAS'
+                }, {
+                    value: 'VIC',
+                    label: 'VIC'
+                }, {
+                    value: 'WA',
+                    label: 'WA'
+                }, {
+                    value: 'JBT',
+                    label: 'JBT'
+                }],
                 activeIndex: '1',
-                location_options: [{
-                    loc_value: 'Sydney',
-                    label: 'Sydney'
-                }, {
-                    loc_value: 'Melbourne',
-                    label: 'Melbourne'
-                }],
-                date_options: [{
-                    value: '19072020',
-                    label: 'July 19'
-                }, {
-                    value: '20072020',
-                    label: 'July 20'
-                }],
-                time_options: [{
-                    time_value: '1300',
-                    label: '13:00'
-                }, {
-                    time_value: '1800',
-                    label: '18:00'
-                }],
-                loc_value: '',
-                value: '',
-                time_value: '',
-                star_value: 3.7,
+                activeName: 'first',
+                loc_value: '',  // 要改，在order中加address
+                date_value: '', // 要改，在order中加date
+                time_value: '', // 要改，在order中加time
                 comment_value: 4.5,
-                amount: 200,
-                price: 200,
+                value1: '',
                 textarea: '',
                 rate_value: null,
                 colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+                dialogFormVisible: false,
+                input: '',
+                radio1: '1',
+                event: {},
+                order: {
+                    num: 1
+                }
             }
         },
         mounted: function () {},
         methods: {
             handleChange(value) {
-                this.amount = value * this.price;
+                this.order.amount = value * this.event.ticket_price;
             },
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
-            }
+            },
+            handleClick(tab, event) {
+                console.log(tab, event);
+            },
+            stepTwo(){
+                this.activeName = 'second';
+                    },
+            },
+        created() {
+            let id = this.$route.params.id;
+            this.$http.get("/event/find/"+id).then(
+                res=>{
+                    console.log(res);
+                    if(res.state){
+                        this.event = res.event;
+                        this.$message({
+                            message: res.msg,
+                            type: 'success'
+                        });
+                        this.order.amount = this.event.ticket_price;
+                    }
+                    else {
+                        this.$message({
+                            message: res.msg,
+                            type: 'fail'
+                        })
+                    }
+                }
+            )
         }
     }
 </script>

@@ -251,7 +251,8 @@ export default {
       user: {},
       register: {},
       showLogin: true,
-      confirm_password: null
+      confirm_password: null,
+      tableData: []
     }
   },
   mounted: function () {},
@@ -271,7 +272,6 @@ export default {
                   this.dialogVisible = false;
                 }
                 else {
-                  this.user = res.user;
                   this.$message({
                     message: res.msg,
                     type: 'fail'
@@ -327,6 +327,11 @@ export default {
       if(userString){
         this.user =  JSON.parse(userString).user;
       }
+      this.$http.get("/event/findAll").then(
+              res=>{
+                console.log(res);
+                this.tableData = res;
+              })
     }
   }
 }

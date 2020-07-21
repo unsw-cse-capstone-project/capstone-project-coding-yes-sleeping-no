@@ -14,6 +14,7 @@ import http from './components/http'
 import './assets/style/app.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import routers from "./router/router";
 
 Vue.use(ElementUI);
 //Vue.use(axios);
