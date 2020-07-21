@@ -2,15 +2,19 @@ package com.edwin.controller;
 
 import com.edwin.dao.EventDao;
 import com.edwin.entity.Event;
+import com.edwin.entity.User;
 import com.edwin.service.EventService;
+import com.edwin.utlis.Consts;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -84,8 +88,9 @@ public class EventController {
 
     @ApiOperation("create one event with cover image router in event controller")
     @PostMapping("/create")
-    public Map<String, Object> save(@RequestBody  Event event) throws IOException {
+    public Map<String, Object> save(@RequestBody  Event event, HttpSession session) throws IOException {
         Map<String, Object> map = new HashMap<>();
+        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         log.info("event:[{}]", event.toString());
 //        log.info("photo:[{}]", cover_image.getOriginalFilename());
         try {
@@ -94,6 +99,7 @@ public class EventController {
 //            event.setCover_image(fileName);
             event.setCreated_at(new Date());
             event.setUpdate_at(new Date());
+            event.setUser_id(currentUser.getId());
             eventService.save(event);
             map.put("state", true);
             map.put("msg", "Event information saves success");
