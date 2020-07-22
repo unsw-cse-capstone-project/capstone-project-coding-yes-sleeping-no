@@ -8,13 +8,16 @@ import com.edwin.utlis.StringUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.json.JSONObject;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -110,7 +113,9 @@ public class UserController {
     @ApiOperation("forget password send email with verification code to user router in user controller")
     @ResponseBody
     @PostMapping("/sendEmail")
-    public Map<String, Object> sendEmail(@RequestParam(value = "email") String email, HttpSession session) {
+//    @RequestParam(required = false, value = "email") String email
+    public Map<String, Object> sendEmail(@RequestBody User user, HttpSession session) {
+        String email = user.getEmail();
         log.info("send email:[{}]", email);
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(email)) {
@@ -145,8 +150,19 @@ public class UserController {
      * Check email verification code for password reset
      */
     @ApiOperation("forget password check user's verification code router in user controller")
-    @PostMapping("/checkVerificationCode")
-    public Map<String, Object> checkVerificationCode(@RequestParam(value = "verificationCode") String verificationCode, @RequestParam(value = "password") String password, HttpSession session) {
+    @RequestMapping(value = "/checkVerificationCode", method = RequestMethod.POST, consumes = "application/json")
+//    @RequestParam(required = false, value = "verificationCode") String verificationCode, @RequestParam(value = "password") String password
+//    public Map<String, Object> checkVerificationCode(@RequestBody JSONObject jsonObject, HttpSession session) throws JSONException {
+    public Map<String, Object> checkVerificationCode(@RequestParam Map<String,Object> map1, HttpSession session) throws JSONException {
+//        String password = map1.get("password").toString();
+
+//        String password = jsonObject.getString("password");
+        String password = "1";
+        log.info("password code ========= :[{}]", password);
+//        String verificationCode = jsonObject.getString("verificationCode");
+//        String verificationCode = map1.get("verificationCode").toString();
+        String verificationCode = "123";
+        log.info("verification code ========= :[{}]", verificationCode);
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(verificationCode)) {
             map.put("state", false);
@@ -214,12 +230,16 @@ public class UserController {
     public Map<String, Object> updateUserInfo(HttpSession session, @RequestBody User user) {
         Map<String, Object> map = new HashMap<>();
         log.info("image base 64 dat:[{}]", user.getAvatar());
+        log.info("user data :[{}]", user.toString());
+
+
         User currentUser = (User) session.getAttribute(Consts.CURRENT_USER);
         if (currentUser == null) {
             map.put("state", false);
             map.put("msg", "user dose not login");
             return map;
         }
+        user.setId(currentUser.getId());
         user.setUpdated_at(new Date());
         try {
 //            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
@@ -251,8 +271,10 @@ public class UserController {
 
     @ApiOperation("user changes original password to new password")
     @PostMapping("/resetPassword")
+//    @RequestParam(value = "oldPassword") String oldPassword
     public Map<String,Object> resetPassword(@RequestParam(value = "oldPassword") String oldPassword, @RequestParam(value = "newPassword") String newPassword, HttpSession session){
         log.info("old password:[{}]", oldPassword);
+        log.info("new password:[{}]", newPassword);
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         try {
