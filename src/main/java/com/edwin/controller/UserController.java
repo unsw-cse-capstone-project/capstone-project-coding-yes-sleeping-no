@@ -86,6 +86,7 @@ public class UserController {
     @PostMapping("/register")
     public Map<String, Object> register(@RequestBody User user, HttpServletRequest request, HttpSession session) {
         log.info("register user information:[{}]", user.toString());
+        log.info("user status ==============:[{}]", user.getStatus());
         Map<String, Object> map = new HashMap<>();
         try {
             userService.register(user);
@@ -251,10 +252,11 @@ public class UserController {
     @ApiOperation("user changes original password to new password")
     @PostMapping("/resetPassword")
     public Map<String,Object> resetPassword(@RequestParam(value = "oldPassword") String oldPassword, @RequestParam(value = "newPassword") String newPassword, HttpSession session){
+        log.info("old password:[{}]", oldPassword);
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         try {
-            userService.resetPassword(oldPassword, newPassword, currentUser);
+            userService.resetPassword(newPassword, oldPassword, currentUser);
             map.put("state", true);
             map.put("msg", "Password reset");
         } catch (Exception e) {

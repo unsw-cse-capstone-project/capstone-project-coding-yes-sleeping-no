@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
         if (currentEvent.getAvailable_tickets() - currentOrder.getTicket_amount() < 0){
             throw new RuntimeException("fail to pay, because of the short of available tickets");
         }
-        if ( new Date().getTime() - currentEvent.getEnd_date().getTime() <= 0){
+        if ( new Date().getTime() - currentEvent.getEnd_time().getTime() <= 0){
             throw new RuntimeException("event is over, fail to pay");
         }
         // TBD payment process

@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             if (StringUtils.isEmpty(user.getPassword())) {
                 throw new RuntimeException("Password is empty");
             }
-            if (StringUtils.isEmpty(user.getStatus())) {
+            if (user.getStatus() == null) {
                 throw new RuntimeException("User status is empty");
             }
             Integer status = Integer.valueOf(user.getStatus());

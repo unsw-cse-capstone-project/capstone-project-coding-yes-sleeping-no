@@ -38,6 +38,7 @@ public class EventServiceImpl implements EventService {
         if (id == null){
             throw new RuntimeException("event id does not exist");
         }
+
 //        orderDao.findByHost()
 
 
