@@ -28,9 +28,9 @@ import java.util.UUID;
 
 /**
  * user status:
- * 0 => customer
- * 1 => host
- * 2 => back end staff
+ * 0 => admin
+ * 1 => customer
+ * 2 => host
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
@@ -126,7 +126,7 @@ public class UserController {
 
         String verificationCode = StringUtil.giveSixRandom();
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("719204145@qq.com");
+        message.setFrom(Consts.SENDER_EMAIL);
         message.setTo(email);
         message.setSubject("CYSN - password reset");
         message.setText("Your verification code:" + verificationCode);
@@ -165,7 +165,6 @@ public class UserController {
 
         // if correct: reset user password
         User user = userDao.findByUserId(userId);
-        user.setId(user.getId());
         user.setUpdated_at(new Date());
         user.setPassword(password);
         userDao.update(user);
@@ -174,8 +173,8 @@ public class UserController {
         return map;
     }
 
-    @ApiOperation("get user account information router in user controller")
-    @GetMapping("/getUserInfo")
+    @ApiOperation("get current user account information router in user controller")
+    @GetMapping("/getCurrent")
     @ResponseBody
     public Map<String, Object> getUserInfo(HttpSession session) {
         Map<String, Object> map = new HashMap<>();
@@ -187,6 +186,23 @@ public class UserController {
         }
         map.put("state", true);
         map.put("msg", "get user information success");
+        map.put("user", user);
+        return map;
+    }
+
+    @ApiOperation("get user account information by user id router in user controller")
+    @GetMapping("/get/{id}")
+    @ResponseBody
+    public Map<String, Object> getUserById(@PathVariable(value = "id") Integer id) {
+        Map<String, Object> map = new HashMap<>();
+        User user = userDao.findByUserId(id);
+        if (user == null) {
+            map.put("state", false);
+            map.put("msg", "user id dose not exist");
+            return map;
+        }
+        map.put("state", true);
+        map.put("msg", "get user information by id success");
         map.put("user", user);
         return map;
     }
@@ -203,7 +219,6 @@ public class UserController {
             map.put("msg", "user dose not login");
             return map;
         }
-        user.setId(currentUser.getId());
         user.setUpdated_at(new Date());
         try {
 //            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());

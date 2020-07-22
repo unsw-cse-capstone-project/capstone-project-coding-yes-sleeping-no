@@ -2,6 +2,7 @@ package com.edwin.controller;
 
 import com.edwin.dao.EventDao;
 import com.edwin.entity.Event;
+import com.edwin.entity.Order;
 import com.edwin.entity.User;
 import com.edwin.service.EventService;
 import com.edwin.utlis.Consts;
@@ -69,10 +70,10 @@ public class EventController {
                 map.put("msg", "Event id is invalid");
                 return map;
             }else {
-                File file = new File(realPath, event.getCover_image());
-                if (file.exists()) {
-                    file.delete();
-                }
+//                File file = new File(realPath, event.getCover_image());
+//                if (file.exists()) {
+//                    file.delete();
+//                }
                 eventService.delete(id);
                 map.put("state", true);
                 map.put("msg", "Event deletes success");
@@ -134,4 +135,21 @@ public class EventController {
         }
         return map;
     }
+
+//    @ApiOperation("get one event information by event id router in event controller")
+//    @GetMapping("/find")
+//    public Map<String, Object> findOne(@PathVariable(value = "id") Integer id) {
+//        Map<String, Object> map = new HashMap<>();
+//        log.info("event id:[{}]", id);
+//        Event eventById = eventService.findOne(id);
+//        if (eventById == null){
+//            map.put("state", false);
+//            map.put("msg", "Event id is invalid");
+//        }else {
+//            map.put("state", false);
+//            map.put("msg", "Find event success");
+//            map.put("event", eventById);
+//        }
+//        return map;
+//    }
 }

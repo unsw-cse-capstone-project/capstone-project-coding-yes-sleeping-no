@@ -2,6 +2,7 @@ package com.edwin.service;
 
 import com.edwin.dao.UserDao;
 import com.edwin.entity.User;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -43,10 +44,14 @@ public class UserServiceImpl implements UserService {
             if (StringUtils.isEmpty(user.getPassword())) {
                 throw new RuntimeException("Password is empty");
             }
-            user.setStatus(0);
-            user.setCreated_at(new Date());
+            if (StringUtils.isEmpty(user.getStatus())) {
+                throw new RuntimeException("User status is empty");
+            }
+            Integer status = Integer.valueOf(user.getStatus());
             user.setUser_balance(new BigDecimal(Double.toString(0.00)));
+            user.setStatus(status);
             user.setUpdated_at(new Date());
+            user.setCreated_at(new Date());
             userDao.save(user);
         } else {
             throw new RuntimeException("user exists");

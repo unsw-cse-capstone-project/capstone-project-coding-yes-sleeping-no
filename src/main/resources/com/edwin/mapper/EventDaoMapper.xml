@@ -7,17 +7,17 @@
 
     <!--findAll-->
     <select id="findAll" resultType="Event">
-        select `id`, `title`, `type`, `description`, `rate`, `cover_image`, `address`, `available_tickets`, `ticket_price`, `start_date`, `end_date`, `start_time`, `updated_at`, `created_at`, `user_id` from event
+        select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event
     </select>
 
     <!--findOne-->
     <select id="findOne"  parameterType="Integer" resultType="Event">
-        select id, title, `type`, `description`, `rate`, `cover_image`, `address`, `available_tickets`, `ticket_price`, `start_date`, `end_date`, `start_time`, `updated_at`, `created_at`, `user_id` from event where id = #{id}
+        select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where id = #{id}
     </select>
 
     <!--findHost-->
     <select id="findHost" parameterType="Integer" resultType="Event">
-        select `id`, `title`, `type`, `description`, `rate`, `cover_image`, `address`, `available_tickets`, `ticket_price`, `start_date`, `end_date`, `start_time`, `updated_at`, `created_at`, `user_id` from event where `user_id` = #{user_id}
+        select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where `user_id` = #{user_id}
     </select>
 
     <!--delete-->
@@ -27,12 +27,12 @@
 
     <!--save-->
     <insert id="save" parameterType="Event" useGeneratedKeys="true" keyProperty="id">
-        insert into event values (#{id}, #{title}, #{type}, #{description}, #{rate}, #{cover_image}, #{address}, #{available_tickets},
-        #{ticket_price}, #{start_date}, #{end_date}, #{start_time}, #{updated_at}, #{created_at}, #{user_id})
+        insert into event values (#{id}, #{title}, #{type}, #{description}, #{address}, #{ticket_price}, #{available_tickets}, #{cover_image},
+        #{start_date}, #{start_time}, #{end_time}, #{updated_at}, #{created_at}, #{user_id})
     </insert>
 
     <!--update-->
     <select id="update"  parameterType="Event">
-        update event set `title` = #{title}, `type` = #{type}, `description` = #{description}, `rate` = #{rate}, `cover_image` = #{cover_image}, `address` = #{address}, `available_tickets` = #{available_tickets}, `ticket_price` = #{ticket_price}, `start_date` = #{start_date},  `end_date` = #{end_date}, `start_time` = #{start_time}, updated_at = #{updated_at} where id = #{id}
+        update event set `title` = #{title}, `type` = #{type}, `description` = #{description}, `address` = #{address}, `ticket_price` = #{ticket_price}, `available_tickets` = #{available_tickets}, `cover_image` = #{cover_image}, `start_date` = #{start_date}, `start_time` = #{start_time}, `end_time` = #{end_time}, updated_at = #{updated_at} where id = #{id}
     </select>
 </mapper>

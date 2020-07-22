@@ -1,6 +1,7 @@
 package com.edwin.service;
 
 import com.edwin.dao.EventDao;
+import com.edwin.dao.OrderDao;
 import com.edwin.entity.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventDao eventDao;
+
+    @Autowired
+    private OrderDao orderDao;
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
@@ -31,6 +35,13 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Integer id) {
+        if (id == null){
+            throw new RuntimeException("event id does not exist");
+        }
+//        orderDao.findByHost()
+
+
+
         eventDao.delete(id);
     }
 

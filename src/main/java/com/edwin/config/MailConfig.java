@@ -12,9 +12,9 @@ public class MailConfig {
     public MailSender mailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.qq.com ");
-        mailSender.setPort(587);
+        mailSender.setPort(465);
         mailSender.setUsername("719204145@qq.com");
-        mailSender.setPassword("mpkskrqereqbbfii");
+        mailSender.setPassword("eiyckcsitpkqbdhb");
         return mailSender;
     }
 

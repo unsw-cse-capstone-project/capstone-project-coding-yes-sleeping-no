@@ -19,14 +19,13 @@ public class Event {
     private String title;
     private String type;
     private String description;
-    private String rate;
-    private String cover_image;
     private String address;
-    private Integer available_tickets;
     private BigDecimal ticket_price;
+    private Integer available_tickets;
+    private String cover_image;
     private Date start_date;
-    private Date end_date;
     private Date start_time;
+    private Date end_time;
     private Date updated_at;
     private Date created_at;
     private Integer user_id;

@@ -16,17 +16,17 @@ import java.util.Date;
 @ApiModel("user database table")
 public class User {
     private Integer id;
+    private String email;
     private String user_name;
+    private String password;
     private String first_name;
     private String last_name;
     private String phone;
-    private String email;
     private String address_1;
     private String address_2;
     private String city;
     private String state;
     private String postcode;
-    private String password;
     private BigDecimal user_balance;
     private Integer status;
     private String avatar;

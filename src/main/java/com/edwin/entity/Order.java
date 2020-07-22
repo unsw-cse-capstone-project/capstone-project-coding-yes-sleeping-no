@@ -17,11 +17,19 @@ import java.util.Date;
 public class Order {
     private Integer id;
     private Integer order_number;
-    private Integer user_id;
-    private Integer event_id;
     private Integer ticket_amount;
     private BigDecimal total_price;
+    private String first_name;
+    private String last_name;
+    private String email;
+    private String phone;
+    private String address;
+    private String city;
+    private String state;
+    private String postcode;
     private Integer status;
-    private Date created_at;
     private Date updated_at;
+    private Date created_at;
+    private Integer user_id;
+    private Integer event_id;
 }
