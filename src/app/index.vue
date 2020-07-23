@@ -18,8 +18,7 @@
               <div class="flexItem curPoi">Live Concerts</div>
               <div class="flexItem curPoi">Movies</div>
               <div class="flexItem curPoi">Drama</div>
-              <div class="flexItem curPoi">Football</div>
-              <div class="flexItem curPoi">Basketball</div>
+              <div class="flexItem curPoi">Sport</div>
             </div>
           </el-col>
         </el-row>
@@ -179,7 +178,7 @@
           <img src="../assets/img/joker.png" alt="" width="100%" height="100%" />
         </el-col>
         <el-col :span="13">
-          <div style="text-align: right; padding: 20px 20px 0px 0px;"><img @click="dialogVisible = false"  src="../assets/img/close.png" alt="" width="20px" height="20px" class="curPoi" /></div>
+          <div style="text-align: right; padding: 20px 20px 0px 0px;"><img @click="quit"  src="../assets/img/close.png" alt="" width="20px" height="20px" class="curPoi" /></div>
           <div v-if="showLogin">
             <el-row style="padding: 50px 40px;">
               <el-col :span="12" class="curDefault" style="font-size: 22px;font-weight: bold;text-align: left;">Sign In to CYSN</el-col>
@@ -206,30 +205,34 @@
             <el-row style="padding: 50px 40px;">
               <el-col :span="12" class="curDefault" style="font-size: 22px;font-weight: bold;text-align: left;">Sign Up to CYSN</el-col>
             </el-row>
-            <el-input placeholder="Username" v-model="register.user_name" style="margin: 0px 50px;width: 80%;" :clearable="true">
+            <el-input placeholder="Username" v-model="register.user_name" style="margin: 0 50px;width: 80%;" :clearable="true">
               <template slot="prepend">
 <!--                <img src="../assets/img/account.png" alt="" width="18px" height="18px" />-->
                 <i class="el-icon-user" style="font-size: 20px"></i>
               </template>
             </el-input>
-            <el-input placeholder="Enter email" v-model="register.email" style="margin: 20px 50px 0px;width: 80%;" :clearable="true">
+            <el-input placeholder="Enter email" v-model="register.email" style="margin: 20px 50px 0;width: 80%;" :clearable="true">
               <template slot="prepend">
 <!--                <img src="../assets/img/pwd.png"  />-->
                 <i class="el-icon-message" style="font-size: 20px"></i>
               </template>
             </el-input>
-            <el-input placeholder="Password" v-model="register.password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
+            <el-input placeholder="Password" v-model="register.password" style="margin: 20px 50px 0;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
 <!--                <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />-->
                 <i class="el-icon-lock" style="font-size: 20px"></i>
               </template>
             </el-input>
-            <el-input placeholder="Confirm Password" v-model="confirm_password" style="margin: 20px 50px 0px;width: 80%;" type="password" :clearable="true">
+            <el-input placeholder="Confirm Password" v-model="confirm_password" style="margin: 20px 50px 0;width: 80%;" type="password" :clearable="true">
               <template slot="prepend">
 <!--                <img src="../assets/img/pwd.png" alt="" width="18px" height="18px" />-->
                 <i class="el-icon-lock" style="font-size: 20px"></i>
               </template>
             </el-input>
+            <div style="height: 40px; line-height: 40px; margin: 20px 50px 0;">
+              <el-radio v-model="register.status" label="1">Customer</el-radio>
+              <el-radio v-model="register.status" label="2">Host</el-radio>
+            </div>
             <button class="curPoi" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;" @click="signup">Create Account</button>
           </div>
         </el-col>
@@ -249,7 +252,9 @@ export default {
       ],
       dialogVisible: false,
       user: {},
-      register: {},
+      register: {
+        status: '1'
+      },
       showLogin: true,
       confirm_password: null,
       tableData: []
@@ -285,24 +290,18 @@ export default {
         if(this.register.password !== null && this.register.password !== '' && this.register.password !== undefined){
           if(this.confirm_password !== null && this.confirm_password !== '' && this.confirm_password !== undefined){
             if(this.register.password === this.confirm_password) {
-              let obj = {
-                email: this.register.email,
-                user_name: this.register.user_name,
-                password: this.register.password
-              };
-              this.$http.post("/user/register", obj).then(
+              this.$http.post("/user/register", this.register).then(
                       res=>{
                         if(res.state){
-                          this.user = obj;
+                          this.user = res.user;
                           this.$message({
                             message: res.msg,
                             type: 'success'
                           });
-                          localStorage.setItem("user", JSON.stringify(obj));
+                          localStorage.setItem("user", JSON.stringify(res));
                           this.dialogVisible = false;
                         }
                         else {
-                          this.user = obj;
                           this.$message({
                             message: res.msg,
                             type: 'fail'
@@ -322,17 +321,21 @@ export default {
         })
       }
     },
-    created() {
-      let userString = localStorage.getItem("user");
-      if(userString){
-        this.user =  JSON.parse(userString).user;
-      }
-      this.$http.get("/event/findAll").then(
-              res=>{
-                console.log(res);
-                this.tableData = res;
-              })
+    quit() {
+      this.dialogVisible = false;
+      this.showLogin = true;
     }
+  },
+  created() {
+    let userString = localStorage.getItem("user");
+    if(userString){
+      this.user =  JSON.parse(userString).user;
+    }
+    this.$http.get("/event/findAll").then(
+            res=>{
+              console.log(res);
+              this.tableData = res;
+            })
   }
 }
 </script>
@@ -352,5 +355,11 @@ export default {
   .el-dialog__body {
     padding: 0px;
     height: 100%;
+  }
+  #rlink :visited {
+    color: white;
+  }
+  #rlink {
+    color: white;
   }
 </style>

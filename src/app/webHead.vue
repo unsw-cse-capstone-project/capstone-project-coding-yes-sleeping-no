@@ -21,8 +21,7 @@
                                 <div class="flexItem curPoi">Live Concerts</div>
                                 <div class="flexItem curPoi">Movies</div>
                                 <div class="flexItem curPoi">Drama</div>
-                                <div class="flexItem curPoi">Football</div>
-                                <div class="flexItem curPoi">Basketball</div>
+                                <div class="flexItem curPoi">Sport</div>
                             </div>
                         </el-col>
                     </el-row>
@@ -67,4 +66,10 @@
 <style scoped>
     .r_link {text-decoration: none; color: black}
     .r_link:visited {color: black}
+    #rlink {
+        color: black
+    }
+    #rlink :visited {
+        color: black;
+    }
 </style>

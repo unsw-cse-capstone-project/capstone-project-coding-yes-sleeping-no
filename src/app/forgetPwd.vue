@@ -1,7 +1,7 @@
 <template>
     <div class="pwdbox">
         <h2>Foget password</h2>
-        <el-input v-model="email" placeholder="Input your E-mail" style="width: 350px" clearable></el-input>
+        <el-input v-model="email_addr" placeholder="Input your E-mail" style="width: 350px" clearable></el-input>
         <el-button style="margin: 20px" type="text" @click="sendEmail" >Send verification</el-button>
         <el-input v-model="verificationCode" placeholder="Input your verification code" style="width: 350px" clearable></el-input>
         <el-input v-model="password" placeholder="Input your new password" style="width: 350px; margin-top: 20px" show-password clearable></el-input>
@@ -16,7 +16,10 @@
             >
                 <el-button type="primary" round style="margin-top: 40px; margin:50px" slot="reference" @click="upload">Confirm</el-button>
             </el-popconfirm>
-            <el-button round>Cancel</el-button>
+            <router-link to="/">
+                <el-button round>Cancel</el-button>
+            </router-link>
+
         </el-row>
     </div>
 
@@ -26,7 +29,7 @@
     export default {
         data () {
             return {
-                email: '',
+                email_addr: '',
                 verificationCode: '',
                 password: '',
                 confirm_password: ''
@@ -36,10 +39,10 @@
             handleClose (done) {
             },
             sendEmail(){
-                let email = {
-                    email: this.email
+                let emails = {
+                    email: this.email_addr
                 };
-                this.$http.post("/user/sendEmail", email).then(
+                this.$http.post("/user/sendEmail", emails).then(
                     res=>{
                         if(res.state){
                             this.$message({
@@ -71,6 +74,7 @@
                                                 message: res.msg,
                                                 type: 'success'
                                             });
+                                            localStorage.setItem("user", JSON.stringify(res));
                                         }
                                         else {
                                             this.$message({
@@ -78,7 +82,8 @@
                                                 type: 'fail'
                                             });
                                         }
-                                    })
+                                    });
+                                location.href = '/';
                             }
                         }
                     }

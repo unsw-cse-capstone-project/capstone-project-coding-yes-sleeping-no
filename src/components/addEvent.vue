@@ -5,16 +5,43 @@
                 <el-form-item class="labels" label="Event name:">
                     <el-input v-model="form.title"></el-input>
                 </el-form-item>
+                <el-form-item class="labels" label="Event type:">
+                    <el-select v-model="form.type" placeholder="Event type" style="margin: 0">
+                        <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item class="labels" label="Location:">
                     <el-input v-model="form.address"></el-input>
                 </el-form-item>
-                <el-form-item class="labels" label="Time:">
+                <el-form-item class="labels" label="Date:">
                     <el-col :span="11">
                         <el-date-picker type="date" placeholder="Select Date" v-model="form.start_date" style="width: 100%;"></el-date-picker>
                     </el-col>
+                </el-form-item>
+                <el-form-item class="labels" label="Time:">
+                    <el-col :span="11">
+                        <el-time-picker
+                                v-model="form.start_time"
+                                :picker-options="{
+                                    selectableRange: '0:0:00 - 23:59:00'
+                                }"
+                                placeholder="Select Start Time">
+                        </el-time-picker>
+                    </el-col>
                     <el-col class="line" :span="2">-</el-col>
                     <el-col :span="11">
-                        <el-time-picker placeholder="Select Time" v-model="form.start_time" style="width: 100%;"></el-time-picker>
+                        <el-time-picker
+                                v-model="form.end_time"
+                                :picker-options="{
+                                    selectableRange: '0:0:00 - 23:59:00'
+                                }"
+                                placeholder="Select End Time">
+                        </el-time-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item class="labels" label="Price:">
@@ -43,7 +70,20 @@
     export default {
         data() {
             return {
-                form: {}
+                form: {},
+                options: [{
+                    value: 'Live Concerts',
+                    label: 'Live Concerts'
+                }, {
+                    value: 'Movies',
+                    label: 'Movies'
+                }, {
+                    value: 'Drama',
+                    label: 'Drama'
+                }, {
+                    value: 'Sport',
+                    label: 'Sport'
+                }],
             }
         },
         methods: {

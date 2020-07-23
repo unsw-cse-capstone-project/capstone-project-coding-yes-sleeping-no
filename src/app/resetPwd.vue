@@ -1,8 +1,8 @@
 <template>
   <div class="pwdbox">
     <h2>Reset password</h2>
-    <el-input v-model="input1" placeholder="Input your new password" style="width: 350px; margin-top: 20px" show-password></el-input>
-    <el-input v-model="input2" placeholder="Confirm your new password" style="width: 350px; margin-top: 20px" show-password></el-input>
+    <el-input v-model="password" placeholder="Input your new password" style="width: 350px; margin-top: 20px" show-password></el-input>
+    <el-input v-model="confirm_password" placeholder="Confirm your new password" style="width: 350px; margin-top: 20px" show-password></el-input>
     <el-row>
       <el-popconfirm
               confirmButtonText='Confirm'
@@ -11,9 +11,11 @@
               iconColor="red"
               title="Confirm to change the password？"
       >
-        <el-button type="primary" round style="margin-top: 40px; margin:50px" slot="reference">Confirm</el-button>
+        <el-button type="primary" round style="margin-top: 40px; margin:50px" slot="reference" @click="upload">Confirm</el-button>
       </el-popconfirm>
-      <el-button round>Cancel</el-button>
+      <router-link to="/">
+        <el-button round>Cancel</el-button>
+      </router-link>
     </el-row>
   </div>
 
@@ -23,13 +25,44 @@
   export default {
     data () {
       return {
-        input1: '',
-        input2: '',
-        dialogVisible: false
+        password: '',
+        confirm_password: ''
       }
     },
     methods: {
-      handleClose (done) {
+      upload() {
+        if(this.password !== null && this.password !== '' && this.password !== undefined) {
+          if (this.confirm_password !== null && this.confirm_password !== '' && this.confirm_password !== undefined) {
+            if (this.password === this.confirm_password) {
+              // let obj = {
+              //   'oldPassword': this.user.password,
+              //   'newPassword': this.password,
+              // }
+              let obj = {
+                newPassword: this.password,
+              };
+
+              this.$http.post("/user/resetPassword", obj).then(
+                      res=>{
+                        if(res.state){
+                          this.$message({
+                            message: res.msg,
+                            type: 'success'
+                          });
+                          localStorage.setItem("user", JSON.stringify(res.user));
+                        }
+                        else {
+                          this.$message({
+                            message: res.msg,
+                            type: 'fail'
+                          });
+                        }
+                      });
+              location.href = '/';
+            }
+          }
+        }
+
       }
     }
   }

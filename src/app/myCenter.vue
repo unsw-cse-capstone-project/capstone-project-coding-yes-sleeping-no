@@ -15,7 +15,7 @@
                         <span slot="title">Order Management</span>
                     </el-menu-item>
                 </router-link>
-                <router-link to="/eventMgm" style="text-decoration: none; text-align: left;">
+                <router-link to="/eventMgm" style="text-decoration: none; text-align: left;" v-if="this.user.status===2">
                     <el-menu-item index="3" style="margin: 0 40px">
                         <i class="el-icon-document"></i>
                         <span slot="title">Event Management</span>
@@ -27,6 +27,13 @@
                         <span slot="title">User Profile</span>
                     </el-menu-item>
                 </router-link>
+                <div style="text-decoration: none; text-align: left;">
+                    <el-menu-item index="4" style="margin: 0 40px" @click="logout" >
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">logout</span>
+                    </el-menu-item>
+                </div>
+
             </el-menu>
         </el-aside>
         <el-main :span="18" style="background-color: white">
@@ -37,7 +44,42 @@
 
 <script>
     export default {
-        name: "myCenter"
+        name: "myCenter",
+        data() {
+            return {
+                user: {}
+            }
+        },
+        methods: {
+            logout() {
+                this.$http.get("/user/logout").then(
+                    res=>{
+                        if(res.state){
+                            this.$message({
+                                message: res.msg,
+                                type: 'success'
+                            });
+                            localStorage.removeItem("user");
+                            this.user = {};
+                            location.href = '/';
+                        }
+                        else {
+                            this.$message({
+                                message: res.msg,
+                                type: 'fail'
+                            });
+                        }
+                    });
+
+            }
+        },
+        created() {
+            let userString = localStorage.getItem("user");
+            if(userString){
+                this.user =  JSON.parse(userString).user;
+            }
+
+        }
     }
 
 </script>

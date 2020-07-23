@@ -85,7 +85,9 @@
                     <button class="push_button blue" @click="edit">Save</button>
                 </el-col>
                 <el-col :span="16" class="abHeight" style="text-align: right">
-                    <button class="push_button red">Cancel</button>
+                    <router-link to="/">
+                        <button class="push_button red">Cancel</button>
+                    </router-link>
                 </el-col>
             </el-row>
         </el-col>
@@ -165,20 +167,20 @@
                 return false;
             },
             edit() {
-                let formData = new FormData();
-                formData.append("user_name",this.user.user_name);
-                formData.append("email", this.user.email);
-                formData.append("first_name", this.user.first_name);
-                formData.append("last_name", this.user.last_name);
-                formData.append("phone", this.user.phone);
-                formData.append("address_1", this.user.address_1);
-                formData.append("address_2", this.user.address_2);
-                formData.append("city", this.user.city);
-                formData.append("state", this.user.state);
-                formData.append("postcode", this.user.postcode);
-                formData.append("avatar", this.imageFile);
+                // let formData = new FormData();
+                // formData.append("user_name",this.user.user_name);
+                // formData.append("email", this.user.email);
+                // formData.append("first_name", this.user.first_name);
+                // formData.append("last_name", this.user.last_name);
+                // formData.append("phone", this.user.phone);
+                // formData.append("address_1", this.user.address_1);
+                // formData.append("address_2", this.user.address_2);
+                // formData.append("city", this.user.city);
+                // formData.append("state", this.user.state);
+                // formData.append("postcode", this.user.postcode);
+                // formData.append("avatar", this.imageFile);
 
-                this.$http.post("/user/updateUserInfo", formData).then(
+                this.$http.post("/user/updateUserInfo", this.user).then(
                     res=>{
                         if(res.state){
                             this.$message({
