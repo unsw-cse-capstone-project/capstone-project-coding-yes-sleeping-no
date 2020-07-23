@@ -125,19 +125,15 @@ public class UserServiceImpl implements UserService {
         }
 
     @Override
-    public void resetPassword(String oldPassword, String newPassword, User currentUser) {
-        if (StringUtils.isEmpty(oldPassword)){
-            throw new RuntimeException("old password is empty");
-        }
+    public void resetPassword(String newPassword, User currentUser) {
+
         if (StringUtils.isEmpty(newPassword)){
             throw new RuntimeException("new password is empty");
         }
         if (ObjectUtils.isEmpty(currentUser)){
             throw new  RuntimeException("current user is empty");
         }
-        if (!oldPassword.equals(currentUser.getPassword())){
-            throw new RuntimeException("old password is not correct");
-        }
+
         currentUser.setUpdated_at(new Date());
         currentUser.setPassword(newPassword);
         userDao.update(currentUser);

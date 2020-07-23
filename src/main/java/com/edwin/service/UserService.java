@@ -9,5 +9,5 @@ public interface UserService {
 
     void update(User user);
 
-    void resetPassword(String oldPassword, String newPassword, User currentUser);
+    void resetPassword(String newPassword, User currentUser);
 }

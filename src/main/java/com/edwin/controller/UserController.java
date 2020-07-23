@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,8 +115,8 @@ public class UserController {
     @ResponseBody
     @PostMapping("/sendEmail")
 //    @RequestParam(required = false, value = "email") String email
-    public Map<String, Object> sendEmail(@RequestBody User user, HttpSession session) {
-        String email = user.getEmail();
+    public Map<String, Object> sendEmail(@RequestBody Map<String,Object> map1, HttpSession session) {
+        String email =(String) map1.get("email");
         log.info("send email:[{}]", email);
         Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(email)) {
@@ -141,6 +142,7 @@ public class UserController {
         // request.getServletContext().setAttribute("mailCode",mailCode);
         session.setAttribute(Consts.EMAIL_VERIFICATION_CODE_NAME, verificationCode);
         session.setAttribute(Consts.USER_ID_NAME, userEmail.getId());
+        log.info("verification code session ============:[{}]", (String) session.getAttribute(Consts.EMAIL_VERIFICATION_CODE_NAME));
         map.put("state", true);
         map.put("msg", "password reset verification email has been sent");
         return map;
@@ -150,21 +152,25 @@ public class UserController {
      * Check email verification code for password reset
      */
     @ApiOperation("forget password check user's verification code router in user controller")
-    @RequestMapping(value = "/checkVerificationCode", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/checkVerificationCode", method = RequestMethod.POST, produces="application/json;charset=UTF-8")
+//    @ResponseBody
 //    @RequestParam(required = false, value = "verificationCode") String verificationCode, @RequestParam(value = "password") String password
 //    public Map<String, Object> checkVerificationCode(@RequestBody JSONObject jsonObject, HttpSession session) throws JSONException {
-    public Map<String, Object> checkVerificationCode(@RequestParam Map<String,Object> map1, HttpSession session) throws JSONException {
-//        String password = map1.get("password").toString();
+//    public Map<String, Object> checkVerificationCode(@RequestParam (required=false,value="password") String password,@RequestParam (required=false,value="verificationCode") String verificationCode, HttpSession session) throws JSONException {
+    public Map<String, Object> checkVerificationCode(@RequestBody Map<String,Object> map1, HttpSession session) throws JSONException {
+//        String password = params.get("password").toString();
 
 //        String password = jsonObject.getString("password");
-        String password = "1";
-        log.info("password code ========= :[{}]", password);
+        String password = (String) map1.get("password");
+        String verificationCode = (String) map1.get("verificationCode");
+
+        log.info("password code 111111111========= :[{}]", password);
 //        String verificationCode = jsonObject.getString("verificationCode");
 //        String verificationCode = map1.get("verificationCode").toString();
-        String verificationCode = "123";
-        log.info("verification code ========= :[{}]", verificationCode);
+        log.info("verification code 11111111111========= :[{}]", verificationCode);
+        log.info("verification code session 111111111111111============:[{}]", (String) session.getAttribute(Consts.EMAIL_VERIFICATION_CODE_NAME));
         Map<String, Object> map = new HashMap<>();
-        if (StringUtils.isEmpty(verificationCode)) {
+        if (ObjectUtils.isEmpty(verificationCode)) {
             map.put("state", false);
             map.put("msg", "verification code can not be empty");
         }
@@ -208,7 +214,7 @@ public class UserController {
     }
 
     @ApiOperation("get user account information by user id router in user controller")
-    @GetMapping("/get/{id}")
+    @RequestMapping("/get/{id}")
     @ResponseBody
     public Map<String, Object> getUserById(@PathVariable(value = "id") Integer id) {
         Map<String, Object> map = new HashMap<>();
@@ -229,8 +235,16 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> updateUserInfo(HttpSession session, @RequestBody User user) {
         Map<String, Object> map = new HashMap<>();
-        log.info("image base 64 dat:[{}]", user.getAvatar());
-        log.info("user data :[{}]", user.toString());
+
+//        log.info("image base 64 dat:[{}]", user.getAvatar());
+//        log.info("user data :[{}]", user.toString());
+        log.info("user data :[{}]", (User) session.getAttribute(Consts.CURRENT_USER));
+//        String first_name = (String) map1.get("first_name");
+        log.info("user data :[{}]", user.getFirst_name());
+
+//        String first_name = (String) map1.get("first_name");
+//        String first_name = (String) map1.get("first_name");
+//        String first_name = (String) map1.get("first_name");
 
 
         User currentUser = (User) session.getAttribute(Consts.CURRENT_USER);
@@ -240,6 +254,13 @@ public class UserController {
             return map;
         }
         user.setId(currentUser.getId());
+        user.setUser_name(currentUser.getUser_name());
+        user.setEmail(currentUser.getEmail());
+        user.setPassword(currentUser.getPassword());
+        user.setStatus(currentUser.getStatus());
+        user.setUser_balance(currentUser.getUser_balance());
+        user.setCreated_at(currentUser.getCreated_at());
+        log.info("user data 111111111:[{}]", user);
         user.setUpdated_at(new Date());
         try {
 //            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
@@ -263,22 +284,31 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> logout(HttpSession session){
         Map<String, Object> map = new HashMap<>();
+        log.info("send logout:[{}]",  session.getAttribute(Consts.CURRENT_USER));
         session.removeAttribute(Consts.CURRENT_USER);
         map.put("state", true);
         map.put("msg", "Logout success");
+        log.info("send logout:[{}]",  session.getAttribute(Consts.CURRENT_USER));
         return map;
     }
 
     @ApiOperation("user changes original password to new password")
-    @PostMapping("/resetPassword")
+//    @PostMapping("/resetPassword")
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST, produces="application/json;charset=UTF-8")
 //    @RequestParam(value = "oldPassword") String oldPassword
-    public Map<String,Object> resetPassword(@RequestParam(value = "oldPassword") String oldPassword, @RequestParam(value = "newPassword") String newPassword, HttpSession session){
-        log.info("old password:[{}]", oldPassword);
+    public Map<String,Object> resetPassword(@RequestBody Map<String,Object> map1, HttpSession session){
+//    public Map<String,Object> resetPassword(@RequestBody Map<String,Object> map1, HttpSession session){
+//        String oldPassword = (String)map1.get("oldPassword");
+        String newPassword = (String)map1.get("newPassword");
+//        String oldPassword = user.getPassword();
+//        log.info("old password:[{}]", oldPassword);
         log.info("new password:[{}]", newPassword);
         Map<String, Object> map = new HashMap<>();
+
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
+//        User currentUser = userDao.findByUserId(7);
         try {
-            userService.resetPassword(newPassword, oldPassword, currentUser);
+            userService.resetPassword(newPassword, currentUser);
             map.put("state", true);
             map.put("msg", "Password reset");
         } catch (Exception e) {

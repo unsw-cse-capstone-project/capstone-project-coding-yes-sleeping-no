@@ -21,14 +21,192 @@
   <component name="ChangeListManager">
     <list default="true" id="e8f33321-d62b-43df-b3ea-c22b1d13149a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/event_master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/event_master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/config/MailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/config/MailConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/config/MailConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/edwin/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/UserDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/edwin/mapper/UserDaoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.251cc26f80d014cd3bed2d3828f18409.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.251cc26f80d014cd3bed2d3828f18409.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.4e7f8ecc3eb53f2554f141c1a3a31273.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.4e7f8ecc3eb53f2554f141c1a3a31273.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.afc4877b894d1c7b4c4cc33dbab50f80.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.afc4877b894d1c7b4c4cc33dbab50f80.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.b6cf764f80e19cf973827f73af22d20d.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.b6cf764f80e19cf973827f73af22d20d.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.fedf24351213d174adfbabaa1b383703.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/css/app.fedf24351213d174adfbabaa1b383703.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.0cc93bc0aac183c67ac1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.0cc93bc0aac183c67ac1.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.57eebb12c259440a400b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.57eebb12c259440a400b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.a5745c5630bbd2700b50.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.a5745c5630bbd2700b50.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.ba696b8269d71e9bc2c6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/0.ba696b8269d71e9bc2c6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/1.e2cb05349e10a2f5a4db.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/1.e2cb05349e10a2f5a4db.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/2.7e7ad36ce7f415fc25cb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/2.7e7ad36ce7f415fc25cb.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/2.c8dfbaacb0e299c6087e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/2.c8dfbaacb0e299c6087e.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.1306aac2d13f0064d21b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.1306aac2d13f0064d21b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.8b2f5ccfe85fde7d1faa.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.8b2f5ccfe85fde7d1faa.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.90dc6c1f9493cb878696.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.90dc6c1f9493cb878696.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.e609a80c391fbce2f769.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/3.e609a80c391fbce2f769.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/4.119564ff219f0da3b34d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/4.119564ff219f0da3b34d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/4.d5a701b051d2095dd127.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/4.d5a701b051d2095dd127.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/4.fd67152d15bc5f539c1a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/4.fd67152d15bc5f539c1a.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/5.33e2e570dbd6582cc4b7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/5.33e2e570dbd6582cc4b7.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/5.da82813e7728c180dd7f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/5.da82813e7728c180dd7f.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/6.3825dcd5f3839abfa4be.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/6.3825dcd5f3839abfa4be.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/6.8f688698c101eeb1c524.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/6.8f688698c101eeb1c524.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/6.ceb1410684459c3228dd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/6.ceb1410684459c3228dd.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/7.31d4e6eb136b26d11b4b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/7.31d4e6eb136b26d11b4b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/7.366ae1ac6f57f000f41c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/7.366ae1ac6f57f000f41c.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/7.86b0bc9d988c0be29d1a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/7.86b0bc9d988c0be29d1a.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/7.9e906a7b6a552e50741d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/7.9e906a7b6a552e50741d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/8.6315a613225fc18cfc3f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/8.6315a613225fc18cfc3f.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/8.8cc373a2f46cd55783a6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/8.8cc373a2f46cd55783a6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/8.f5a06df47dfad1b4a1db.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/8.f5a06df47dfad1b4a1db.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/9.4823a81bc7509fdaef39.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/9.4823a81bc7509fdaef39.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/9.5bd52678c39e3e0e39b3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/9.5bd52678c39e3e0e39b3.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.2f3099345ca4fec26625.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.2f3099345ca4fec26625.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.89eb9665387ffd208d75.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.89eb9665387ffd208d75.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.b6cdd3ad11d62cdb149b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.b6cdd3ad11d62cdb149b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.dc625a249792e3ad250d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.dc625a249792e3ad250d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.edbf89245ecee0d2cf7d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/app.edbf89245ecee0d2cf7d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.30e3da86b1275a1f772b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.30e3da86b1275a1f772b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.42ac5b6d3cb58c730174.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.42ac5b6d3cb58c730174.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.75860583ded0d133988c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.75860583ded0d133988c.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.78c451e12ca68368cbf8.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.78c451e12ca68368cbf8.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.8cb1decc90d029f53df1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/manifest.8cb1decc90d029f53df1.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/vendor.565302f3d56b03b8446c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/static/js/vendor.565302f3d56b03b8446c.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/mapper/UserDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/mapper/UserDaoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/edwin/service/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/edwin/service/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.251cc26f80d014cd3bed2d3828f18409.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.251cc26f80d014cd3bed2d3828f18409.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.4e7f8ecc3eb53f2554f141c1a3a31273.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.4e7f8ecc3eb53f2554f141c1a3a31273.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.afc4877b894d1c7b4c4cc33dbab50f80.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.afc4877b894d1c7b4c4cc33dbab50f80.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.b6cf764f80e19cf973827f73af22d20d.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.b6cf764f80e19cf973827f73af22d20d.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.fedf24351213d174adfbabaa1b383703.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/css/app.fedf24351213d174adfbabaa1b383703.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.0cc93bc0aac183c67ac1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.0cc93bc0aac183c67ac1.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.57eebb12c259440a400b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.57eebb12c259440a400b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.a5745c5630bbd2700b50.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.a5745c5630bbd2700b50.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.ba696b8269d71e9bc2c6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/0.ba696b8269d71e9bc2c6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/1.e2cb05349e10a2f5a4db.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/1.e2cb05349e10a2f5a4db.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/2.7e7ad36ce7f415fc25cb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/2.7e7ad36ce7f415fc25cb.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/2.c8dfbaacb0e299c6087e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/2.c8dfbaacb0e299c6087e.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.1306aac2d13f0064d21b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.1306aac2d13f0064d21b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.8b2f5ccfe85fde7d1faa.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.8b2f5ccfe85fde7d1faa.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.90dc6c1f9493cb878696.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.90dc6c1f9493cb878696.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.e609a80c391fbce2f769.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/3.e609a80c391fbce2f769.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/4.119564ff219f0da3b34d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/4.119564ff219f0da3b34d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/4.d5a701b051d2095dd127.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/4.d5a701b051d2095dd127.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/4.fd67152d15bc5f539c1a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/4.fd67152d15bc5f539c1a.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/5.33e2e570dbd6582cc4b7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/5.33e2e570dbd6582cc4b7.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/5.da82813e7728c180dd7f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/5.da82813e7728c180dd7f.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/6.3825dcd5f3839abfa4be.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/6.3825dcd5f3839abfa4be.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/6.8f688698c101eeb1c524.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/6.8f688698c101eeb1c524.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/6.ceb1410684459c3228dd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/6.ceb1410684459c3228dd.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/7.31d4e6eb136b26d11b4b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/7.31d4e6eb136b26d11b4b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/7.366ae1ac6f57f000f41c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/7.366ae1ac6f57f000f41c.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/7.86b0bc9d988c0be29d1a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/7.86b0bc9d988c0be29d1a.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/7.9e906a7b6a552e50741d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/7.9e906a7b6a552e50741d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/8.6315a613225fc18cfc3f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/8.6315a613225fc18cfc3f.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/8.8cc373a2f46cd55783a6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/8.8cc373a2f46cd55783a6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/8.f5a06df47dfad1b4a1db.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/8.f5a06df47dfad1b4a1db.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/9.4823a81bc7509fdaef39.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/9.4823a81bc7509fdaef39.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/9.5bd52678c39e3e0e39b3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/9.5bd52678c39e3e0e39b3.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.2f3099345ca4fec26625.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.2f3099345ca4fec26625.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.89eb9665387ffd208d75.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.89eb9665387ffd208d75.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.b6cdd3ad11d62cdb149b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.b6cdd3ad11d62cdb149b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.dc625a249792e3ad250d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.dc625a249792e3ad250d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.edbf89245ecee0d2cf7d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/app.edbf89245ecee0d2cf7d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.30e3da86b1275a1f772b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.30e3da86b1275a1f772b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.42ac5b6d3cb58c730174.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.42ac5b6d3cb58c730174.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.75860583ded0d133988c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.75860583ded0d133988c.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.78c451e12ca68368cbf8.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.78c451e12ca68368cbf8.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.8cb1decc90d029f53df1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/manifest.8cb1decc90d029f53df1.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/vendor.565302f3d56b03b8446c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/vendor.565302f3d56b03b8446c.js.map" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +246,9 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
   </component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
@@ -99,7 +280,10 @@
       <workItem from="1594899054035" duration="27820000" />
       <workItem from="1595154606055" duration="599000" />
       <workItem from="1595214807509" duration="16408000" />
-      <workItem from="1595340156526" duration="15017000" />
+      <workItem from="1595340156526" duration="17388000" />
+      <workItem from="1595500041749" duration="10205000" />
+      <workItem from="1595545842443" duration="61000" />
+      <workItem from="1595546085425" duration="137000" />
     </task>
     <servers />
   </component>
@@ -131,62 +315,78 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595054516770" />
-    <state width="1878" height="303" key="GridCell.Tab.0.bottom" timestamp="1595425485257">
+    <state width="1878" height="628" key="GridCell.Tab.0.bottom" timestamp="1595546224087">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.0.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595425485257" />
-    <state width="1878" height="342" key="GridCell.Tab.0.bottom/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595424687481" />
+    <state width="1878" height="628" key="GridCell.Tab.0.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595546224087" />
+    <state width="1878" height="503" key="GridCell.Tab.0.bottom/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595502129280" />
     <state width="1878" height="796" key="GridCell.Tab.0.bottom/-1440.92.1440.877/0.0.1920.1080@0.0.1920.1080" timestamp="1595339283451" />
-    <state width="1878" height="342" key="GridCell.Tab.0.bottom/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595424382841" />
-    <state width="1878" height="303" key="GridCell.Tab.0.center" timestamp="1595425485256">
+    <state width="1878" height="420" key="GridCell.Tab.0.bottom/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595507593468" />
+    <state width="1878" height="628" key="GridCell.Tab.0.center" timestamp="1595546224085">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.0.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595425485256" />
-    <state width="1878" height="342" key="GridCell.Tab.0.center/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595424687480" />
+    <state width="1878" height="628" key="GridCell.Tab.0.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595546224085" />
+    <state width="1878" height="503" key="GridCell.Tab.0.center/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595502129279" />
     <state width="1878" height="796" key="GridCell.Tab.0.center/-1440.92.1440.877/0.0.1920.1080@0.0.1920.1080" timestamp="1595339283449" />
-    <state width="1878" height="342" key="GridCell.Tab.0.center/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595424382838" />
-    <state width="1878" height="303" key="GridCell.Tab.0.left" timestamp="1595425485255">
+    <state width="1878" height="420" key="GridCell.Tab.0.center/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595507593467" />
+    <state width="1878" height="628" key="GridCell.Tab.0.left" timestamp="1595546224084">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.0.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595425485255" />
-    <state width="1878" height="342" key="GridCell.Tab.0.left/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595424687479" />
+    <state width="1878" height="628" key="GridCell.Tab.0.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595546224084" />
+    <state width="1878" height="503" key="GridCell.Tab.0.left/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595502129278" />
     <state width="1878" height="796" key="GridCell.Tab.0.left/-1440.92.1440.877/0.0.1920.1080@0.0.1920.1080" timestamp="1595339283448" />
-    <state width="1878" height="342" key="GridCell.Tab.0.left/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595424382837" />
-    <state width="1878" height="303" key="GridCell.Tab.0.right" timestamp="1595425485257">
+    <state width="1878" height="420" key="GridCell.Tab.0.left/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595507593467" />
+    <state width="1878" height="628" key="GridCell.Tab.0.right" timestamp="1595546224086">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.0.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595425485257" />
-    <state width="1878" height="342" key="GridCell.Tab.0.right/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595424687480" />
+    <state width="1878" height="628" key="GridCell.Tab.0.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595546224086" />
+    <state width="1878" height="503" key="GridCell.Tab.0.right/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595502129280" />
     <state width="1878" height="796" key="GridCell.Tab.0.right/-1440.92.1440.877/0.0.1920.1080@0.0.1920.1080" timestamp="1595339283450" />
-    <state width="1878" height="342" key="GridCell.Tab.0.right/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595424382840" />
-    <state width="1878" height="303" key="GridCell.Tab.1.bottom" timestamp="1595425485260">
+    <state width="1878" height="420" key="GridCell.Tab.0.right/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595507593468" />
+    <state width="1878" height="628" key="GridCell.Tab.1.bottom" timestamp="1595546224090">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.1.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595425485260" />
-    <state width="1878" height="342" key="GridCell.Tab.1.bottom/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595424687484" />
+    <state width="1878" height="628" key="GridCell.Tab.1.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595546224090" />
+    <state width="1878" height="503" key="GridCell.Tab.1.bottom/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595502129284" />
     <state width="1878" height="796" key="GridCell.Tab.1.bottom/-1440.92.1440.877/0.0.1920.1080@0.0.1920.1080" timestamp="1595339283454" />
-    <state width="1878" height="342" key="GridCell.Tab.1.bottom/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595424382847" />
-    <state width="1878" height="303" key="GridCell.Tab.1.center" timestamp="1595425485259">
+    <state width="1878" height="420" key="GridCell.Tab.1.bottom/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595507593471" />
+    <state width="1878" height="628" key="GridCell.Tab.1.center" timestamp="1595546224088">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.1.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595425485259" />
-    <state width="1878" height="342" key="GridCell.Tab.1.center/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595424687483" />
+    <state width="1878" height="628" key="GridCell.Tab.1.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595546224088" />
+    <state width="1878" height="503" key="GridCell.Tab.1.center/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595502129282" />
     <state width="1878" height="796" key="GridCell.Tab.1.center/-1440.92.1440.877/0.0.1920.1080@0.0.1920.1080" timestamp="1595339283453" />
-    <state width="1878" height="342" key="GridCell.Tab.1.center/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595424382843" />
-    <state width="1878" height="303" key="GridCell.Tab.1.left" timestamp="1595425485258">
+    <state width="1878" height="420" key="GridCell.Tab.1.center/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595507593469" />
+    <state width="1878" height="628" key="GridCell.Tab.1.left" timestamp="1595546224087">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.1.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595425485258" />
-    <state width="1878" height="342" key="GridCell.Tab.1.left/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595424687482" />
+    <state width="1878" height="628" key="GridCell.Tab.1.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595546224087" />
+    <state width="1878" height="503" key="GridCell.Tab.1.left/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595502129281" />
     <state width="1878" height="796" key="GridCell.Tab.1.left/-1440.92.1440.877/0.0.1920.1080@0.0.1920.1080" timestamp="1595339283451" />
-    <state width="1878" height="342" key="GridCell.Tab.1.left/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595424382842" />
-    <state width="1878" height="303" key="GridCell.Tab.1.right" timestamp="1595425485259">
+    <state width="1878" height="420" key="GridCell.Tab.1.left/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595507593469" />
+    <state width="1878" height="628" key="GridCell.Tab.1.right" timestamp="1595546224089">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="303" key="GridCell.Tab.1.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595425485259" />
-    <state width="1878" height="342" key="GridCell.Tab.1.right/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595424687484" />
+    <state width="1878" height="628" key="GridCell.Tab.1.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595546224089" />
+    <state width="1878" height="503" key="GridCell.Tab.1.right/-1440.92.1440.877/0.0.1920.1036@0.0.1920.1036" timestamp="1595502129283" />
     <state width="1878" height="796" key="GridCell.Tab.1.right/-1440.92.1440.877/0.0.1920.1080@0.0.1920.1080" timestamp="1595339283454" />
-    <state width="1878" height="342" key="GridCell.Tab.1.right/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595424382846" />
+    <state width="1878" height="420" key="GridCell.Tab.1.right/-1440.92.1440.877/0.23.1920.1013@0.23.1920.1013" timestamp="1595507593470" />
+    <state width="1878" height="376" key="GridCell.Tab.2.bottom" timestamp="1595505645361">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="376" key="GridCell.Tab.2.bottom/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595505645361" />
+    <state width="1878" height="376" key="GridCell.Tab.2.center" timestamp="1595505645359">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="376" key="GridCell.Tab.2.center/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595505645359" />
+    <state width="1878" height="376" key="GridCell.Tab.2.left" timestamp="1595505645356">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="376" key="GridCell.Tab.2.left/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595505645356" />
+    <state width="1878" height="376" key="GridCell.Tab.2.right" timestamp="1595505645360">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="376" key="GridCell.Tab.2.right/-1440.69.1440.900/0.0.1920.1080@0.0.1920.1080" timestamp="1595505645360" />
     <state x="498" y="202" key="Maven.ArtifactSearchDialog" timestamp="1595328361779">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

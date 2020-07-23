@@ -31,6 +31,6 @@
 
     <!--update-->
     <select id="update" parameterType="User">
-        update `user` set `first_name` = #{first_name}, `last_name` = #{last_name}, `phone` = #{phone}, `address_1` = #{address_1}, `address_2` = #{address_2}, `city` = #{city}, `state` = #{state}, `postcode` = #{postcode}, `user_balance` = #{user_balance}, `status` = #{status}, `avatar` = #{avatar}, updated_at = #{updated_at} where id = #{id}
+        update `user` set `password` = #{password} , `first_name` = #{first_name}, `last_name` = #{last_name}, `phone` = #{phone}, `address_1` = #{address_1}, `address_2` = #{address_2}, `city` = #{city}, `state` = #{state}, `postcode` = #{postcode}, `user_balance` = #{user_balance}, `status` = #{status}, `avatar` = #{avatar}, updated_at = #{updated_at} where id = #{id}
     </select>
 </mapper>
