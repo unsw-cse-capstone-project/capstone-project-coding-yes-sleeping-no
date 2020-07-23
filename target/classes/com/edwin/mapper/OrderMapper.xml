@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edwin.dao.OrderDao">
+
+    <!--save-->
+    <insert id="save" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
+        insert into `order` values (#{id},#{order_number},#{ticket_amount},#{total_price},#{first_name}, #{last_name},#{email},#{phone},#{address},#{city}, #{state},#{postcode},#{status},#{updated_at},#{created_at},#{user_id},#{event_id},)
+    </insert>
+
+    <!--update-->
+    <select id="update"  parameterType="Order">
+        update `order` set  `status` = #{status}, updated_at = #{updated_at} where id = #{id}
+    </select>
+
+    <!--find by order number-->
+    <select id="findByOrderNumber" parameterType="Integer" resultType="Order">
+        select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, `postcode`, `status`, `updated_at`, `created_at`,`user_id`, `event_id`
+        from `order` where `order_number` = #{order_number}
+    </select>
+
+    <!--findAll-->
+    <select id="findAll" parameterType="Integer" resultType="Order" >
+        select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, `postcode`, `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order`
+    </select>
+
+    <!--findOne-->
+    <select id="findOne"  parameterType="Integer" resultType="Order">
+        select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, `postcode`, `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `id` = #{id}
+    </select>
+
+    <!--findOne-->
+    <select id="findByHost"  parameterType="Integer" resultType="Order">
+        select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, `postcode`, `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `user_id` = #{id} and `event_id` = #{event_id}
+    </select>
+
+</mapper>

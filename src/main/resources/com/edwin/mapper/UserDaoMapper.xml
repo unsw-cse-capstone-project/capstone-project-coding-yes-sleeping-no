@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edwin.dao.UserDao">
+
+    <!--save-->
+    <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into user values (#{id}, #{email}, #{user_name}, #{password}, #{first_name}, #{last_name}, #{phone}, #{address_1}, #{address_2}, #{city}, #{state}, #{postcode}, #{user_balance}, #{status},#{avatar}, #{updated_at}, #{created_at})
+    </insert>
+
+    <!--find by user name-->
+    <select id="findByUserName" parameterType="String" resultType="User">
+        select `id`, `email`, `user_name`, `password`, `first_name`, `last_name`, `phone`, `address_1`, `address_2`, `city`,`state`, `postcode`, `user_balance`, `status`, `avatar`, `updated_at`, `created_at`
+        from user where `user_name` = #{username}
+    </select>
+
+
+    <!--find by user email-->
+    <select id="findByUserEmail" parameterType="String" resultType="User">
+        select `id`, `email`, `user_name`, `password`, `first_name`, `last_name`, `phone`, `address_1`, `address_2`, `city`,`state`, `postcode`, `user_balance`, `status`, `avatar`, `updated_at`, `created_at`
+        from user where email = #{email}
+    </select>
+
+    <!--find by user id-->
+    <select id="findByUserId" parameterType="Integer" resultType="User">
+        select `id`, `email`, `user_name`, `password`, `first_name`, `last_name`, `phone`, `address_1`, `address_2`, `city`,`state`, `postcode`, `user_balance`, `status`, `avatar`, `updated_at`, `created_at`
+        from user where id = #{id}
+    </select>
+
+    <!--update-->
+    <select id="update" parameterType="User">
+        update `user` set `password` = #{password} , `first_name` = #{first_name}, `last_name` = #{last_name}, `phone` = #{phone}, `address_1` = #{address_1}, `address_2` = #{address_2}, `city` = #{city}, `state` = #{state}, `postcode` = #{postcode}, `user_balance` = #{user_balance}, `status` = #{status}, `avatar` = #{avatar}, updated_at = #{updated_at} where id = #{id}
+    </select>
+</mapper>
