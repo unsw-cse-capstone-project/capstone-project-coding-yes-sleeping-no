@@ -55,7 +55,6 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserDao userDao;
-    //TBD
     @Resource
     private JavaMailSender mailSender;
 

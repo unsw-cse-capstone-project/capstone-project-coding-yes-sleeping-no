@@ -10,6 +10,10 @@
         select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event
     </select>
 
+    <select id="findType" parameterType="String" resultType="Event">
+        select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where `type` = #{type}
+    </select>
+
     <!--findOne-->
     <select id="findOne"  parameterType="Integer" resultType="Event">
         select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where id = #{id}
@@ -34,5 +38,9 @@
     <!--update-->
     <select id="update"  parameterType="Event">
         update event set `title` = #{title}, `type` = #{type}, `description` = #{description}, `address` = #{address}, `ticket_price` = #{ticket_price}, `available_tickets` = #{available_tickets}, `cover_image` = #{cover_image}, `start_date` = #{start_date}, `start_time` = #{start_time}, `end_time` = #{end_time}, updated_at = #{updated_at} where id = #{id}
+    </select>
+
+    <select id="findKeyword"  parameterType="String" resultType="Event">
+        select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where `title` like #{title} OR `type` like #{type} OR `description` like #{description}
     </select>
 </mapper>

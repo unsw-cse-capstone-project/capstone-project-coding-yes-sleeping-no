@@ -31,9 +31,12 @@
         select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, `postcode`, `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `id` = #{id}
     </select>
 
-    <!--findOne-->
     <select id="findByHost"  parameterType="Integer" resultType="Order">
         select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, `postcode`, `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `user_id` = #{id} and `event_id` = #{event_id}
+    </select>
+
+    <select id="findByEventId"  parameterType="Integer" resultType="Order">
+        select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, `postcode`, `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `event_id` = #{event_id}
     </select>
 
 </mapper>

@@ -15,4 +15,10 @@ public interface EventService {
     void save(Event event);
 
     void update(Event event);
+
+    List<Event> findByType(String type);
+
+    List<Event> findByKeyword(String keyword);
+
+    List<Event> findIndex();
 }

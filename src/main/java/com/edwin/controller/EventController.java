@@ -7,6 +7,7 @@ import com.edwin.entity.User;
 import com.edwin.service.EventService;
 import com.edwin.utlis.Consts;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.tomcat.util.bcel.Const;
@@ -58,6 +59,23 @@ public class EventController {
         return map;
     }
 
+    @ApiOperation("get event information for index page router in event controller")
+    @GetMapping("/find/index")
+    public Map<String, Object> findIndex() {
+        Map<String, Object> map = new HashMap<>();
+        List<Event> events = eventService.findIndex();
+        if (events.size() == 0){
+            map.put("state", false);
+            map.put("msg", "Event for index page is empty");
+        }else {
+            map.put("state", false);
+            map.put("msg", "Find event for index page success");
+            map.put("event", events);
+        }
+        return map;
+    }
+
+
     @ApiOperation("delete one event by event id router in event controller")
     @GetMapping("/delete/{id}")
     public Map<String, Object> delete(@PathVariable(value = "id")Integer id) {
@@ -82,6 +100,7 @@ public class EventController {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("state", false);
+            map.put("hint", e.getMessage());
             map.put("msg", "Event fails to delete");
             return map;
         }
@@ -116,6 +135,8 @@ public class EventController {
     @PostMapping("/update")
     public Map<String, Object> update(@RequestBody Event event) throws IOException {
         log.info("event info: [{}]", event.toString());
+
+
         Map<String, Object> map = new HashMap<>();
         try {
 //            if (cover_image != null && cover_image.getSize() != 0) {
@@ -136,20 +157,57 @@ public class EventController {
         return map;
     }
 
-//    @ApiOperation("get one event information by event id router in event controller")
-//    @GetMapping("/find")
-//    public Map<String, Object> findOne(@PathVariable(value = "id") Integer id) {
-//        Map<String, Object> map = new HashMap<>();
-//        log.info("event id:[{}]", id);
-//        Event eventById = eventService.findOne(id);
-//        if (eventById == null){
-//            map.put("state", false);
-//            map.put("msg", "Event id is invalid");
-//        }else {
-//            map.put("state", false);
-//            map.put("msg", "Find event success");
-//            map.put("event", eventById);
-//        }
-//        return map;
-//    }
+    @ApiOperation("get all related event information by host id router in event controller")
+    @GetMapping("/findByHost")
+    public Map<String, Object> findByHost(HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
+        Integer userId = currentUser.getId();
+        List<Event> eventsByHost = eventDao.findHost(userId);
+        if (eventsByHost.size() == 0){
+            map.put("state", false);
+            map.put("msg", "No event found by host");
+        }else {
+            map.put("state", false);
+            map.put("msg", "Find event success");
+            map.put("event", eventsByHost);
+        }
+        return map;
+    }
+
+    @ApiOperation("get all related event information by event type router in event controller")
+    @ResponseBody
+    @PostMapping("/findByType")
+    public Map<String, Object> findByType(@RequestBody Map<String,Object> map1, HttpSession session) {
+        String type =(String) map1.get("type");
+        Map<String, Object> map = new HashMap<>();
+        List<Event> events = eventService.findByType(type);
+        if (events.size() == 0){
+            map.put("state", false);
+            map.put("msg", "No event found by event type");
+        }else {
+            map.put("state", false);
+            map.put("msg", "Find event success");
+            map.put("event", events);
+        }
+        return map;
+    }
+
+    @ApiOperation("search related event information by keyword router in event controller")
+    @ResponseBody
+    @PostMapping("/findByKeyword")
+    public Map<String, Object> findByKeyword(@RequestBody Map<String,Object> map1, HttpSession session) {
+        String keyword =(String) map1.get("keyword");
+        Map<String, Object> map = new HashMap<>();
+        List<Event> events = eventService.findByKeyword(keyword);
+        if (events.size() == 0){
+            map.put("state", false);
+            map.put("msg", "No event found by keyword");
+        }else {
+            map.put("state", false);
+            map.put("msg", "Find event success");
+            map.put("event", events);
+        }
+        return map;
+    }
 }

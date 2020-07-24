@@ -23,4 +23,8 @@ public interface EventDao {
     void update(Event event);
 
     List<Event> findHost(Integer user_id);
+
+    List<Event> findType(String type);
+
+    List<Event> findKeyword(String title, String type, String description);
 }
