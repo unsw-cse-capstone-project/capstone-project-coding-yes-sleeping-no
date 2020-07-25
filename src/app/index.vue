@@ -1,18 +1,11 @@
 <template>
   <div class="contour" style="width: 1280px;text-align: center;margin: 0 auto;">
     <el-row :gutter="20" style="margin: 0;padding: 10px;background-color: black;color: white;">
-      <el-col :span="3" style="padding: 0 0 0 20px; text-align: left;">
+      <el-col :span="5" style="padding: 0 0 0 40px; text-align: left;">
         <span class="curPoi" style="font-size: 28px;vertical-align: middle;font-style: italic;">CYSN</span>
       </el-col>
       <el-col :span="15" style="padding: 0px;">
         <el-row :gutter="20" style="margin: 0px;">
-          <el-col :span="8" style="padding: 0px;line-height: 40px;">
-            <span class="curPoi">
-              <img src="../assets/img/location.png" alt="" width="10px;" style="vertical-align: middle;" />
-              <span style="font-size: 14px;">Los Abgeles</span>
-              <img src="../assets/img/triangle.png" alt="" width="10px;" style="vertical-align: middle;" />
-            </span>
-          </el-col>
           <el-col :span="16" style="padding: 0px;line-height: 40px;">
             <div class="flexNowarp" style="font-size: 14px;">
               <div class="flexItem curPoi">Live Concerts</div>
@@ -21,22 +14,35 @@
               <div class="flexItem curPoi">Sport</div>
             </div>
           </el-col>
+          <el-col :span="8" style="padding: 0;line-height: 40px;">
+
+          </el-col>
         </el-row>
       </el-col>
-      <el-col :span="6" style="padding: 0px 20px 0px 0px;text-align: right;">
+      <el-col :span="4" style="padding: 0px 20px 0px 0px;text-align: right;">
         <div class="curPoi" v-if="Object.keys(user).length === 0">
           <img src="../assets/img/login.png" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0" @click="dialogVisible = true" />
           <span @click="dialogVisible = true">Sign In/Sign Up</span>
         </div>
         <div class="curPoi" v-if="Object.keys(user).length !== 0">
-          <router-link id="rlink" to="/accountSet" style="text-decoration: none;">
-            <el-avatar src="../assets/img/Jannabi.png" :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0"></el-avatar>
-            <span style="line-height: 40px;">{{user.user_name}}</span>
-          </router-link>
+          <el-dropdown @command="handleCommand">
+            <span class="el-dropdown-link" style="color: white">
+              <el-avatar src="../assets/img/Jannabi.png" :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0"></el-avatar>
+              <span style="line-height: 40px;">{{user.user_name}}</span>
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="orderMgm">Order Management</el-dropdown-item>
+              <el-dropdown-item command="accountSet">User Profile</el-dropdown-item>
+              <el-dropdown-item v-if="user.status===1" disabled>Event Management</el-dropdown-item>
+              <el-dropdown-item v-else-if="user.status===2" command="eventMgm">Event Management</el-dropdown-item>
+              <el-dropdown-item divided command="logout">Logout</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </el-col>
     </el-row>
-    <el-carousel indicator-position="none" height="700px" style="background-color: black">
+    <el-carousel height="700px" style="background-color: black">
       <el-carousel-item v-for="(item, index) in carouselList" :key="index">
         <img :src="item.img" alt="" height="100%" />
       </el-carousel-item>
@@ -257,10 +263,14 @@ export default {
       },
       showLogin: true,
       confirm_password: null,
-      tableData: []
+      tableData: [],
     }
   },
-  mounted: function () {},
+  mounted() {
+    this.list = this.states.map(item => {
+      return { value: `value:${item}`, label: `${item}` };
+    });
+  },
   methods: {
     // login
     login() {
@@ -324,6 +334,31 @@ export default {
     quit() {
       this.dialogVisible = false;
       this.showLogin = true;
+    },
+    handleCommand(command) {
+      if(command !== 'logout') {
+        location.href='#/'+command;
+      }
+      else {
+        this.$http.get("/user/logout").then(
+                res=>{
+                  if(res.state){
+                    this.$message({
+                      message: res.msg,
+                      type: 'success'
+                    });
+                    localStorage.removeItem("user");
+                    this.user = {};
+                    location.href = '/';
+                  }
+                  else {
+                    this.$message({
+                      message: res.msg,
+                      type: 'fail'
+                    });
+                  }
+                });
+      }
     }
   },
   created() {
@@ -356,10 +391,10 @@ export default {
     padding: 0px;
     height: 100%;
   }
-  #rlink :visited {
+  .rlink :visited {
     color: white;
   }
-  #rlink {
+  .rlink {
     color: white;
   }
 </style>

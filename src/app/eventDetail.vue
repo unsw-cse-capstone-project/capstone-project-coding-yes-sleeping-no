@@ -11,28 +11,12 @@
                         <el-row style="text-align: left; padding: 5px">
                             <span style="font-size: 32px;">{{event.title}}</span>
                         </el-row>
-                        <el-rate
-                                v-model="event.rate"
-                                disabled
-                                show-score
-                                text-color="#ff9900"
-                                score-template="{value}"
-                                style="text-align: left; padding: 10px 0">
-                        </el-rate>
                         <el-row style="text-align: left; padding: 10px">
                             <el-col :span="6" style="padding: 10px 0px">
                                 <span>Location: </span>
                             </el-col>
                             <el-col :span="18" style="padding: 10px 0px">
                                 <span>{{event.address}}</span>
-<!--                                <el-select v-model="loc_value" placeholder="Select">-->
-<!--                                    <el-option-->
-<!--                                            v-for="item in event.adderess"-->
-<!--                                            :key="item"-->
-<!--                                            :label="item"-->
-<!--                                            :value="item">-->
-<!--                                    </el-option>-->
-<!--                                </el-select>-->
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
@@ -41,14 +25,6 @@
                             </el-col>
                             <el-col :span="18" style="padding: 10px 0px">
                                 <span>{{event.start_date}}</span>
-<!--                                <el-select v-model="date_value" placeholder="Select">-->
-<!--                                    <el-option-->
-<!--                                            v-for="item in event.start_date"-->
-<!--                                            :key="item"-->
-<!--                                            :label="item"-->
-<!--                                            :value="item">-->
-<!--                                    </el-option>-->
-<!--                                </el-select>-->
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
@@ -57,14 +33,6 @@
                             </el-col>
                             <el-col :span="18" style="padding: 10px 0px">
                                 <span>{{event.start_time}}</span>
-<!--                                <el-select v-model="time_value" placeholder="Select">-->
-<!--                                    <el-option-->
-<!--                                            v-for="item in event.start_time"-->
-<!--                                            :key="item"-->
-<!--                                            :label="item"-->
-<!--                                            :value="item">-->
-<!--                                    </el-option>-->
-<!--                                </el-select>-->
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
@@ -99,7 +67,7 @@
                 <el-row style="margin: 50px 0">
                     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
                         <el-menu-item index="1"  style="font-size: 20px"><a href="#description">Description</a></el-menu-item>
-                        <el-menu-item index="2"  style="font-size: 20px"><a href="#comment">Comments</a></el-menu-item>
+                        <el-menu-item index="2"  style="font-size: 20px"><a href="#comment">Review</a></el-menu-item>
                     </el-menu>
                 </el-row>
 
@@ -108,7 +76,7 @@
                     <p>{{event.description}}</p>
                 </el-row>
                 <el-row id="comment" name="comment" style="text-align: left">
-                    <h2>Comments</h2>
+                    <h2>Review</h2>
                     <div>
                         <el-row>
                             <el-col :span="18">
@@ -198,25 +166,9 @@
                             </el-input>
                         </el-row>
                         <el-row>
-                            <el-col :span="6">
-                                <el-row>
-                                    <div style="margin-top: 20px" class="block">
-                                        <span class="demonstration" >Rate this event</span>
-                                        <el-rate
-                                                show-text
-                                                :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
-                                                style="margin-top: 20px"
-                                                v-model="rate_value"
-                                                :colors="colors">
-                                        </el-rate>
-                                    </div>
-                                </el-row>
-                            </el-col>
-                            <el-col :span="18">
-                                <el-row>
-                                    <el-button style="margin-top:40px; margin-left: 400px" type="primary" round>Submit</el-button>
-                                </el-row>
-                            </el-col>
+                            <el-row>
+                                <el-button style="margin-top:40px; margin-left: 400px" type="primary" round>Submit</el-button>
+                            </el-row>
                         </el-row>
                     </div>
                 </el-row>
@@ -310,8 +262,7 @@
         <el-dialog
                 class="dialog"
                 :visible.sync="dialogFormVisible"
-                width="890px"
-        >
+                width="890px">
             <el-row style="height: 80%;">
                 <el-tabs v-model="this.activeName" >
                     <el-tab-pane label="1.Shipping Detail" name="first">

@@ -5,7 +5,7 @@
                 <el-form-item class="labels" label="Event name:">
                     <el-input v-model="form.title"></el-input>
                 </el-form-item>
-                <el-form-item class="labels" label="Event type:">
+                <el-form-item class="labels" label="Event type:" style="text-align: left">
                     <el-select v-model="form.type" placeholder="Event type" style="margin: 0">
                         <el-option
                                 v-for="item in options"
@@ -15,12 +15,16 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
+                <el-form-item class="labels" label="Tickets:" style="text-align: left">
+                    <el-input-number v-model="form.num" controls-position="right" :min="1" :max="10000"></el-input-number>
+                </el-form-item>
+
                 <el-form-item class="labels" label="Location:">
                     <el-input v-model="form.address"></el-input>
                 </el-form-item>
                 <el-form-item class="labels" label="Date:">
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="Select Date" v-model="form.start_date" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="Select Date" v-model="form.start_date" style="width: 100%;" value-format="yyyy-MM-dd"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item class="labels" label="Time:">
@@ -30,7 +34,8 @@
                                 :picker-options="{
                                     selectableRange: '0:0:00 - 23:59:00'
                                 }"
-                                placeholder="Select Start Time">
+                                placeholder="Select Start Time"
+                                value-format="yyyy-MM-dd HH:mm:ss">
                         </el-time-picker>
                     </el-col>
                     <el-col class="line" :span="2">-</el-col>
@@ -40,7 +45,8 @@
                                 :picker-options="{
                                     selectableRange: '0:0:00 - 23:59:00'
                                 }"
-                                placeholder="Select End Time">
+                                placeholder="Select End Time"
+                                value-format="yyyy-MM-dd HH:mm:ss">
                         </el-time-picker>
                     </el-col>
                 </el-form-item>
@@ -97,6 +103,7 @@
                                 message: res.msg,
                                 type: 'success'
                             });
+                            location.href='#/eventMgm';
                         }
                         else {
                             this.$message({
@@ -105,7 +112,7 @@
                             });
                             this.user = {}
                         }
-                    })
+                    });
             }
         }
     }

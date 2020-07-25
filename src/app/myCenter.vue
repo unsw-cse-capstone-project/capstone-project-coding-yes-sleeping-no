@@ -22,13 +22,13 @@
                     </el-menu-item>
                 </router-link>
                 <router-link to="/accountSet" style="text-decoration: none; text-align: left;">
-                    <el-menu-item index="2" style="margin: 0 40px">
+                    <el-menu-item index="4" style="margin: 0 40px">
                         <i class="el-icon-setting"></i>
                         <span slot="title">User Profile</span>
                     </el-menu-item>
                 </router-link>
                 <div style="text-decoration: none; text-align: left;">
-                    <el-menu-item index="4" style="margin: 0 40px" @click="logout" >
+                    <el-menu-item index="5" style="margin: 0 40px" @click="logout" >
                         <i class="el-icon-setting"></i>
                         <span slot="title">logout</span>
                     </el-menu-item>
@@ -70,7 +70,6 @@
                             });
                         }
                     });
-
             }
         },
         created() {

@@ -5,6 +5,7 @@ const accountSet = r => require.ensure([], () => r(require('../components/accoun
 const orderMgm = r => require.ensure([], () => r(require('../components/orderMgm')), 'orderMgm');
 const addEvent = r => require.ensure([], () => r(require('../components/addEvent')), 'addEvent');
 const eventMgm = r => require.ensure([], () => r(require('../components/eventMgm')), 'eventMgm');
+const search = r => require.ensure([], () => r(require('../components/search')), 'search');
 const forgetPwd = r => require.ensure([], () => r(require('../app/forgetPwd')), 'forgetPwd');
 const resetPwd = r => require.ensure([], () => r(require('../app/resetPwd')), 'resetPwd');
 const webHead = r => require.ensure([], () => r(require('../app/webHead')), 'webHead');
@@ -66,6 +67,11 @@ const routers = [
         path: '/eventDetail/:id',
         component: eventDetail,
         name: 'eventDetail'
+      },
+      {
+        path: '/search',
+        component: search,
+        name: 'search'
       }
     ]
   }
