@@ -2,7 +2,9 @@ package com.edwin.dao;
 
 
 import com.edwin.entity.Event;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +14,19 @@ import java.util.List;
 @Repository
 @Service
 public interface EventDao {
-    List<Event> findAll();
+    List<Event> findAll(@Param("status") Integer status);
 
-    Event findOne(Integer id);
+    Event findOne(@Param("id") Integer id,@Param("status") Integer status);
 
-    void delete(Integer id);
+    void delete(@Param("id")Integer id);
 
     void save(Event event);
 
     void update(Event event);
 
-    List<Event> findHost(Integer user_id);
+    List<Event> findHost(@Param("user_id") Integer user_id,@Param("status") Integer status);
 
-    List<Event> findType(String type);
+    List<Event> findType(@Param("type")String type, @Param("status")Integer status);
 
-    List<Event> findKeyword(String title, String type, String description);
+    List<Event> findKeyword(@Param("title")String title, @Param("type")String type, @Param("description")String description,@Param("status") Integer status);
 }

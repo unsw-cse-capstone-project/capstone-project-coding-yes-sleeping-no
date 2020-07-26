@@ -22,6 +22,7 @@ public class Event {
     private String address;
     private BigDecimal ticket_price;
     private Integer available_tickets;
+    private Integer status;
     private String cover_image;
     private Date start_date;
     private Date start_time;

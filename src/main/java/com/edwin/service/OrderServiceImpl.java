@@ -4,9 +4,12 @@ package com.edwin.service;
 
 import com.edwin.dao.EventDao;
 import com.edwin.dao.OrderDao;
+import com.edwin.dao.PaymentDao;
 import com.edwin.entity.Event;
 import com.edwin.entity.Order;
+import com.edwin.entity.Payment;
 import com.edwin.entity.User;
+import com.edwin.utlis.Consts;
 import com.edwin.utlis.OrderNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,10 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+
+/**
+ * payment 1 master
+ * 2 paypal
+ */
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
@@ -33,8 +44,27 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
 
+    @Autowired
+    private PaymentDao paymentDao;
+
     @Override
-    public Order create(Integer eventId, Integer ticketAmount, User currentUser) {
+    public Order create(Map<String,Object> map1, User currentUser) {
+        Integer eventId =(Integer) map1.get("eventId");
+        Integer ticketAmount =(Integer) map1.get("ticketAmount");
+        String firstName =(String) map1.get("firstName");
+        String lastName =(String) map1.get("lastName");
+        String email =(String) map1.get("email");
+        String phone =(String) map1.get("phone");
+        String address_1 =(String) map1.get("address_1");
+        String address_2 =(String) map1.get("address_2");
+        String city =(String) map1.get("city");
+        String state =(String) map1.get("state");
+        String postcode =(String) map1.get("postcode");
+        String card_number =(String) map1.get("card_number");
+        String expiry_date =(String) map1.get("expiry_date");
+        Integer cvv =(Integer) map1.get("cvv");
+        Integer status =(Integer) map1.get("status");
+        String card_holder =(String) map1.get("card_holder");
         if (eventId == null){
             throw new RuntimeException("event id is empty");
         }
@@ -46,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderNumber == -1){
             throw new RuntimeException("order number is not unique");
         }
-        Event currentEvent = eventDao.findOne(eventId);
+        Event currentEvent = eventDao.findOne(eventId,1);
         if (ObjectUtils.isEmpty(currentEvent)){
             throw new RuntimeException("event dose not exist");
         }
@@ -56,13 +86,47 @@ public class OrderServiceImpl implements OrderService {
         order.setEvent_id(eventId);
         order.setUser_id(userId);
         order.setTicket_amount(ticketAmount);
-        order.setStatus(0);
-        System.out.println(getTotalPrice(ticketPrice, ticketAmount));
-        order.setTotal_price(getTotalPrice(ticketPrice, ticketAmount));
+        order.setLast_name(lastName);
+        order.setFirst_name(firstName);
+        order.setEmail(email);
+        order.setPhone(phone);
+        order.setAddress_1(address_1);
+        order.setAddress_2(address_2);
+        order.setCity(city);
+        order.setState(state);
+        order.setPostcode(postcode);
+        order.setStatus(1);
+        BigDecimal totalPrice = getTotalPrice(ticketPrice, ticketAmount);
+        System.out.println(ticketPrice);
+
+        order.setTotal_price(totalPrice);
         order.setCreated_at(new Date());
         order.setUpdated_at(new Date());
+        Payment payment = new Payment();
+        payment.setAccount_balance(new BigDecimal(0.00));
+        payment.setCard_number(card_number);
+        payment.setExpiry_date(expiry_date);
+        payment.setCvv(cvv);
+        payment.setCard_holder(card_holder);
+        payment.setStatus(status);
+        payment.setCreated_at(new Date());
+        payment.setUpdate_at(new Date());
         try {
             orderDao.save(order);
+            paymentDao.save(payment);
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("719204145@qq.com");
+            message.setTo(currentUser.getEmail());
+            message.setSubject("CYSN - order receipt");
+            message.setText("   The event: " + currentEvent.getTitle() + " has been ordered successfully." + "\n" + "\n" +
+                    "   Your order number:  " +orderNumber.toString() + "\n" + "\n" +
+                    "   Ticket amount:  "
+                    + ticketAmount.toString() + "\n" + "\n" +
+                    "   Total price:  "
+                    + totalPrice.toString() +
+                    "\n" + "\n" + "   Thanks for your support to CYSN website." + "\n" + "\n" +
+                    "   See more exciting activities, please go to the home page! ");
+            mailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,7 +154,7 @@ public class OrderServiceImpl implements OrderService {
         if (timeDifference/(1000 * 60) > 10){
             throw new RuntimeException("more than 10 minutes, order expires");
         }
-        Event currentEvent = eventDao.findOne(currentOrder.getEvent_id());
+        Event currentEvent = eventDao.findOne(currentOrder.getEvent_id(),1);
         if (currentEvent.getAvailable_tickets() - currentOrder.getTicket_amount() < 0){
             throw new RuntimeException("fail to pay, because of the short of available tickets");
         }
@@ -110,6 +174,7 @@ public class OrderServiceImpl implements OrderService {
         message.setFrom("719204145@qq.com");
         message.setTo(currentUser.getEmail());
         message.setSubject("CYSN - order receipt");
+
         message.setText("Your order number: " + currentOrder.getOrder_number() +
                 "\n" + "ticket amount: " + currentOrder.getTicket_amount() +
                 "\n" + "total price: " + currentOrder.getTotal_price());
@@ -141,9 +206,10 @@ public class OrderServiceImpl implements OrderService {
         if (currentOrder.getStatus() != 1){
             throw new RuntimeException("order status is not 1, cannot cancel");
         }
-        Event currentEvent = eventDao.findOne(currentOrder.getEvent_id());
-        if (new Date().getTime() - currentEvent.getStart_date().getTime() >= 0){
-            throw new RuntimeException("event has started, cannot cancel");
+        Event currentEvent = eventDao.findOne(currentOrder.getEvent_id(),1);
+        long timeDifference = currentEvent.getStart_date().getTime() - new Date().getTime();
+        if (timeDifference/(1000 * 60 * 60 * 24) < 7){
+            throw new RuntimeException("Less than seven days from the start date, cannot cancel");
         }
         BigDecimal totalPrice = currentOrder.getTotal_price();
         Integer availableTickets = currentEvent.getAvailable_tickets();
@@ -155,20 +221,33 @@ public class OrderServiceImpl implements OrderService {
         BigDecimal newUserBalance = userBalance.add(totalPrice);
         currentUser.setUser_balance(newUserBalance);
         currentUser.setUpdated_at(new Date());
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(Consts.SENDER_EMAIL);
+        message.setTo(currentUser.getEmail());
+        message.setSubject("CYSN - cancel order notification");
+        message.setText("   The event you ordered: " + currentEvent.getTitle() + " has been canceled successfully." + "\n" + "\n" +
+                "   CYSN staff will refund booking costs to your " +
+                "user balance within 3 business days." + "\n" + "\n" + "   Thanks for your support to CYSN website." + "\n" + "\n" +
+                "   See more exciting activities, please go to the home page! ");
+        mailSender.send(message);
         return currentOrder;
     }
 
     @Override
-    public List<Order> findHost(Integer eventId, User currentUser) {
-        if (eventId == null){
-            throw new RuntimeException("event id is empty");
-        }
+    public List<Order> findHost(User currentUser) {
         if (ObjectUtils.isEmpty(currentUser)){
             throw new RuntimeException("current user is empty");
         }
         Integer userId = currentUser.getId();
-        List<Order> ordersByHost = orderDao.findByHost(userId, eventId);
-        return ordersByHost;
+        List<Order> orders = new ArrayList<>();
+        List<Event> eventsByHost = eventDao.findHost(userId, 1);
+        for (Event event: eventsByHost){
+            List<Order> orderDaoByEventId = orderDao.findByEventId(event.getId());
+            for (Order order:orderDaoByEventId){
+                orders.add(order);
+            }
+        }
+        return orders;
     }
 
     // TBD precision problems

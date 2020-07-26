@@ -48,13 +48,27 @@ public class EventController {
         Map<String, Object> map = new HashMap<>();
         log.info("event id:[{}]", id);
         Event eventById = eventService.findOne(id);
+        String type = eventById.getType();
+        List<Event> recommendedEvents = eventDao.findType(type, 1);
+        for (Event event : recommendedEvents) {
+            Date start_date = event.getStart_date();
+            Long timeDiffernce = start_date.getTime() - new Date().getTime();
+            int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+            if (days < 1) {
+                recommendedEvents.remove(event);
+            }
+            if (event.getAvailable_tickets() <= 1) {
+                recommendedEvents.remove(event);
+            }
+        }
         if (eventById == null){
             map.put("state", false);
             map.put("msg", "Event id is invalid");
         }else {
-            map.put("state", false);
+            map.put("state", true);
             map.put("msg", "Find event success");
             map.put("event", eventById);
+            map.put("recommended", recommendedEvents);
         }
         return map;
     }
@@ -63,19 +77,71 @@ public class EventController {
     @GetMapping("/find/index")
     public Map<String, Object> findIndex() {
         Map<String, Object> map = new HashMap<>();
-        List<Event> events = eventService.findIndex();
-        if (events.size() == 0){
-            map.put("state", false);
-            map.put("msg", "Event for index page is empty");
-        }else {
-            map.put("state", false);
+        List<Event> liveConcerts = eventDao.findType("Live Concerts", 1);
+        List<Event> movies = eventDao.findType("Movies", 1);
+        List<Event> drama = eventDao.findType("Drama", 1);
+        List<Event> sport = eventDao.findType("Sport", 1);
+
+        try {
+            for (Event event : liveConcerts) {
+                Date start_date = event.getStart_date();
+                Long timeDiffernce = start_date.getTime() - new Date().getTime();
+                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+                if (days < 15) {
+                    liveConcerts.remove(event);
+                }
+                if (event.getAvailable_tickets() <= 1) {
+                    liveConcerts.remove(event);
+                }
+            }
+            for (Event event : movies) {
+                Date start_date = event.getStart_date();
+                Long timeDiffernce = start_date.getTime() - new Date().getTime();
+                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+                if (days < 15) {
+                    movies.remove(event);
+                }
+                if (event.getAvailable_tickets() <= 1) {
+                    movies.remove(event);
+                }
+            }
+            for (Event event : drama) {
+                Date start_date = event.getStart_date();
+                Long timeDiffernce = start_date.getTime() - new Date().getTime();
+                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+                if (days < 15) {
+                    drama.remove(event);
+                }
+                if (event.getAvailable_tickets() <= 1) {
+                    drama.remove(event);
+                }
+            }
+            for (Event event : sport) {
+                Date start_date = event.getStart_date();
+                Long timeDiffernce = start_date.getTime() - new Date().getTime();
+                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+                if (days < 15) {
+                    sport.remove(event);
+                }
+                if (event.getAvailable_tickets() <= 1) {
+                    sport.remove(event);
+                }
+            }
+            map.put("state", true);
             map.put("msg", "Find event for index page success");
-            map.put("event", events);
+            map.put("Live Concerts", liveConcerts);
+            map.put("Movies", movies);
+            map.put("Drama", drama);
+            map.put("sport", sport);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state", false);
+            map.put("hint", e.getMessage());
+            map.put("msg", "Event fails to find for index page");
         }
+
         return map;
     }
-
-
     @ApiOperation("delete one event by event id router in event controller")
     @GetMapping("/delete/{id}")
     public Map<String, Object> delete(@PathVariable(value = "id")Integer id) {
@@ -120,6 +186,7 @@ public class EventController {
             event.setCreated_at(new Date());
             event.setUpdated_at(new Date());
             event.setUser_id(currentUser.getId());
+            event.setStatus(1);
             eventService.save(event);
             map.put("state", true);
             map.put("msg", "Event information saves success");
@@ -163,12 +230,13 @@ public class EventController {
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         Integer userId = currentUser.getId();
-        List<Event> eventsByHost = eventDao.findHost(userId);
+        log.info("user id : [{}]", userId);
+        List<Event> eventsByHost = eventDao.findHost(userId,1);
         if (eventsByHost.size() == 0){
             map.put("state", false);
             map.put("msg", "No event found by host");
         }else {
-            map.put("state", false);
+            map.put("state", true);
             map.put("msg", "Find event success");
             map.put("event", eventsByHost);
         }
@@ -186,7 +254,7 @@ public class EventController {
             map.put("state", false);
             map.put("msg", "No event found by event type");
         }else {
-            map.put("state", false);
+            map.put("state", true);
             map.put("msg", "Find event success");
             map.put("event", events);
         }
@@ -204,10 +272,29 @@ public class EventController {
             map.put("state", false);
             map.put("msg", "No event found by keyword");
         }else {
-            map.put("state", false);
+            map.put("state", true);
             map.put("msg", "Find event success");
             map.put("event", events);
         }
         return map;
     }
+
+//    @ApiOperation("recommended events by user router in event controller")
+//    @ResponseBody
+//    @PostMapping("/recommended")
+//    public Map<String, Object> recommended(@RequestBody Map<String,Object> map1, HttpSession session) {
+//        String keyword =(String) map1.get("keyword");
+//        Map<String, Object> map = new HashMap<>();
+//        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
+//        List<Event> events = eventService.findByRecommended(currentUser);
+//        if (events.size() == 0){
+//            map.put("state", false);
+//            map.put("msg", "No event found for recommended");
+//        }else {
+//            map.put("state", true);
+//            map.put("msg", "Find recommended events success");
+//            map.put("event", events);
+//        }
+//        return map;
+//    }
 }

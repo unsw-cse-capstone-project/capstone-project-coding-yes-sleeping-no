@@ -23,7 +23,8 @@ public class Order {
     private String last_name;
     private String email;
     private String phone;
-    private String address;
+    private String address_1;
+    private String address_2;
     private String city;
     private String state;
     private String postcode;

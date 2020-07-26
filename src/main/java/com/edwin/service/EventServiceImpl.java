@@ -42,13 +42,13 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Event> findAll() {
-        return eventDao.findAll();
+        return eventDao.findAll(1);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public Event findOne(Integer id) {
-        return eventDao.findOne(id);
+        return eventDao.findOne(id,1);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class EventServiceImpl implements EventService {
         if (id == null) {
             throw new RuntimeException("event id does not exist");
         }
-        Event currentEvent = eventDao.findOne(id);
+        Event currentEvent = eventDao.findOne(id,1);
         long timeDifference = new Date().getTime() - currentEvent.getStart_date().getTime();
         if (timeDifference >= 0) {
             throw new RuntimeException("event has started, cannot cancel");
@@ -90,7 +90,7 @@ public class EventServiceImpl implements EventService {
                     "   See more exciting activities, please go to the home page! ");
             mailSender.send(message);
         }
-        eventDao.delete(id);
+        currentEvent.setStatus(0);
     }
 
     @Override
@@ -108,10 +108,10 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> findByType(String type) {
-        if (StringUtils.isEmpty(type)){
+        if (StringUtils.isEmpty(type)) {
             throw new RuntimeException("type is empty");
         }
-        List<Event> eventsByType = eventDao.findType(type);
+        List<Event> eventsByType = eventDao.findType(type,1);
         if (eventsByType.size() == 0) {
             throw new RuntimeException("Event by type is empty");
         } else {
@@ -121,30 +121,36 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> findByKeyword(String keyword) {
-        if (StringUtils.isEmpty(keyword)){
+        if (StringUtils.isEmpty(keyword)) {
             throw new RuntimeException("keyword is empty");
         }
         String title = "%" + keyword + "%";
         String type = "%" + keyword + "%";
         String description = "%" + keyword + "%";
-        List<Event> eventsByKeyword = eventDao.findKeyword(title,type,description);
+        List<Event> eventsByKeyword = eventDao.findKeyword(title, type, description,1);
         return eventsByKeyword;
     }
 
+    @Deprecated
     @Override
     public List<Event> findIndex() {
-        List<Event> allEvents = eventDao.findAll();
-        for (Event event: allEvents){
+        List<Event> allEvents = eventDao.findAll(1);
+        for (Event event : allEvents) {
             Date start_date = event.getStart_date();
             Long timeDiffernce = start_date.getTime() - new Date().getTime();
             int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
-            if (days < 15){
+            if (days < 15) {
                 allEvents.remove(event);
             }
-            if (event.getAvailable_tickets() <= 1){
+            if (event.getAvailable_tickets() <= 1) {
                 allEvents.remove(event);
             }
         }
         return allEvents;
     }
+
+//    @Override
+//    public List<Event> findByRecommended(User user) {
+//
+//    }
 }

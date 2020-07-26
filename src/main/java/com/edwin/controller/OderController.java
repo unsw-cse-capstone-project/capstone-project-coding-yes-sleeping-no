@@ -28,11 +28,11 @@ public class OderController {
 
     @ApiOperation("create one order router in order controller")
     @PostMapping("/create")
-    public Map<String, Object> create(Integer eventId, Integer ticketAmount, HttpSession session){
+    public Map<String, Object> create(@RequestBody Map<String,Object> map1, HttpSession session){
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         try {
-            Order currentOrder = orderService.create(eventId, ticketAmount, currentUser);
+            Order currentOrder = orderService.create(map1, currentUser);
             session.setAttribute(Consts.CURRENT_ORDER, currentOrder);
             map.put("state", true);
             map.put("msg", "create order success");
@@ -66,7 +66,7 @@ public class OderController {
     }
 
     @ApiOperation("get all orders for one user router in order controller")
-    @GetMapping("/get")
+    @GetMapping("/get/customer")
     public Map<String, Object> get(HttpSession session){
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
@@ -105,14 +105,19 @@ public class OderController {
 
     @ApiOperation("find all customer orders through event created by host")
     @GetMapping("/get/host")
-    public Map<String,Object> getHost(HttpSession session, Integer eventId){
+    public Map<String,Object> getHost(HttpSession session){
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         try {
-            List<Order> ordersByHost = orderService.findHost(eventId, currentUser);
-            map.put("state", true);
-            map.put("msg", "get order details through event created by host");
-            map.put("orders", ordersByHost);
+            List<Order> ordersByHost = orderService.findHost(currentUser);
+            if (ordersByHost.size() == 0){
+                map.put("state", false);
+                map.put("msg", "no order found by host");
+            }else {
+                map.put("state", true);
+                map.put("msg", "get order details by host");
+                map.put("orders", ordersByHost);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             map.put("state", true);
