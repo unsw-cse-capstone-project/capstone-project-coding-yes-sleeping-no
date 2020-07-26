@@ -23,7 +23,7 @@ public class Payment {
     private String card_holder;
     private BigDecimal account_balance;
     private Integer status;
-    private Date update_at;
+    private Date updated_at;
     private Date created_at;
     private Integer order_id;
 }

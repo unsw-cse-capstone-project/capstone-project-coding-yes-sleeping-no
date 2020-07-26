@@ -49,8 +49,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order create(Map<String,Object> map1, User currentUser) {
-        Integer eventId =(Integer) map1.get("eventId");
-        Integer ticketAmount =(Integer) map1.get("ticketAmount");
+        Integer eventId =(Integer) map1.get("event_id");
+        Integer ticketAmount =(Integer) map1.get("ticket_amount");
         Order order = new Order();
         Payment payment = new Payment();
         if (!ObjectUtils.isEmpty(map1.get("firstName"))){
@@ -111,6 +111,12 @@ public class OrderServiceImpl implements OrderService {
         if (ObjectUtils.isEmpty(currentEvent)){
             throw new RuntimeException("event dose not exist");
         }
+        if (currentEvent.getAvailable_tickets() - ticketAmount < 0){
+            throw new RuntimeException("fail to pay, because of the short of available tickets");
+        }
+        if ( new Date().getTime() - currentEvent.getEnd_time().getTime() <= 0){
+            throw new RuntimeException("event is over, fail to pay");
+        }
         BigDecimal ticketPrice = currentEvent.getTicket_price();
         order.setOrder_number(orderNumber);
         order.setEvent_id(eventId);
@@ -119,13 +125,16 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(1);
         BigDecimal totalPrice = getTotalPrice(ticketPrice, ticketAmount);
         System.out.println(ticketPrice);
-
+        Integer available_tickets = currentEvent.getAvailable_tickets();
+        currentEvent.setAvailable_tickets(currentEvent.getAvailable_tickets() - ticketAmount);
+        currentEvent.setUpdated_at(new Date());
+        eventDao.update(currentEvent);
         order.setTotal_price(totalPrice);
         order.setCreated_at(new Date());
         order.setUpdated_at(new Date());
         payment.setAccount_balance(new BigDecimal(0.00));
         payment.setCreated_at(new Date());
-        payment.setUpdate_at(new Date());
+        payment.setUpdated_at(new Date());
         try {
             orderDao.save(order);
             paymentDao.save(payment);
