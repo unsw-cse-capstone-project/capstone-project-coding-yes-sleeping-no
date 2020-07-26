@@ -51,20 +51,51 @@ public class OrderServiceImpl implements OrderService {
     public Order create(Map<String,Object> map1, User currentUser) {
         Integer eventId =(Integer) map1.get("eventId");
         Integer ticketAmount =(Integer) map1.get("ticketAmount");
-        String firstName =(String) map1.get("firstName");
-        String lastName =(String) map1.get("lastName");
-        String email =(String) map1.get("email");
-        String phone =(String) map1.get("phone");
-        String address_1 =(String) map1.get("address_1");
-        String address_2 =(String) map1.get("address_2");
-        String city =(String) map1.get("city");
-        String state =(String) map1.get("state");
-        String postcode =(String) map1.get("postcode");
-        String card_number =(String) map1.get("card_number");
-        String expiry_date =(String) map1.get("expiry_date");
-        Integer cvv =(Integer) map1.get("cvv");
-        Integer status =(Integer) map1.get("status");
-        String card_holder =(String) map1.get("card_holder");
+        Order order = new Order();
+        Payment payment = new Payment();
+        if (!ObjectUtils.isEmpty(map1.get("firstName"))){
+            String firstName =(String) map1.get("firstName");
+            order.setFirst_name(firstName);
+        } if (!ObjectUtils.isEmpty(map1.get("lastName"))){
+            String lastName =(String) map1.get("lastName");
+            order.setLast_name(lastName);
+        } if (!ObjectUtils.isEmpty(map1.get("email"))){
+            String email =(String) map1.get("email");
+            order.setEmail(email);
+        } if (!ObjectUtils.isEmpty(map1.get("phone"))){
+            String phone =(String) map1.get("phone");
+            order.setPhone(phone);
+        } if (!ObjectUtils.isEmpty(map1.get("address_1"))){
+            String address_1 =(String) map1.get("address_1");
+            order.setAddress_1(address_1);
+        } if (!ObjectUtils.isEmpty(map1.get("address_2"))){
+            String address_2 =(String) map1.get("address_2");
+            order.setAddress_2(address_2);
+        }if (!ObjectUtils.isEmpty(map1.get("city"))){
+            String city =(String) map1.get("city");
+            order.setCity(city);
+        }if (!ObjectUtils.isEmpty(map1.get("state"))){
+            String state =(String) map1.get("state");
+            order.setState(state);
+        }if (!ObjectUtils.isEmpty(map1.get("postcode"))){
+            String postcode =(String) map1.get("postcode");
+            order.setPostcode(postcode);
+        }if (!ObjectUtils.isEmpty(map1.get("card_number"))){
+            String card_number =(String) map1.get("card_number");
+            payment.setCard_number(card_number);
+        }if (!ObjectUtils.isEmpty(map1.get("expiry_date"))){
+            String expiry_date =(String) map1.get("expiry_date");
+            payment.setExpiry_date(expiry_date);
+        }if (!ObjectUtils.isEmpty(map1.get("cvv"))){
+            Integer cvv =(Integer) map1.get("cvv");
+            payment.setCvv(cvv);
+        }if (!ObjectUtils.isEmpty(map1.get("status"))){
+            Integer status =(Integer) map1.get("status");
+            payment.setStatus(status);
+        }if (!ObjectUtils.isEmpty(map1.get("card_holder"))){
+            String card_holder =(String) map1.get("card_holder");
+            payment.setCard_holder(card_holder);
+        }
         if (eventId == null){
             throw new RuntimeException("event id is empty");
         }
@@ -81,20 +112,10 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("event dose not exist");
         }
         BigDecimal ticketPrice = currentEvent.getTicket_price();
-        Order order = new Order();
         order.setOrder_number(orderNumber);
         order.setEvent_id(eventId);
         order.setUser_id(userId);
         order.setTicket_amount(ticketAmount);
-        order.setLast_name(lastName);
-        order.setFirst_name(firstName);
-        order.setEmail(email);
-        order.setPhone(phone);
-        order.setAddress_1(address_1);
-        order.setAddress_2(address_2);
-        order.setCity(city);
-        order.setState(state);
-        order.setPostcode(postcode);
         order.setStatus(1);
         BigDecimal totalPrice = getTotalPrice(ticketPrice, ticketAmount);
         System.out.println(ticketPrice);
@@ -102,13 +123,7 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal_price(totalPrice);
         order.setCreated_at(new Date());
         order.setUpdated_at(new Date());
-        Payment payment = new Payment();
         payment.setAccount_balance(new BigDecimal(0.00));
-        payment.setCard_number(card_number);
-        payment.setExpiry_date(expiry_date);
-        payment.setCvv(cvv);
-        payment.setCard_holder(card_holder);
-        payment.setStatus(status);
         payment.setCreated_at(new Date());
         payment.setUpdate_at(new Date());
         try {

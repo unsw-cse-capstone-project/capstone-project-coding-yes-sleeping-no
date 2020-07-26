@@ -5,6 +5,8 @@ import com.edwin.entity.User;
 import com.edwin.service.OrderService;
 import com.edwin.utlis.Consts;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,8 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/order")
+@Slf4j
+
 /**
  * order status: 0 not pay
  * order status: 1 have paid
@@ -32,6 +36,7 @@ public class OderController {
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
         try {
+            log.info("map11111 status ==============:[{}]", map1.toString());
             Order currentOrder = orderService.create(map1, currentUser);
             session.setAttribute(Consts.CURRENT_ORDER, currentOrder);
             map.put("state", true);

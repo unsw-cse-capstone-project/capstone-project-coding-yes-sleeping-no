@@ -1,7 +1,10 @@
 package com.edwin.controller;
 
 import com.edwin.dao.EventDao;
+import com.edwin.dao.EventReviewDao;
+import com.edwin.dao.UserDao;
 import com.edwin.entity.Event;
+import com.edwin.entity.EventReview;
 import com.edwin.entity.Order;
 import com.edwin.entity.User;
 import com.edwin.service.EventService;
@@ -38,7 +41,13 @@ public class EventController {
     private EventService eventService;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private EventDao eventDao;
+
+    @Autowired
+    private EventReviewDao eventReviewDao;
 
     @ApiOperation("get all event information router in event controller")
     @GetMapping("/findAll")
@@ -52,8 +61,20 @@ public class EventController {
         Map<String, Object> map = new HashMap<>();
         log.info("event id:[{}]", id);
         Event eventById = eventService.findOne(id);
+        if (eventById == null){
+            map.put("state", false);
+            map.put("msg", "Event id is invalid");
+            return map;
+        }
         String type = eventById.getType();
         List<Event> recommendedEvents = eventDao.findType(type, 1);
+        recommendedEvents.remove(eventById);
+        List<EventReview> eventReviewsByEvent = eventReviewDao.findByEvent(id);
+        List<User> users = new ArrayList<>();
+        for (EventReview eventReview: eventReviewsByEvent){
+            Integer sender_id = eventReview.getSender_id();
+            users.add(userDao.findByUserId(sender_id));
+        }
         for (Event event : recommendedEvents) {
             Date start_date = event.getStart_date();
             Long timeDiffernce = start_date.getTime() - new Date().getTime();
@@ -65,15 +86,12 @@ public class EventController {
                 recommendedEvents.remove(event);
             }
         }
-        if (eventById == null){
-            map.put("state", false);
-            map.put("msg", "Event id is invalid");
-        }else {
-            map.put("state", true);
-            map.put("msg", "Find event success");
-            map.put("event", eventById);
-            map.put("recommended", recommendedEvents);
-        }
+        map.put("state", true);
+        map.put("msg", "Find event success");
+        map.put("event", eventById);
+        map.put("recommended", recommendedEvents);
+        map.put("eventReviews", eventReviewsByEvent);
+        map.put("eventReviewUsers", users);
         return map;
     }
 
