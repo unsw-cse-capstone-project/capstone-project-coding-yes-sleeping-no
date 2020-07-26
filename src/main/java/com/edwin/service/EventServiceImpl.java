@@ -63,6 +63,11 @@ public class EventServiceImpl implements EventService {
             throw new RuntimeException("event has started, cannot cancel");
         }
         List<Order> ordersByEventId = orderDao.findByEventId(id);
+        for (Order order: ordersByEventId){
+            if(order.getStatus() != 1){
+                ordersByEventId.remove(order);
+            }
+        }
         ArrayList<Integer> usersId = new ArrayList<>();
         ArrayList<BigDecimal> ticketAmounts = new ArrayList<>();
         for (Order order : ordersByEventId) {
@@ -72,6 +77,7 @@ public class EventServiceImpl implements EventService {
             usersId.add(userId);
             order.setStatus(2);
             order.setUpdated_at(new Date());
+            orderDao.update(order);
         }
         // 异步处理
         for (int i = 0; i < usersId.size(); i++) {
@@ -91,6 +97,7 @@ public class EventServiceImpl implements EventService {
             mailSender.send(message);
         }
         currentEvent.setStatus(0);
+        eventDao.update(currentEvent);
     }
 
     @Override

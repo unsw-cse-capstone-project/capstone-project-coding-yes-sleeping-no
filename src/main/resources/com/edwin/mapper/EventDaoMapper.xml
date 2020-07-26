@@ -37,7 +37,7 @@
 
     <!--update-->
     <select id="update"  parameterType="Event">
-        update event set `title` = #{title}, `type` = #{type}, `description` = #{description}, `address` = #{address}, `ticket_price` = #{ticket_price}, `available_tickets` = #{available_tickets}, `status` = #{status}, `cover_image` = #{cover_image}, `start_date` = #{start_date}, `start_time` = #{start_time}, `end_time` = #{end_time}, updated_at = #{updated_at} where id = #{id} and `status` = #{status}
+        update event set `title` = #{title}, `type` = #{type}, `description` = #{description}, `address` = #{address}, `ticket_price` = #{ticket_price}, `available_tickets` = #{available_tickets}, `status` = #{status}, `cover_image` = #{cover_image}, `start_date` = #{start_date}, `start_time` = #{start_time}, `end_time` = #{end_time}, updated_at = #{updated_at} where id = #{id}
     </select>
 
     <select id="findKeyword"   resultType="Event">

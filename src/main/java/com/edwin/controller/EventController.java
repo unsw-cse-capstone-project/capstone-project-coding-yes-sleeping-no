@@ -21,6 +21,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * event status 1: exist
+ * 0: delete
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/event")

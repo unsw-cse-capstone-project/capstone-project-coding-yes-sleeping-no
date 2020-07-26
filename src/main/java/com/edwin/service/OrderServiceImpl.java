@@ -165,7 +165,7 @@ public class OrderServiceImpl implements OrderService {
         // user has paid
         currentOrder.setStatus(1);
         currentOrder.setUpdated_at(new Date());
-        orderDao.update(currentOrder.getId());
+        orderDao.update(currentOrder);
         currentEvent.setAvailable_tickets(currentEvent.getAvailable_tickets() - currentOrder.getTicket_amount());
         currentEvent.setUpdated_at(new Date());
         eventDao.update(currentEvent);

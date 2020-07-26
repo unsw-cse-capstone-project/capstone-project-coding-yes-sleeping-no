@@ -14,7 +14,7 @@ public interface OrderDao {
     Order findByOrderNumber(Integer orderNumber);
     void  save(Order order);
     Order findOne(Integer id);
-    void update(Integer id);
+    void update(Order order);
     List<Order> findAll(Integer user_id);
     List<Order> findByHost(Integer user_id, Integer event_id);
     List<Order> findByEventId(Integer event_id);

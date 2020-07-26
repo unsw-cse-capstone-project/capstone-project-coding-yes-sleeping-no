@@ -15,11 +15,10 @@ import java.util.Date;
 @ApiModel("event review database table")
 public class EventReview {
     private Integer id;
-    private Integer messagable_id;
-    private Integer to_user_id;
-    private Integer event_id;
-    private String rate;
+    private Integer sender_id;
+    private Integer receiver_id;
     private String content;
     private Date updated_at;
     private Date created_at;
+    private Integer event_id;
 }
