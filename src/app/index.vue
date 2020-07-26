@@ -266,11 +266,7 @@ export default {
       tableData: [],
     }
   },
-  mounted() {
-    this.list = this.states.map(item => {
-      return { value: `value:${item}`, label: `${item}` };
-    });
-  },
+  mounted() {},
   methods: {
     // login
     login() {

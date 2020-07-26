@@ -61,7 +61,9 @@
                         <button  class="push_button blue" @click="edit">Save</button>
                     </el-col>
                     <el-col :span="16" class="abHeight" style="text-align: right">
-                        <button class="push_button red">Cancel</button>
+                        <router-link to="/eventMgm">
+                            <button class="push_button red">Cancel</button>
+                        </router-link>
                     </el-col>
                 </el-row>
             </el-form>

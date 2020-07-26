@@ -52,14 +52,8 @@
             <el-table-column
                     sortable
                     prop="available_tickets"
-                    label="Orders"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    sortable
-                    prop="rate"
-                    label="Rate"
-                    width="100">
+                    label="Inventory"
+                    width="110">
             </el-table-column>
             <el-table-column
                     fixed="right"
@@ -113,16 +107,24 @@
                     })
             }
         },
-        data () {
+        data() {
             return {
-                tableData: []
+                tableData: [],
+                user: {}
             }
         },
         created() {
-            this.$http.get("/event/findAll").then(
+            let userString = localStorage.getItem("user");
+            if(userString){
+                this.user =  JSON.parse(userString).user;
+            } else{
+                alert("You have not logged in yet, click OK to jump to the login page!");
+                location.href ="/";
+            }
+            this.$http.get("/event/findByHost", this.user).then(
                 res=>{
-                    console.log(res);
-                    this.tableData = res;
+                    // console.log(res);
+                    this.tableData = res.event;
                 })
         }
     }

@@ -56,18 +56,12 @@
                     width="100">
             </el-table-column>
             <el-table-column
-                    sortable
-                    prop="rate"
-                    label="Rate"
-                    width="100">
-            </el-table-column>
-            <el-table-column
                     fixed="right"
                     label="Operate"
                     width="120">
                 <template slot-scope="scope">
                     <el-button @click="handleClick(scope.row)" type="text" size="small">View</el-button>
-                    <el-button type="text" size="small">Cancel</el-button>
+                    <el-button type="text" size="small" v-if="this.user.status === '1'">Cancel</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -79,6 +73,8 @@
         methods: {
             handleClick (row) {
                 console.log(row);
+                let id = row.id;
+                location.href = "#/eventDetail/"+id;
             },
             clearFilter() {
                 this.$refs.filterTable.clearFilter();
@@ -90,17 +86,33 @@
         },
         data () {
             return {
-                tableData: [{
-                    eventName: 'AFL Melbourne Demons - Brisbane Lions',
-                    type: 'Sports',
-                    location: 'Metricon Stadium, Gold Coast ',
-                    date: '24-7-2020',
-                    time: '18:10',
-                    price: '99',
-                    ticket: 175,
-                    rate: 4.3
-                }]
+                tableData: [],
+                user: {}
             }
+        },
+        created() {
+            let userString = localStorage.getItem("user");
+            if(userString){
+                this.user =  JSON.parse(userString).user;
+            } else{
+                alert("You have not logged in yet, click OK to jump to the login page!");
+                location.href ="/";
+            }
+            if(this.user.status === '1'){   // user is a customer
+                this.$http.get("/order/get/customer", this.user).then(
+                    res=>{
+                        // console.log(res);
+                        this.tableData = res.order;
+                    })
+            }
+            if(this.user.status === '2'){   // user is a host
+                this.$http.get("/order/get/host", this.user).then(
+                    res=>{
+                        // console.log(res);
+                        this.tableData = res.order;
+                    })
+            }
+
         }
     }
 </script>

@@ -48,7 +48,7 @@
                                 <span>Ticket: </span>
                             </el-col>
                             <el-col :span="18" >
-                                <el-input-number v-model="order.num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+                                <el-input-number v-model="order.ticket_amount" @change="handleChange" :min="1" :max="100" label="Ticket Amount"></el-input-number>
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
@@ -56,7 +56,7 @@
                                 <span style="font-size: 24px">Amount: </span>
                             </el-col>
                             <el-col :span="18" style="padding:10px 0px">
-                                <span style="color: red; font-size: 24px; padding: 0 20px">${{order.amount}}</span>
+                                <span style="color: red; font-size: 24px; padding: 0 20px">${{amount}}</span>
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 5px">
@@ -166,9 +166,7 @@
                             </el-input>
                         </el-row>
                         <el-row>
-                            <el-row>
-                                <el-button style="margin-top:40px; margin-left: 400px" type="primary" round>Submit</el-button>
-                            </el-row>
+                            <el-button style="margin: 10px 0" type="primary" round>Submit</el-button>
                         </el-row>
                     </div>
                 </el-row>
@@ -264,15 +262,16 @@
                 :visible.sync="dialogFormVisible"
                 width="890px">
             <el-row style="height: 80%;">
-                <el-tabs v-model="this.activeName" >
+                <el-tabs :stretch="true" v-model="this.activeName" >
                     <el-tab-pane label="1.Shipping Detail" name="first">
                         <el-col :span="18" style="height: 100%;">
                             <el-input style="margin-top: 80px; width: 280px; " v-model="order.first_name" placeholder="First name"></el-input>
                             <el-input style="margin-top: 80px; margin-left:15px; width: 280px; " v-model="order.last_name" placeholder="Last name"></el-input>
-                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line1"></el-input>
-                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_2" placeholder="Address line2"></el-input>
+<!--                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line1"></el-input>-->
+<!--                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_2" placeholder="Address line2"></el-input>-->
+                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line"></el-input>
                             <el-input style="margin-top: 20px; width: 280px; " v-model="order.city" placeholder="City"></el-input>
-                            <el-select style="margin-left:15px; width:280px" v-model="order.valueState" placeholder="State/Province">
+                            <el-select style="margin-left:15px; width:280px" v-model="order.state" placeholder="State/Province">
                                 <el-option
                                         v-for="item in options"
                                         :key="item.value"
@@ -306,25 +305,58 @@
                                         <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;">{{event.ticket_price}}</span>
                                     </el-row>
                                     <el-row>
-                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">{{order.num}}</span>
+                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">{{order.ticket_amount}}</span>
                                     </el-row>
                                     <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{order.amount}}</span>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{amount}}</span>
                                     </el-row>
                                 </el-col>
                             </el-row>
                         </el-col>
                     </el-tab-pane>
                     <el-tab-pane label="2.Payment Options" name="second">
-                        <el-col :span="18" style="height: 100%;">
+                        <el-col :span="18" style="height: 100%;margin-top: 50px">
                             <div>
-                                <el-radio v-model="radio1" label="1" border>
-                                    <span>Visa/Master</span>
+                                <el-radio v-model="paymt.status" label="1" border>
+                                    <el-row style="width: 95%; float: right;text-align: left">
+                                        <img src="../assets/img/VISA1.png" alt=""  height="18px" />
+                                        <span style="font-size: 20px;margin-left: 5px">Visa/Master</span>
+                                    </el-row>
+                                    <el-row style="margin-top: 20px;" :gutter="22">
+                                        <el-col :span="12">
+                                            <el-input style="margin-left: 20px; margin-top: 10px"
+                                                      placeholder="0000 0000 0000 0000"
+                                                      suffix-icon="el-icon-bank-card"
+                                                      v-model="paymt.card_number"
+                                                      clearable>
+                                            </el-input>
+                                        </el-col>
+                                        <el-col :span="5" >
+                                            <el-input style="margin-top: 10px; margin-left: 20px"
+                                                      placeholder="MM/YY" v-model="paymt.expiry_date" clearable></el-input>
+                                        </el-col>
+                                        <el-col :span="5" >
+                                            <el-input style="margin-top: 10px; margin-left: 20px"
+                                                      placeholder="CVV" v-model="paymt.cvv" show-password></el-input>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row >
+                                        <el-col :span="22" >
+                                            <el-input style="margin-left: 20px; margin-bottom: 30px; margin-right: 20px; margin-top: 20px"
+                                                      placeholder="Card Holder Name" v-model="paymt.card_holder" clearable></el-input>
+                                        </el-col>
+                                    </el-row>
                                 </el-radio>
-                                <el-radio v-model="radio1" label="2" border>
-                                    <span>Paypal</span>
+                                <el-radio v-model="paymt.status" label="2" border>
+                                    <el-row style="width: 95%; float: right;text-align: left;margin-bottom: 15px">
+                                        <img src="../assets/img/Paypal222.png" alt=""  height="18px" />
+                                        <span style="font-size: 20px;margin-left: 5px">Paypal</span>
+                                    </el-row>
                                 </el-radio>
                             </div>
+                            <el-row>
+                                <el-button style="float: left;margin-top: 40px;margin-left: 50px; width: 200px" type="primary" @click="pay">Pay Now</el-button>
+                            </el-row>
                         </el-col>
                         <el-col :span="6">
                             <el-row>
@@ -348,10 +380,10 @@
                                         <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;">{{event.ticket_price}}</span>
                                     </el-row>
                                     <el-row>
-                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">{{order.num}}</span>
+                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">{{order.ticket_amount}}</span>
                                     </el-row>
                                     <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{order.amount}}</span>
+                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{amount}}</span>
                                     </el-row>
                                 </el-col>
                             </el-row>
@@ -397,9 +429,9 @@
                 }],
                 activeIndex: '1',
                 activeName: 'first',
-                loc_value: '',  // 要改，在order中加address
-                date_value: '', // 要改，在order中加date
-                time_value: '', // 要改，在order中加time
+                loc_value: '',
+                date_value: '',
+                time_value: '',
                 comment_value: 4.5,
                 value1: '',
                 textarea: '',
@@ -409,9 +441,11 @@
                 input: '',
                 radio1: '1',
                 event: {},
+                amount: 0,
                 order: {
-                    num: 1
-                }
+                    ticket_amount: 1
+                },
+                paymt: {}
             }
         },
         mounted: function () {},
@@ -426,21 +460,60 @@
                 console.log(tab, event);
             },
             stepTwo(){
-                this.activeName = 'second';
-                    },
+                this.paymt.event_id = this.event.id;
+                this.$http.post("/order/create", this.paymt).then(
+                    res=>{
+                        console.log(res);
+                        if(res.state){
+                            this.order = res.order;
+                            this.$message({
+                                message: res.msg,
+                                type: 'success'
+                            });
+                            this.activeName = 'second';
+                        }
+                        else {
+                            this.$message({
+                                message: res.msg,
+                                type: 'fail'
+                            })
+                        }
+                    }
+                )
             },
+            pay(){
+                this.$http.get("/order/confirm/"+this.order.id, this.paymt).then(
+                    res=>{
+                        if(res.state){
+                            this.$message({
+                                message: res.msg,
+                                type: 'success'
+                            });
+                            location.href='/';
+                        }
+                        else {
+                            this.dialogFormVisible = false;
+                            this.$message({
+                                message: res.msg,
+                                type: 'fail'
+                            })
+                        }
+                    }
+                )
+            }
+        },
         created() {
             let id = this.$route.params.id;
             this.$http.get("/event/find/"+id).then(
                 res=>{
-                    console.log(res);
+                    // console.log(res);
                     if(res.state){
                         this.event = res.event;
                         this.$message({
                             message: res.msg,
                             type: 'success'
                         });
-                        this.order.amount = this.event.ticket_price;
+                        this.amount = this.event.ticket_price;
                     }
                     else {
                         this.$message({
@@ -454,7 +527,7 @@
     }
 </script>
 
-<style scope>
+<style lang="scss" scope>
     a {
         text-decoration: none;
     }
@@ -471,6 +544,13 @@
     .el-dialog__body {
         padding: 0px;
         height: 100%;
+    }
+
+    .el-radio.is-bordered{
+        height: auto;
+        width: 580px;
+        margin-left: 40px;
+        margin-bottom:30px;
     }
 
 </style>
