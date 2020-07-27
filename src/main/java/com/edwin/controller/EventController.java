@@ -71,18 +71,80 @@ public class EventController {
         recommendedEvents.remove(eventById);
         List<EventReview> eventReviewsByEvent = eventReviewDao.findByEvent(id);
         List<User> users = new ArrayList<>();
-        for (EventReview eventReview: eventReviewsByEvent){
-            Integer sender_id = eventReview.getSender_id();
-            users.add(userDao.findByUserId(sender_id));
+//        for (EventReview eventReview: eventReviewsByEvent){
+//            Integer sender_id = eventReview.getSender_id();
+//            users.add(userDao.findByUserId(sender_id));
+//        }
+//        if (recommendedEvents.size() == 0){
+//            map.put("state", true);
+//            map.put("msg", "Find event success but no recommended event");
+//            map.put("event", eventById);
+//            map.put("eventReviews", eventReviewsByEvent);
+//            map.put("eventReviewUsers", users);
+//            return map;
+//        }
+        log.info("recommended events:[{}]", recommendedEvents.size());
+//        if (recommendedEvents.size() == 1){
+//            List<Event> all = eventService.findAll();
+//            all.remove(eventById);
+//            for (Event event: all){
+//                Date start_date = event.getStart_date();
+//                Long timeDiffernce = start_date.getTime() - new Date().getTime();
+//                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+//                if (days < 1) {
+//                    all.remove(event);
+//                }
+//                if (event.getAvailable_tickets() < 1) {
+//                    all.remove(event);
+//                }
+//            }
+//            for (int i = 0; i < 5; i++){
+//                recommendedEvents.add(all.get(i));
+//            }
+//        }
+
+//        if (recommendedEvents.size() < 5){
+//            Integer sizeDifference = 5 - recommendedEvents.size();
+//            List<Event> all = eventService.findAll();
+//            all.remove(eventById);
+//            for (int i = 0; i < sizeDifference; i++){
+//                recommendedEvents.add(all.get(i));
+//            }
+//        }
+        if (recommendedEvents.size() == 0){
+            map.put("state", true);
+            map.put("msg", "Find event success");
+            map.put("event", eventById);
+//          map.put("eventReviews", eventReviewsByEvent);
+//          map.put("eventReviewUsers", users);
+            return map;
         }
-        for (Event event : recommendedEvents) {
+        if (recommendedEvents.size() == 1){
+            Date start_date = recommendedEvents.get(0).getStart_date();
+            Long timeDiffernce = start_date.getTime() - new Date().getTime();
+            int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+            if (days < 1) {
+                recommendedEvents.remove(recommendedEvents.get(0));
+            }
+            else if (recommendedEvents.get(0).getAvailable_tickets() < 1) {
+                recommendedEvents.remove(recommendedEvents.get(0));
+            }
+            map.put("state", true);
+            map.put("msg", "Find event success");
+            map.put("event", eventById);
+            map.put("recommended",recommendedEvents);
+            map.put("eventReviews", eventReviewsByEvent);
+            map.put("eventReviewUsers", users);
+            return map;
+        }
+        for (Event event: recommendedEvents) {
             Date start_date = event.getStart_date();
             Long timeDiffernce = start_date.getTime() - new Date().getTime();
             int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
             if (days < 1) {
                 recommendedEvents.remove(event);
             }
-            if (event.getAvailable_tickets() <= 1) {
+            else if (event.getAvailable_tickets() < 1) {
                 recommendedEvents.remove(event);
             }
         }
@@ -90,8 +152,8 @@ public class EventController {
         map.put("msg", "Find event success");
         map.put("event", eventById);
         map.put("recommended", recommendedEvents);
-        map.put("eventReviews", eventReviewsByEvent);
-        map.put("eventReviewUsers", users);
+//        map.put("eventReviews", eventReviewsByEvent);
+//        map.put("eventReviewUsers", users);
         return map;
     }
 
@@ -103,50 +165,57 @@ public class EventController {
         List<Event> movies = eventDao.findType("Movies", 1);
         List<Event> drama = eventDao.findType("Drama", 1);
         List<Event> sport = eventDao.findType("Sport", 1);
-
         try {
-            for (Event event : liveConcerts) {
-                Date start_date = event.getStart_date();
-                Long timeDiffernce = start_date.getTime() - new Date().getTime();
-                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
-                if (days < 15) {
-                    liveConcerts.remove(event);
-                }
-                if (event.getAvailable_tickets() <= 1) {
-                    liveConcerts.remove(event);
-                }
-            }
-            for (Event event : movies) {
-                Date start_date = event.getStart_date();
-                Long timeDiffernce = start_date.getTime() - new Date().getTime();
-                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
-                if (days < 15) {
-                    movies.remove(event);
-                }
-                if (event.getAvailable_tickets() <= 1) {
-                    movies.remove(event);
+            if (liveConcerts.size() > 1){
+                for (Event event : liveConcerts) {
+                    Date start_date = event.getStart_date();
+                    Long timeDiffernce = start_date.getTime() - new Date().getTime();
+                    int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+                    if (days < 5) {
+                        liveConcerts.remove(event);
+                    }
+                    else if (event.getAvailable_tickets() <= 1) {
+                        liveConcerts.remove(event);
+                    }
                 }
             }
-            for (Event event : drama) {
-                Date start_date = event.getStart_date();
-                Long timeDiffernce = start_date.getTime() - new Date().getTime();
-                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
-                if (days < 15) {
-                    drama.remove(event);
-                }
-                if (event.getAvailable_tickets() <= 1) {
-                    drama.remove(event);
+            if (movies.size() > 1) {
+                for (Event event : movies) {
+                    Date start_date = event.getStart_date();
+                    Long timeDiffernce = start_date.getTime() - new Date().getTime();
+                    int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+                    if (days < 5) {
+                        movies.remove(event);
+                    }
+                    if (event.getAvailable_tickets() <= 1) {
+                        movies.remove(event);
+                    }
                 }
             }
-            for (Event event : sport) {
-                Date start_date = event.getStart_date();
-                Long timeDiffernce = start_date.getTime() - new Date().getTime();
-                int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
-                if (days < 15) {
-                    sport.remove(event);
+            if (drama.size() > 1) {
+                for (Event event : drama) {
+                    Date start_date = event.getStart_date();
+                    Long timeDiffernce = start_date.getTime() - new Date().getTime();
+                    int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+                    if (days < 5) {
+                        drama.remove(event);
+                    }
+                    if (event.getAvailable_tickets() <= 1) {
+                        drama.remove(event);
+                    }
                 }
-                if (event.getAvailable_tickets() <= 1) {
-                    sport.remove(event);
+            }
+            if (sport.size() > 1) {
+                for (Event event : sport) {
+                    Date start_date = event.getStart_date();
+                    Long timeDiffernce = start_date.getTime() - new Date().getTime();
+                    int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+                    if (days < 5) {
+                        sport.remove(event);
+                    }
+                    if (event.getAvailable_tickets() <= 1) {
+                        sport.remove(event);
+                    }
                 }
             }
             map.put("state", true);
@@ -161,9 +230,9 @@ public class EventController {
             map.put("hint", e.getMessage());
             map.put("msg", "Event fails to find for index page");
         }
-
         return map;
     }
+
     @ApiOperation("delete one event by event id router in event controller")
     @GetMapping("/delete/{id}")
     public Map<String, Object> delete(@PathVariable(value = "id")Integer id) {
@@ -205,6 +274,7 @@ public class EventController {
 //            String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(cover_image.getOriginalFilename());
 //            cover_image.transferTo(new File(realPath, fileName));
 //            event.setCover_image(fileName);
+
             event.setCreated_at(new Date());
             event.setUpdated_at(new Date());
             event.setUser_id(currentUser.getId());
@@ -220,31 +290,31 @@ public class EventController {
         return map;
     }
 
-    @ApiOperation("update one event with cover image router in event controller")
-    @PostMapping("/update")
-    public Map<String, Object> update(@RequestBody Event event) throws IOException {
-        log.info("event info: [{}]", event.toString());
-
-
-        Map<String, Object> map = new HashMap<>();
-        try {
+//    @ApiOperation("update one event with cover image router in event controller")
+//    @PostMapping("/update")
+//    public Map<String, Object> update(@RequestBody Event event) throws IOException {
+//        log.info("event info: [{}]", event.toString());
+//
+//
+//        Map<String, Object> map = new HashMap<>();
+//        try {
 //            if (cover_image != null && cover_image.getSize() != 0) {
 //                log.info("photo info[{}]", cover_image.getOriginalFilename());
 //                String fileName = FilenameUtils.getExtension(cover_image.getOriginalFilename());
 //                cover_image.transferTo(new File(realPath, fileName));
 //                event.setCover_image(fileName);
 //            }
-            event.setUpdated_at(new Date());
-            eventService.update(event);
-            map.put("state", true);
-            map.put("msg", "Update event information success");
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("state", false);
-            map.put("msg", "Fail to update event");
-        }
-        return map;
-    }
+//            event.setUpdated_at(new Date());
+//            eventService.update(event);
+//            map.put("state", true);
+//            map.put("msg", "Update event information success");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            map.put("state", false);
+//            map.put("msg", "Fail to update event");
+//        }
+//        return map;
+//    }
 
     @ApiOperation("get all related event information by host id router in event controller")
     @GetMapping("/findByHost")
@@ -265,23 +335,23 @@ public class EventController {
         return map;
     }
 
-    @ApiOperation("get all related event information by event type router in event controller")
-    @ResponseBody
-    @PostMapping("/findByType")
-    public Map<String, Object> findByType(@RequestBody Map<String,Object> map1, HttpSession session) {
-        String type =(String) map1.get("type");
-        Map<String, Object> map = new HashMap<>();
-        List<Event> events = eventService.findByType(type);
-        if (events.size() == 0){
-            map.put("state", false);
-            map.put("msg", "No event found by event type");
-        }else {
-            map.put("state", true);
-            map.put("msg", "Find event success");
-            map.put("event", events);
-        }
-        return map;
-    }
+//    @ApiOperation("get all related event information by event type router in event controller")
+//    @ResponseBody
+//    @PostMapping("/findByType")
+//    public Map<String, Object> findByType(@RequestBody Map<String,Object> map1, HttpSession session) {
+//        String type =(String) map1.get("type");
+//        Map<String, Object> map = new HashMap<>();
+//        List<Event> events = eventService.findByType(type);
+//        if (events.size() == 0){
+//            map.put("state", false);
+//            map.put("msg", "No event found by event type");
+//        }else {
+//            map.put("state", true);
+//            map.put("msg", "Find event success");
+//            map.put("event", events);
+//        }
+//        return map;
+//    }
 
     @ApiOperation("search related event information by keyword router in event controller")
     @ResponseBody

@@ -137,6 +137,7 @@ CREATE TABLE `order` (
   `city` varchar(200) DEFAULT NULL,
   `state` varchar(200) DEFAULT NULL,
   `postcode` varchar(20) DEFAULT NULL,
+  `donate` varchar(20) DEFAULT NULL,
   `status` int DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,

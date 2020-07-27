@@ -5,12 +5,14 @@ package com.edwin.service;
 import com.edwin.dao.EventDao;
 import com.edwin.dao.OrderDao;
 import com.edwin.dao.PaymentDao;
+import com.edwin.dao.UserDao;
 import com.edwin.entity.Event;
 import com.edwin.entity.Order;
 import com.edwin.entity.Payment;
 import com.edwin.entity.User;
 import com.edwin.utlis.Consts;
 import com.edwin.utlis.OrderNumber;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -42,6 +44,9 @@ public class OrderServiceImpl implements OrderService {
     private EventDao eventDao;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private OrderDao orderDao;
 
     @Autowired
@@ -49,10 +54,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order create(Map<String,Object> map1, User currentUser) {
+
+//        currentUser = userDao.findByUserId(4);
         Integer eventId =(Integer) map1.get("event_id");
         Integer ticketAmount =(Integer) map1.get("ticket_amount");
         Order order = new Order();
         Payment payment = new Payment();
+        if (eventId == null){
+            throw new RuntimeException("event id is empty");
+        }
+        if (ObjectUtils.isEmpty(currentUser)){
+            throw new RuntimeException("current user is empty");
+        }
         if (!ObjectUtils.isEmpty(map1.get("firstName"))){
             String firstName =(String) map1.get("firstName");
             order.setFirst_name(firstName);
@@ -95,15 +108,19 @@ public class OrderServiceImpl implements OrderService {
         }if (!ObjectUtils.isEmpty(map1.get("card_holder"))){
             String card_holder =(String) map1.get("card_holder");
             payment.setCard_holder(card_holder);
+        }if (!ObjectUtils.isEmpty(map1.get("donate"))){
+            String donate =(String) map1.get("donate");
+            order.setDonate(donate);
         }
-        if (eventId == null){
-            throw new RuntimeException("event id is empty");
-        }
-        if (ObjectUtils.isEmpty(currentUser)){
-            throw new RuntimeException("current user is empty");
-        }
+
         Integer userId = currentUser.getId();
         Integer orderNumber = OrderNumber.create();
+        if (currentUser.getStatus() != 1){
+            throw new RuntimeException("not customer, cannot booking tickets");
+        }
+        if (ticketAmount < 1){
+            throw new RuntimeException("ticket amount < 1");
+        }
         if (orderNumber == -1){
             throw new RuntimeException("order number is not unique");
         }
@@ -114,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
         if (currentEvent.getAvailable_tickets() - ticketAmount < 0){
             throw new RuntimeException("fail to pay, because of the short of available tickets");
         }
-        if ( new Date().getTime() - currentEvent.getEnd_time().getTime() <= 0){
+        if ( new Date().getTime() - currentEvent.getStart_date().getTime() > 0){
             throw new RuntimeException("event is over, fail to pay");
         }
         BigDecimal ticketPrice = currentEvent.getTicket_price();
@@ -135,7 +152,11 @@ public class OrderServiceImpl implements OrderService {
         payment.setAccount_balance(new BigDecimal(0.00));
         payment.setCreated_at(new Date());
         payment.setUpdated_at(new Date());
+        Integer hostId = currentEvent.getUser_id();
+        User host = userDao.findByUserId(hostId);
+        host.setUser_balance(host.getUser_balance().add(ticketPrice));
         try {
+            userDao.update(host);
             orderDao.save(order);
             paymentDao.save(payment);
             SimpleMailMessage message = new SimpleMailMessage();
@@ -151,6 +172,7 @@ public class OrderServiceImpl implements OrderService {
                     "\n" + "\n" + "   Thanks for your support to CYSN website." + "\n" + "\n" +
                     "   See more exciting activities, please go to the home page! ");
             mailSender.send(message);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -231,6 +253,9 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("order status is not 1, cannot cancel");
         }
         Event currentEvent = eventDao.findOne(currentOrder.getEvent_id(),1);
+        if (currentEvent == null){
+            throw new RuntimeException("corresponding event dose not exist");
+        }
         long timeDifference = currentEvent.getStart_date().getTime() - new Date().getTime();
         if (timeDifference/(1000 * 60 * 60 * 24) < 7){
             throw new RuntimeException("Less than seven days from the start date, cannot cancel");
@@ -241,20 +266,32 @@ public class OrderServiceImpl implements OrderService {
         currentOrder.setStatus(2);
         currentEvent.setAvailable_tickets(availableTickets + currentOrder.getTicket_amount());
         currentEvent.setUpdated_at(new Date());
+        Integer hostId = currentEvent.getUser_id();
+        User host = userDao.findByUserId(hostId);
+        host.setUser_balance(host.getUser_balance().subtract(totalPrice));
         BigDecimal userBalance = currentUser.getUser_balance();
         BigDecimal newUserBalance = userBalance.add(totalPrice);
         currentUser.setUser_balance(newUserBalance);
         currentUser.setUpdated_at(new Date());
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(Consts.SENDER_EMAIL);
-        message.setTo(currentUser.getEmail());
-        message.setSubject("CYSN - cancel order notification");
-        message.setText("   The event you ordered: " + currentEvent.getTitle() + " has been canceled successfully." + "\n" + "\n" +
-                "   CYSN staff will refund booking costs to your " +
-                "user balance within 3 business days." + "\n" + "\n" + "   Thanks for your support to CYSN website." + "\n" + "\n" +
-                "   See more exciting activities, please go to the home page! ");
-        mailSender.send(message);
-        return currentOrder;
+        try {
+            eventDao.update(currentEvent);
+            orderDao.update(currentOrder);
+            userDao.update(currentUser);
+            userDao.update(host);
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(Consts.SENDER_EMAIL);
+            message.setTo(currentUser.getEmail());
+            message.setSubject("CYSN - cancel order notification");
+            message.setText("   The event you ordered: " + currentEvent.getTitle() + " has been canceled successfully." + "\n" + "\n" +
+                    "   CYSN staff will refund booking costs to your " +
+                    "user balance within 3 business days." + "\n" + "\n" + "   Thanks for your support to CYSN website." + "\n" + "\n" +
+                    "   See more exciting activities, please go to the home page! ");
+            mailSender.send(message);
+            return currentOrder;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override
@@ -265,10 +302,27 @@ public class OrderServiceImpl implements OrderService {
         Integer userId = currentUser.getId();
         List<Order> orders = new ArrayList<>();
         List<Event> eventsByHost = eventDao.findHost(userId, 1);
-        for (Event event: eventsByHost){
-            List<Order> orderDaoByEventId = orderDao.findByEventId(event.getId());
-            for (Order order:orderDaoByEventId){
-                orders.add(order);
+        if (eventsByHost.size() < 0){
+            throw new RuntimeException("no event created by host");
+        }
+        if (eventsByHost.size() == 1){
+            List<Order> orderDaoByEventId = orderDao.findByEventId(eventsByHost.get(0).getId());
+            if (orderDaoByEventId.size() <= 0){
+                throw new RuntimeException("no order booked by customers");
+            }
+            return orderDaoByEventId;
+        }else {
+            for (Event event : eventsByHost) {
+                List<Order> orderDaoByEventId = orderDao.findByEventId(event.getId());
+                if (orderDaoByEventId.size() <= 0){
+                    continue;
+                }else if (orderDaoByEventId.size() == 1){
+                    orders.add(orderDaoByEventId.get(0));
+                }else {
+                    for (Order order : orderDaoByEventId) {
+                        orders.add(order);
+                    }
+                }
             }
         }
         return orders;

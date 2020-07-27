@@ -58,26 +58,41 @@ public class EventServiceImpl implements EventService {
             throw new RuntimeException("event id does not exist");
         }
         Event currentEvent = eventDao.findOne(id,1);
+        if (currentEvent.getStatus() != 1){
+            throw new RuntimeException("event has been deleted");
+        }
         long timeDifference = new Date().getTime() - currentEvent.getStart_date().getTime();
         if (timeDifference >= 0) {
             throw new RuntimeException("event has started, cannot cancel");
         }
         List<Order> ordersByEventId = orderDao.findByEventId(id);
-        for (Order order: ordersByEventId){
-            if(order.getStatus() != 1){
-                ordersByEventId.remove(order);
+        if (ordersByEventId.size() == 1){
+            if (ordersByEventId.get(0).getStatus() != 1) {
+                ordersByEventId.remove(ordersByEventId.get(0));
             }
+        }else if (ordersByEventId.size() > 1){
+            ordersByEventId.removeIf(order -> order.getStatus() != 1);
         }
         ArrayList<Integer> usersId = new ArrayList<>();
         ArrayList<BigDecimal> ticketAmounts = new ArrayList<>();
-        for (Order order : ordersByEventId) {
-            Integer userId = order.getUser_id();
-            BigDecimal ticketAmount = order.getTotal_price();
+        if (ordersByEventId.size() == 1){
+            Integer userId = ordersByEventId.get(0).getUser_id();
+            BigDecimal ticketAmount = ordersByEventId.get(0).getTotal_price();
             ticketAmounts.add(ticketAmount);
             usersId.add(userId);
-            order.setStatus(2);
-            order.setUpdated_at(new Date());
-            orderDao.update(order);
+            ordersByEventId.get(0).setStatus(2);
+            ordersByEventId.get(0).setUpdated_at(new Date());
+            orderDao.update(ordersByEventId.get(0));
+        } else if (ordersByEventId.size() > 1) {
+            for (Order order : ordersByEventId) {
+                Integer userId = order.getUser_id();
+                BigDecimal ticketAmount = order.getTotal_price();
+                ticketAmounts.add(ticketAmount);
+                usersId.add(userId);
+                order.setStatus(2);
+                order.setUpdated_at(new Date());
+                orderDao.update(order);
+            }
         }
         // 异步处理
         for (int i = 0; i < usersId.size(); i++) {
@@ -86,6 +101,7 @@ public class EventServiceImpl implements EventService {
             User userByUserId = userDao.findByUserId(userId);
             userByUserId.setUser_balance(userByUserId.getUser_balance().add(refund));
             userByUserId.setUpdated_at(new Date());
+            userDao.update(userByUserId);
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(Consts.SENDER_EMAIL);
             message.setTo(userByUserId.getEmail());

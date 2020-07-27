@@ -51,24 +51,24 @@ public class OderController {
         }
     }
 
-    @ApiOperation("confirm the payment for one order router in order controller")
-    @GetMapping("/confirm/{id}")
-    public Map<String, Object> update(@PathVariable(value = "id") Integer orderId, HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
-        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
-        try {
-            Order updateOrder = orderService.update(orderId, currentUser);
-            session.setAttribute(Consts.CURRENT_ORDER, updateOrder);
-            map.put("state", true);
-            map.put("msg", "confirm order payment success");
-            map.put("order", updateOrder);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("state", true);
-            map.put("msg", e.getMessage());
-        }
-        return map;
-    }
+//    @ApiOperation("confirm the payment for one order router in order controller")
+//    @GetMapping("/confirm/{id}")
+//    public Map<String, Object> update(@PathVariable(value = "id") Integer orderId, HttpSession session) {
+//        Map<String, Object> map = new HashMap<>();
+//        User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
+//        try {
+//            Order updateOrder = orderService.update(orderId, currentUser);
+//            session.setAttribute(Consts.CURRENT_ORDER, updateOrder);
+//            map.put("state", true);
+//            map.put("msg", "confirm order payment success");
+//            map.put("order", updateOrder);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            map.put("state", true);
+//            map.put("msg", e.getMessage());
+//        }
+//        return map;
+//    }
 
     @ApiOperation("get all orders for one user router in order controller")
     @GetMapping("/get/customer")
@@ -91,7 +91,7 @@ public class OderController {
 
     @ApiOperation("cancel the order for one order router in order controller")
 //    @PostMapping("/cancel")
-    @PostMapping("/cancel/{id}")
+    @GetMapping("/cancel/{id}")
     public Map<String, Object> cancel(@PathVariable(value = "id") Integer orderId, HttpSession session){
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
@@ -110,6 +110,7 @@ public class OderController {
 
     @ApiOperation("find all customer orders through event created by host")
     @GetMapping("/get/host")
+    @ResponseBody
     public Map<String,Object> getHost(HttpSession session){
         Map<String, Object> map = new HashMap<>();
         User currentUser = (User)session.getAttribute(Consts.CURRENT_USER);
