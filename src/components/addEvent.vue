@@ -16,7 +16,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item class="labels" label="Tickets:" style="text-align: left">
-                    <el-input-number v-model="form.num" controls-position="right" :min="1" :max="10000"></el-input-number>
+                    <el-input-number v-model="form.available_tickets" controls-position="right" :min="1" :max="10000"></el-input-number>
                 </el-form-item>
 
                 <el-form-item class="labels" label="Location:">
@@ -24,7 +24,7 @@
                 </el-form-item>
                 <el-form-item class="labels" label="Date:">
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="Select Date" v-model="form.start_date" style="width: 100%;" value-format="yyyy-MM-dd"></el-date-picker>
+                        <el-date-picker type="date" placeholder="Select Date" v-model="form.start_date" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item class="labels" label="Time:">
@@ -34,8 +34,7 @@
                                 :picker-options="{
                                     selectableRange: '0:0:00 - 23:59:00'
                                 }"
-                                placeholder="Select Start Time"
-                                value-format="yyyy-MM-dd HH:mm:ss">
+                                placeholder="Select Start Time">
                         </el-time-picker>
                     </el-col>
                     <el-col class="line" :span="2">-</el-col>
@@ -45,8 +44,7 @@
                                 :picker-options="{
                                     selectableRange: '0:0:00 - 23:59:00'
                                 }"
-                                placeholder="Select End Time"
-                                value-format="yyyy-MM-dd HH:mm:ss">
+                                placeholder="Select End Time">
                         </el-time-picker>
                     </el-col>
                 </el-form-item>
@@ -70,6 +68,14 @@
         </el-col>
         <el-col :span="12">
             <h1>upload img</h1>
+            <el-upload
+                    class="avatar-uploader"
+                    action="#"
+                    :show-file-list="false"
+                    :http-request="httpRequest">
+                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
         </el-col>
     </div>
 </template>
@@ -92,6 +98,8 @@
                     value: 'Sport',
                     label: 'Sport'
                 }],
+                imageUrl: '',
+                fileBase64: '',
             }
         },
         methods: {
@@ -115,6 +123,49 @@
                             this.user = {}
                         }
                     });
+            },
+            //这个file参数 也就是文件信息
+            getBase64(file) {
+                console.log(file);
+                return new Promise((resolve, reject) => {
+                    let reader = new FileReader();
+                    let fileResult = "";
+                    reader.readAsDataURL(file);
+                    //开始转
+                    reader.onload = function() {
+                        fileResult = reader.result;
+                    };
+                    //转 失败
+                    reader.onerror = function(error) {
+                        reject(error);
+                    };
+                    //转 结束  咱就 resolve 出去
+                    reader.onloadend = function() {
+                        resolve(fileResult);
+                    };
+                });
+            },
+            httpRequest(data) {　　// 没事儿就打印data看看呗
+                //这是限制上传文件类型
+                console.log(data);
+                const isJPG = data.file.type === "image/jpeg";
+                const isPNG = data.file.type === "image/png";
+                const isGIF = data.file.type === "image/gif";
+                const isLt2M = data.file.size / 1024 / 1024 < 2;
+
+                if (!isJPG && !isPNG && !isGIF) {
+                    this.$message.error("The format of profile picture must be JPG or PNG or GIF!");
+                } else if (!isLt2M) {
+                    this.$message.error("The size of profile picture must be less than 2MB!");
+                } else {
+                    // 转base64
+                    this.getBase64(data.file).then(resBase64 => {
+                        this.form.cover_image = resBase64.split(',')[1]　　//直接拿到base64信息
+                        console.log(resBase64.split(',')[1])
+                    })
+                    this.imageUrl = URL.createObjectURL(data.file);
+                    this.$message.success('File upload successfully!');
+                }
             }
         }
     }
@@ -230,6 +281,30 @@
         background-image:-ms-linear-gradient(top, #3EACBA, #48C6D4);
         background-image:-o-linear-gradient(top, #3EACBA, #48C6D4);
         background-image:linear-gradient(top, #3EACBA, #48C6D4);
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 280px;
+        height: 400px;
+        line-height: 280px;
+        text-align: center;
+    }
+    .avatar {
+        width: 280px;
+        height: 400px;
+        display: block;
     }
 
 </style>

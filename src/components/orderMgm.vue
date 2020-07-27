@@ -61,7 +61,7 @@
                     width="120">
                 <template slot-scope="scope">
                     <el-button @click="handleClick(scope.row)" type="text" size="small">View</el-button>
-                    <el-button type="text" size="small" v-if="this.user.status === '1'">Cancel</el-button>
+                    <el-button type="text" size="small" v-if="this.user.status === 1">Cancel</el-button>
                 </template>
             </el-table-column>
         </el-table>

@@ -15,7 +15,9 @@
             </div>
           </el-col>
           <el-col :span="8" style="padding: 0;line-height: 40px;">
-
+            <el-input v-model="keyword" placeholder="Search" class="input-with-select" @change="search(keyword)">
+              <el-button slot="append" icon="el-icon-search"></el-button>
+            </el-input>
           </el-col>
         </el-row>
       </el-col>
@@ -264,6 +266,7 @@ export default {
       showLogin: true,
       confirm_password: null,
       tableData: [],
+      keyword: '',
     }
   },
   mounted() {},
@@ -316,13 +319,28 @@ export default {
                       }
               )
 
+            } else {
+              this.$message({
+                message: 'Two passwords are different!',
+                type: 'error'
+              })
             }
+          } else {
+            this.$message({
+              message: 'The second password is wrong!',
+              type: 'error'
+            })
           }
+        } else {
+          this.$message({
+            message: 'The first password is wrong!',
+            type: 'error'
+          })
         }
       } else {
         this.$message({
           showClose: true,
-          message: 'Invalid email or password!',
+          message: 'Email is wrong',
           type: 'error'
         })
       }
@@ -355,6 +373,9 @@ export default {
                   }
                 });
       }
+    },
+    search(keyword) {
+      location.href='#/search/'+keyword;
     }
   },
   created() {
@@ -362,16 +383,22 @@ export default {
     if(userString){
       this.user =  JSON.parse(userString).user;
     }
-    this.$http.get("/event/findAll").then(
-            res=>{
-              console.log(res);
-              this.tableData = res;
-            })
+    // this.$http.get("/event/findAll").then(
+    //         res=>{
+    //           console.log(res);
+    //           this.tableData = res;
+    //         })
   }
 }
 </script>
 
 <style scope>
+  .el-select .el-input {
+    width: 100px;
+  }
+  .input-with-select .el-input-group__prepend {
+    background-color: #fff;
+  }
   .el-dialog {
     border-radius: 25px;
     overflow: hidden;

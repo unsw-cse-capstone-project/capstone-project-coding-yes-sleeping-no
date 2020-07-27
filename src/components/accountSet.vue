@@ -92,14 +92,14 @@
             </el-row>
         </el-col>
         <el-col id="profile_pic" :span="12">
+            <h1>Avatar</h1>
             <el-upload
                     class="avatar-uploader"
-                    action="../assets/img"
+                    action="#"
                     :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    :http-request="httpRequest">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
         </el-col>
     </div>
@@ -140,46 +140,10 @@
                 }],
                 user: {},
                 imageUrl: '',
-                imageFile: {}
             }
         },
         methods: {
-            handleAvatarSuccess(res, file) {
-                this.imageUrl = URL.createObjectURL(file);
-            },
-            beforeAvatarUpload(file) {
-                const isJPG = file.type === 'image/jpeg';
-                const isPNG = file.type === 'image/png';
-                const isGIF = file.type === 'image/gif';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-                console.log(file.type);
-
-                if (!isJPG && !isPNG && !isGIF) {
-                    this.$message.error('The format of profile picture must be JPG or PNG or GIF!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('The size of profile picture must be less than 2MB!');
-                }
-
-                console.log("图片为：");
-                console.log(file);
-                this.imageFile = file;
-                return false;
-            },
             edit() {
-                // let formData = new FormData();
-                // formData.append("user_name",this.user.user_name);
-                // formData.append("email", this.user.email);
-                // formData.append("first_name", this.user.first_name);
-                // formData.append("last_name", this.user.last_name);
-                // formData.append("phone", this.user.phone);
-                // formData.append("address_1", this.user.address_1);
-                // formData.append("address_2", this.user.address_2);
-                // formData.append("city", this.user.city);
-                // formData.append("state", this.user.state);
-                // formData.append("postcode", this.user.postcode);
-                // formData.append("avatar", this.imageFile);
-
                 this.$http.post("/user/updateUserInfo", this.user).then(
                     res=>{
                         if(res.state){
@@ -196,6 +160,49 @@
                             });
                         }
                     })
+            },
+            //这个file参数 也就是文件信息
+            getBase64(file) {
+                console.log(file);
+                return new Promise((resolve, reject) => {
+                    let reader = new FileReader();
+                    let fileResult = "";
+                    reader.readAsDataURL(file);
+                    //开始转
+                    reader.onload = function() {
+                        fileResult = reader.result;
+                    };
+                    //转 失败
+                    reader.onerror = function(error) {
+                        reject(error);
+                    };
+                    //转 结束  咱就 resolve 出去
+                    reader.onloadend = function() {
+                        resolve(fileResult);
+                    };
+                });
+            },
+            httpRequest(data) {　　// 没事儿就打印data看看呗
+                //这是限制上传文件类型
+                console.log(data);
+                const isJPG = data.file.type === "image/jpeg";
+                const isPNG = data.file.type === "image/png";
+                const isGIF = data.file.type === "image/gif";
+                const isLt2M = data.file.size / 1024 / 1024 < 2;
+
+                if (!isJPG && !isPNG && !isGIF) {
+                    this.$message.error("The format of profile picture must be JPG or PNG or GIF!");
+                } else if (!isLt2M) {
+                    this.$message.error("The size of profile picture must be less than 2MB!");
+                } else {
+                    // 转base64
+                    this.getBase64(data.file).then(resBase64 => {
+                        this.user.avatar = resBase64.split(',')[1]　　//直接拿到base64信息
+                        console.log(resBase64.split(',')[1])
+                    })
+                    this.imageUrl = URL.createObjectURL(data.file);
+                    this.$message.success('File upload successfully!');
+                }
             }
         },
         created() {

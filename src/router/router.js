@@ -69,7 +69,7 @@ const routers = [
         name: 'eventDetail'
       },
       {
-        path: '/search',
+        path: '/search/:keyword',
         component: search,
         name: 'search'
       }

@@ -96,7 +96,7 @@
                                 message: res.msg,
                                 type: 'success'
                             });
-                            location.href ="/eventMgm";
+                            location.href ="#/eventMgm";
                         }
                         else {
                             this.$message({

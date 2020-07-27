@@ -5,7 +5,6 @@ import Vue from 'vue'
 import App from './App'
 import routes from './router/router'
 import VueRouter from 'vue-router'
-import axios from 'axios'
 
 import moment from 'moment'
 import './assets/iconfont/iconfont.css'
@@ -14,9 +13,9 @@ import http from './components/http'
 import './assets/style/app.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import routers from "./router/router";
+import locale from 'element-ui/lib/locale/lang/en'
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, { locale});
 //Vue.use(axios);
 
 Vue.config.productionTip = true;

@@ -267,9 +267,9 @@
                         <el-col :span="18" style="height: 100%;">
                             <el-input style="margin-top: 80px; width: 280px; " v-model="order.first_name" placeholder="First name"></el-input>
                             <el-input style="margin-top: 80px; margin-left:15px; width: 280px; " v-model="order.last_name" placeholder="Last name"></el-input>
-<!--                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line1"></el-input>-->
-<!--                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_2" placeholder="Address line2"></el-input>-->
-                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line"></el-input>
+                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line1"></el-input>
+                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_2" placeholder="Address line2"></el-input>
+<!--                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line"></el-input>-->
                             <el-input style="margin-top: 20px; width: 280px; " v-model="order.city" placeholder="City"></el-input>
                             <el-select style="margin-left:15px; width:280px" v-model="order.state" placeholder="State/Province">
                                 <el-option
@@ -282,6 +282,7 @@
                             <el-input style="margin-top: 20px; width: 280px; " v-model="order.postcode" placeholder="Zip code"></el-input>
                             <el-input style="margin-top: 20px; margin-left:15px; width: 280px; " v-model="order.phone" placeholder="Phone number"></el-input>
                             <el-button style="margin-top: 70px; margin-left:45px; float: left" type="primary" @click="stepTwo">NEXT</el-button>
+                            <el-button style="margin-top: 70px; margin-left:45px; float: left" type="primary" @click="cancelOrder">CANCEL</el-button>
                         </el-col>
                         <el-col :span="6">
                             <el-row>
@@ -317,73 +318,76 @@
                     <el-tab-pane label="2.Payment Options" name="second">
                         <el-col :span="18" style="height: 100%;margin-top: 50px">
                             <div>
-                                <el-radio v-model="paymt.status" label="1" border>
-                                    <el-row style="width: 95%; float: right;text-align: left">
-                                        <img src="../assets/img/VISA1.png" alt=""  height="18px" />
-                                        <span style="font-size: 20px;margin-left: 5px">Visa/Master</span>
-                                    </el-row>
+                                <el-radio v-model.number="order.status" label="1" border style="text-align: left">
+                                    <img src="../assets/img/visa1.png" alt=""  height="18px" />
+                                    <span style="font-size: 20px;margin-left: 5px">Visa/Master</span>
                                     <el-row style="margin-top: 20px;" :gutter="22">
                                         <el-col :span="12">
                                             <el-input style="margin-left: 20px; margin-top: 10px"
                                                       placeholder="0000 0000 0000 0000"
                                                       suffix-icon="el-icon-bank-card"
-                                                      v-model="paymt.card_number"
+                                                      v-model="order.card_number"
                                                       clearable>
                                             </el-input>
                                         </el-col>
                                         <el-col :span="5" >
                                             <el-input style="margin-top: 10px; margin-left: 20px"
-                                                      placeholder="MM/YY" v-model="paymt.expiry_date" clearable></el-input>
+                                                      placeholder="MM/YY" v-model="order.expiry_date" clearable></el-input>
                                         </el-col>
                                         <el-col :span="5" >
                                             <el-input style="margin-top: 10px; margin-left: 20px"
-                                                      placeholder="CVV" v-model="paymt.cvv" show-password></el-input>
+                                                      placeholder="CVV" v-model.number="order.cvv" show-password></el-input>
                                         </el-col>
                                     </el-row>
-                                    <el-row >
+                                    <el-row>
                                         <el-col :span="22" >
-                                            <el-input style="margin-left: 20px; margin-bottom: 30px; margin-right: 20px; margin-top: 20px"
-                                                      placeholder="Card Holder Name" v-model="paymt.card_holder" clearable></el-input>
+                                            <el-input style="margin: 20px 20px 30px 20px"
+                                                      placeholder="Card Holder Name" v-model="order.card_holder" clearable></el-input>
                                         </el-col>
                                     </el-row>
                                 </el-radio>
-                                <el-radio v-model="paymt.status" label="2" border>
-                                    <el-row style="width: 95%; float: right;text-align: left;margin-bottom: 15px">
+                                <el-radio v-model.number="order.status" label="2" border style="text-align: left; padding: 12px">
                                         <img src="../assets/img/Paypal222.png" alt=""  height="18px" />
                                         <span style="font-size: 20px;margin-left: 5px">Paypal</span>
-                                    </el-row>
                                 </el-radio>
                             </div>
-                            <el-row>
-                                <el-button style="float: left;margin-top: 40px;margin-left: 50px; width: 200px" type="primary" @click="pay">Pay Now</el-button>
+                            <el-row style="text-align: left">
+                                <el-button style="margin-top: 40px;margin-left: 50px; width: 200px" type="primary" @click="pay">Pay Now</el-button>
+                                <el-button style="margin-top: 40px; margin-left:45px;" type="primary" @click="cancelOrder">Cancel</el-button>
                             </el-row>
                         </el-col>
                         <el-col :span="6">
-                            <el-row>
-                                <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;font-size: larger">Summary</span>
-                                <img style="float: left; margin-top: 20px;" src="../assets/img/joker.png" alt="" width="80%" height="100%" />
+                            <el-row style="text-align: left; margin: 40px 0;">
+                                <span style="margin-top: 40px;font-weight: bolder;color: black;font-size: larger">Summary</span>
+                                <img style="margin-top: 20px;" src="../assets/img/joker.png" alt="" width="80%" height="100%" />
                             </el-row>
                             <el-row>
-                                <el-col :span="14">
-                                    <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{event.title}}</span>
+                                <el-col :span="10">
+                                    <el-row style="text-align: left; margin: 10px 0;">
+                                        <span style="font-weight: bolder;color: black">{{event.title}}</span>
                                     </el-row>
-                                    <el-row>
-                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">Tickets</span>
+                                    <el-row style="text-align: left; margin: 10px 0;">
+                                        <span style="font-weight: bolder;color: black">Tickets</span>
                                     </el-row>
-                                    <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">Total</span>
+                                    <el-row style="text-align: left; margin: 10px 0;">
+                                        <span style="font-weight: bolder;color: black">Donation</span>
+                                    </el-row>
+                                    <el-row style="text-align: left; margin: 10px 0;">
+                                        <span style="font-weight: bolder;color: black">Total</span>
                                     </el-row>
                                 </el-col>
-                                <el-col :span="10">
-                                    <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;">{{event.ticket_price}}</span>
+                                <el-col :span="14">
+                                    <el-row style="text-align: left; margin: 10px 0;">
+                                        <span style="font-weight: bolder;color: black;">{{event.ticket_price}}</span>
+                                    </el-row>
+                                    <el-row style="text-align: left; margin: 10px 0;">
+                                        <span style="font-weight: bolder;color: black">{{order.ticket_amount}}</span>
                                     </el-row>
                                     <el-row>
-                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">{{order.ticket_amount}}</span>
+                                        <el-input-number v-model="order.donation" controls-position="right" @change="handleChange_donation" :min="0" :max="1000" size="mini"></el-input-number>
                                     </el-row>
-                                    <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{amount}}</span>
+                                    <el-row style="text-align: left; margin: 10px 0;">
+                                        <span style="font-weight: bolder;color: black">{{amount}}</span>
                                     </el-row>
                                 </el-col>
                             </el-row>
@@ -443,15 +447,18 @@
                 event: {},
                 amount: 0,
                 order: {
-                    ticket_amount: 1
-                },
-                paymt: {}
+                    ticket_amount: 1,
+                    donation: 0
+                }
             }
         },
         mounted: function () {},
         methods: {
             handleChange(value) {
-                this.order.amount = value * this.event.ticket_price;
+                this.amount = value * this.event.ticket_price;
+            },
+            handleChange_donation(value) {
+                this.amount = this.event.ticket_price * this.order.ticket_amount + value;
             },
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
@@ -460,8 +467,11 @@
                 console.log(tab, event);
             },
             stepTwo(){
-                this.paymt.event_id = this.event.id;
-                this.$http.post("/order/create", this.paymt).then(
+                this.activeName = 'second';
+                this.order.event_id = this.event.id;
+            },
+            pay(){
+                this.$http.post("/order/create", this.order).then(
                     res=>{
                         console.log(res);
                         if(res.state){
@@ -470,7 +480,7 @@
                                 message: res.msg,
                                 type: 'success'
                             });
-                            this.activeName = 'second';
+
                         }
                         else {
                             this.$message({
@@ -478,28 +488,10 @@
                                 type: 'fail'
                             })
                         }
-                    }
-                )
+                    })
             },
-            pay(){
-                this.$http.get("/order/confirm/"+this.order.id, this.paymt).then(
-                    res=>{
-                        if(res.state){
-                            this.$message({
-                                message: res.msg,
-                                type: 'success'
-                            });
-                            location.href='/';
-                        }
-                        else {
-                            this.dialogFormVisible = false;
-                            this.$message({
-                                message: res.msg,
-                                type: 'fail'
-                            })
-                        }
-                    }
-                )
+            cancelOrder(){
+                this.dialogFormVisible = false;
             }
         },
         created() {
