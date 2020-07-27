@@ -15,6 +15,12 @@
                 </el-col>
             </el-row>
             <el-row class="allWidth">
+                <el-col :span="8" class="abHeight">User balance</el-col>
+                <el-col :span="16">
+                    <el-input :placeholder="user.user_balance" disabled></el-input>
+                </el-col>
+            </el-row>
+            <el-row class="allWidth">
                 <el-col :span="8" class="abHeight">Password:</el-col>
                 <el-col :span="16">
                     <router-link to="/resetPwd">

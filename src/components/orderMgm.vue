@@ -11,7 +11,7 @@
             <el-table-column
                     fixed
                     sortable
-                    prop="eventName"
+                    prop="title"
                     label="Event name"
                     width="150">
             </el-table-column>
@@ -98,18 +98,19 @@
                 alert("You have not logged in yet, click OK to jump to the login page!");
                 location.href ="/";
             }
-            if(this.user.status === '1'){   // user is a customer
-                this.$http.get("/order/get/customer", this.user).then(
+            if(this.user.status === 1){   // user is a customer
+                this.$http.get("/order/get/customer").then(
                     res=>{
                         // console.log(res);
-                        this.tableData = res.order;
+                        this.tableData = res.allOrders;
+                        console.log(this.tableData);
                     })
             }
-            if(this.user.status === '2'){   // user is a host
-                this.$http.get("/order/get/host", this.user).then(
+            if(this.user.status === 2){   // user is a host
+                this.$http.get("/order/get/host").then(
                     res=>{
                         // console.log(res);
-                        this.tableData = res.order;
+                        this.tableData = res.allOrders;
                     })
             }
 

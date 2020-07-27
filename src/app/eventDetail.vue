@@ -378,13 +378,13 @@
                                 </el-col>
                                 <el-col :span="14">
                                     <el-row style="text-align: left; margin: 10px 0;">
-                                        <span style="font-weight: bolder;color: black;">{{event.ticket_price}}</span>
+                                        <span style="font-weight: bolder;color: black;">${{event.ticket_price}}</span>
                                     </el-row>
                                     <el-row style="text-align: left; margin: 10px 0;">
                                         <span style="font-weight: bolder;color: black">{{order.ticket_amount}}</span>
                                     </el-row>
                                     <el-row>
-                                        <el-input-number v-model="order.donation" controls-position="right" @change="handleChange_donation" :min="0" :max="1000" size="mini"></el-input-number>
+                                        $<el-input-number v-model="order.donate" controls-position="right" @change="handleChange_donation" :min="0" :max="1000" size="mini"></el-input-number>
                                     </el-row>
                                     <el-row style="text-align: left; margin: 10px 0;">
                                         <span style="font-weight: bolder;color: black">{{amount}}</span>
@@ -480,7 +480,7 @@
                                 message: res.msg,
                                 type: 'success'
                             });
-
+                            location.href='#/eventMgm';
                         }
                         else {
                             this.$message({
