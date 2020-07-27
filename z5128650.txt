@@ -29,3 +29,33 @@ Dezhao Fang (Z5128650)
 * Have a meeting for assgining tasks to Zihan and Thomas.
 * Implement the Main page and Login&Register page.
 * Talking with Chongshi about the API connecting with front-end and back-end.
+
+== Week 6 ==
+* Design the details of the User Profile page, the Event Management page and the Order Management page.
+* Implement the User Profile page.
+* Study Axios to transfer the data between front end and back end
+* Have a meeting for using AWS and assiging this task to Zihan and Chongshi.
+
+== Week 7 ==
+* Design the details of the Event Detail page.
+* Assign the static Event Management & Order Management page to Jay, and the static Event Detail page to Tom.
+* Complete the JavaScript of the Main page and Login&Register page.
+* Study the technology of picture uploading.
+* Complete the data of Login&Register page to transfer with back end.
+* Complete the data of User Profile page to transfer with back end.
+
+== Week 8 ==
+* Design the details of the Payment page.
+* According to Event ID, different data can be obtained and different pages will be generated in Event Detail pages.
+* Complete the data of Event Management page to transfer with back end.
+* Assign the static Payment page and Search page to Jay.
+* Complete the data of Payment page to transfer with back end.
+* Complete the data of Forget Password&Reset Password function to transfer with back end.
+* Fix some bugs.
+
+== Week 9 ==
+* Complete the picture uploading function.
+* Complete the data of Search page to transfer with back end.
+* Complete the data of recommendation function to transfer with back end.
+* Complete the data of review function to transfer with back end.
+* Fix some bugs.
