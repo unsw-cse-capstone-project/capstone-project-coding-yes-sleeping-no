@@ -5,42 +5,44 @@
 
 <mapper namespace="com.edwin.dao.EventDao">
 
-    <!--findAll-->
+    <!--find all events-->
     <select id="findAll" resultType="Event">
         select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`, `status`, `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where `status` = #{status}
     </select>
 
-    <select id="findType"  resultType="Event">
+    <!--find events by type-->
+    <select id="findType" resultType="Event">
         select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`, `status`, `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where `type` = #{type} and `status` = #{status}
     </select>
 
-    <!--findOne-->
+    <!--find event by user id-->
     <select id="findOne" resultType="Event">
         select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `status`, `available_tickets`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where id = #{id} and `status` = #{status}
     </select>
 
-    <!--findHost-->
-    <select id="findHost"  resultType="Event">
+    <!--find events by host id-->
+    <select id="findHost" resultType="Event">
         select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`,`status`,  `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where `user_id` = #{user_id} and `status` = #{status}
     </select>
 
-    <!--delete-->
+    <!--delete event-->
     <delete id="delete" parameterType="Integer">
         delete from event where id = #{id}
     </delete>
 
-    <!--save-->
+    <!--save event-->
     <insert id="save" parameterType="Event" useGeneratedKeys="true" keyProperty="id">
         insert into event values (#{id}, #{title}, #{type}, #{description}, #{address}, #{ticket_price}, #{available_tickets},#{status}, #{cover_image},
         #{start_date}, #{start_time}, #{end_time}, #{updated_at}, #{created_at}, #{user_id})
     </insert>
 
-    <!--update-->
-    <select id="update"  parameterType="Event">
+    <!--update event-->
+    <select id="update" parameterType="Event">
         update event set `title` = #{title}, `type` = #{type}, `description` = #{description}, `address` = #{address}, `ticket_price` = #{ticket_price}, `available_tickets` = #{available_tickets}, `status` = #{status}, `cover_image` = #{cover_image}, `start_date` = #{start_date}, `start_time` = #{start_time}, `end_time` = #{end_time}, updated_at = #{updated_at} where id = #{id}
     </select>
 
-    <select id="findKeyword"   resultType="Event">
+    <!--find events by keyword-->
+    <select id="findKeyword" resultType="Event">
         select `id`, `title`, `type`, `description`, `address`, `ticket_price`, `available_tickets`, `status`, `cover_image`, `start_date`,`start_time`, `end_time`,  `updated_at`, `created_at`, `user_id` from event where `title` like #{title} OR `type` like #{type} OR `description` like #{description} and `status` = #{status}
     </select>
 </mapper>

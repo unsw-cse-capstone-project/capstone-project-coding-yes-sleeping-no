@@ -189,8 +189,29 @@ public class EventController {
                     }
                 }
             }
+            List<Event> allEvents = eventDao.findAll(1);
+            List<Event> recommendedEvents = new ArrayList<>();
+            if (allEvents.size() > 1){
+                for (Event event: allEvents){
+                    Date start_date = event.getStart_date();
+                    Long timeDifference = start_date.getTime() - new Date().getTime();
+                    int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
+                    if (days < 1) {
+                        drama.remove(event);
+                    }
+                    if (event.getAvailable_tickets() <= 1) {
+                        drama.remove(event);
+                    }
+                }
+            }
+            if (allEvents.size() > 5){
+                for (int i = 0; i < 5; i++) {
+                    recommendedEvents.add(allEvents.get(i));
+                }
+            }
             response.put("state", true);
             response.put("msg", "find event for index page success");
+            response.put("Recommended",recommendedEvents);
             response.put("Live Concerts", liveConcerts);
             response.put("Movies", movies);
             response.put("Drama", drama);

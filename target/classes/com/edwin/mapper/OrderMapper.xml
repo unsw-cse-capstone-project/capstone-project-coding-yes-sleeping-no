@@ -5,42 +5,45 @@
 
 <mapper namespace="com.edwin.dao.OrderDao">
 
-    <!--save-->
-<!--    #{donate},-->
+    <!--save order-->
+    <!--    #{donate},-->
     <insert id="save" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
         insert into `order` values (#{id},#{order_number},#{ticket_amount},#{total_price},#{first_name}, #{last_name},#{email},#{phone},#{address_1},#{address_2},#{city}, #{state},#{postcode},  #{status},#{updated_at},#{created_at},#{user_id},#{event_id})
     </insert>
 
-    <!--update-->
-    <select id="update"  parameterType="Order">
+    <!--update order-->
+    <select id="update" parameterType="Order">
         update `order` set  `status` = #{status}, updated_at = #{updated_at} where id = #{id}
     </select>
 
     <!--find by order number-->
-<!--    `donate`,-->
+    <!--    `donate`,-->
     <select id="findByOrderNumber" parameterType="Integer" resultType="Order">
         select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address_1`,`address_2`, `city`, `state`, `postcode`,  `status`, `updated_at`, `created_at`,`user_id`, `event_id`
         from `order` where `order_number` = #{order_number}
     </select>
 
-    <!--findAll-->
-<!--    `donate`,-->
-    <select id="findAll" parameterType="Integer" resultType="Order" >
+    <!--find orders by user id-->
+    <!--    `donate`,-->
+    <select id="findAll" parameterType="Integer" resultType="Order">
         select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address_1`,`address_2`, `city`, `state`, `postcode`,  `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `user_id` = #{user_id}
     </select>
 
-    <!--findOne-->
-<!--    `donate`,-->
-    <select id="findOne"  parameterType="Integer" resultType="Order">
+    <!--find order by id-->
+    <!--    `donate`,-->
+    <select id="findOne" parameterType="Integer" resultType="Order">
         select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address_1`,`address_2`, `city`, `state`, `postcode`,  `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `id` = #{id}
     </select>
-<!--    `donate`,-->
-    <select id="findByHost"  parameterType="Integer" resultType="Order">
+
+    <!--find order by user and event id-->
+    <!--    `donate`,-->
+    <select id="findByHost" parameterType="Integer" resultType="Order">
         select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address_1`,`address_2`, `city`, `state`, `postcode`,  `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `user_id` = #{id} and `event_id` = #{event_id}
     </select>
 
-<!--    `donate`,-->
-    <select id="findByEventId"  parameterType="Integer" resultType="Order">
+    <!--find orders by event id-->
+    <!--    `donate`,-->
+    <select id="findByEventId" parameterType="Integer" resultType="Order">
         select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address_1`,`address_2`, `city`, `state`, `postcode`,  `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `event_id` = #{event_id}
     </select>
 

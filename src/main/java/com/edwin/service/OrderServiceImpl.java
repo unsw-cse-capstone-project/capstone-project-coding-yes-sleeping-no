@@ -69,12 +69,12 @@ public class OrderServiceImpl implements OrderService {
         if (ObjectUtils.isEmpty(currentUser)) {
             throw new RuntimeException("current user is empty");
         }
-        if (!ObjectUtils.isEmpty(request.get("firstName"))) {
-            String firstName = (String) request.get("firstName");
+        if (!ObjectUtils.isEmpty(request.get("first_name"))) {
+            String firstName = (String) request.get("first_name");
             order.setFirst_name(firstName);
         }
-        if (!ObjectUtils.isEmpty(request.get("lastName"))) {
-            String lastName = (String) request.get("lastName");
+        if (!ObjectUtils.isEmpty(request.get("last_name"))) {
+            String lastName = (String) request.get("last_name");
             order.setLast_name(lastName);
         }
         if (!ObjectUtils.isEmpty(request.get("email"))) {
