@@ -7,9 +7,8 @@ import com.edwin.entity.Event;
 import com.edwin.entity.Order;
 import com.edwin.entity.User;
 import com.edwin.utlis.Consts;
-import com.edwin.utlis.StringUtil;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -18,14 +17,22 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+/**
+ * Description: event service implementation
+ */
 @Service
 @Transactional
 public class EventServiceImpl implements EventService {
+
+    @Value("${photo.dir}")
+    private String realPath;
 
     @Resource
     private JavaMailSender mailSender;
@@ -39,26 +46,42 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private UserDao userDao;
 
+    /**
+     * Find all events
+     *
+     * @return
+     */
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Event> findAll() {
         return eventDao.findAll(1);
     }
 
+    /**
+     * Find one event by event id
+     *
+     * @param id
+     * @return
+     */
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public Event findOne(Integer id) {
-        return eventDao.findOne(id,1);
+        return eventDao.findOne(id, 1);
     }
 
+    /**
+     * Delete one event by host
+     *
+     * @param id
+     */
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Integer id) {
         if (id == null) {
             throw new RuntimeException("event id does not exist");
         }
-        Event currentEvent = eventDao.findOne(id,1);
-        if (currentEvent.getStatus() != 1){
+        Event currentEvent = eventDao.findOne(id, 1);
+        if (currentEvent.getStatus() != 1) {
             throw new RuntimeException("event has been deleted");
         }
         long timeDifference = new Date().getTime() - currentEvent.getStart_date().getTime();
@@ -66,16 +89,16 @@ public class EventServiceImpl implements EventService {
             throw new RuntimeException("event has started, cannot cancel");
         }
         List<Order> ordersByEventId = orderDao.findByEventId(id);
-        if (ordersByEventId.size() == 1){
+        if (ordersByEventId.size() == 1) {
             if (ordersByEventId.get(0).getStatus() != 1) {
                 ordersByEventId.remove(ordersByEventId.get(0));
             }
-        }else if (ordersByEventId.size() > 1){
+        } else if (ordersByEventId.size() > 1) {
             ordersByEventId.removeIf(order -> order.getStatus() != 1);
         }
         ArrayList<Integer> usersId = new ArrayList<>();
         ArrayList<BigDecimal> ticketAmounts = new ArrayList<>();
-        if (ordersByEventId.size() == 1){
+        if (ordersByEventId.size() == 1) {
             Integer userId = ordersByEventId.get(0).getUser_id();
             BigDecimal ticketAmount = ordersByEventId.get(0).getTotal_price();
             ticketAmounts.add(ticketAmount);
@@ -94,7 +117,6 @@ public class EventServiceImpl implements EventService {
                 orderDao.update(order);
             }
         }
-        // 异步处理
         for (int i = 0; i < usersId.size(); i++) {
             Integer userId = usersId.get(i);
             BigDecimal refund = ticketAmounts.get(i);
@@ -116,32 +138,101 @@ public class EventServiceImpl implements EventService {
         eventDao.update(currentEvent);
     }
 
+    /**
+     * Create one event by host
+     *
+     * @param event
+     */
     @Override
-    //tbd validation format
     @Transactional(propagation = Propagation.SUPPORTS)
     public void save(Event event) {
-        eventDao.save(event);
+        String base64Data = event.getCover_image();
+        String dataPrix = "";
+        String data = "";
+        if (base64Data == null || "".equals(base64Data)) {
+            throw new RuntimeException("image is empty");
+        } else {
+//                String[] d = base64Data.split("base64,");
+//                if (d != null && d.length == 2) {
+//                    dataPrix = d[0];
+//                    data = d[1];
+//                } else {
+//                    throw new RuntimeException("image format is invalid");
+//                }
+            data = base64Data;
+        }
+        String suffix = ".png";
+//            if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {
+//                suffix = ".jpg";
+//            } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {
+//                suffix = ".ico";
+//            } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {
+//                suffix = ".gif";
+//            } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {
+//                suffix = ".png";
+//            } else {
+//                throw new RuntimeException("image extension is invalid");
+//            }
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        String tempFileName = uuid + suffix;
+        String imgFilePath = realPath + tempFileName;
+        Base64.Decoder decoder = Base64.getDecoder();
+        event.setCover_image(imgFilePath);
+        try {
+            byte[] b = decoder.decode(data);
+            for (int i = 0; i < b.length; ++i) {
+                if (b[i] < 0) {
+                    b[i] += 256;
+                }
+            }
+            OutputStream out = new FileOutputStream(imgFilePath);
+            out.write(b);
+            out.flush();
+            out.close();
+            eventDao.save(event);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Update event information by host
+     *
+     * @param event
+     */
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public void update(Event event) {
         eventDao.update(event);
     }
 
+    /**
+     * Find events by type
+     *
+     * @param type
+     * @return
+     */
     @Override
     public List<Event> findByType(String type) {
         if (StringUtils.isEmpty(type)) {
             throw new RuntimeException("type is empty");
         }
-        List<Event> eventsByType = eventDao.findType(type,1);
+        List<Event> eventsByType = eventDao.findType(type, 1);
         if (eventsByType.size() == 0) {
-            throw new RuntimeException("Event by type is empty");
+            throw new RuntimeException("event by type is empty");
         } else {
             return eventsByType;
         }
     }
 
+    /**
+     * Find events by keyword (search)
+     *
+     * @param keyword
+     * @return
+     */
     @Override
     public List<Event> findByKeyword(String keyword) {
         if (StringUtils.isEmpty(keyword)) {
@@ -150,18 +241,23 @@ public class EventServiceImpl implements EventService {
         String title = "%" + keyword + "%";
         String type = "%" + keyword + "%";
         String description = "%" + keyword + "%";
-        List<Event> eventsByKeyword = eventDao.findKeyword(title, type, description,1);
+        List<Event> eventsByKeyword = eventDao.findKeyword(title, type, description, 1);
         return eventsByKeyword;
     }
 
+    /**
+     * Get all events for index page
+     *
+     * @return
+     */
     @Deprecated
     @Override
     public List<Event> findIndex() {
         List<Event> allEvents = eventDao.findAll(1);
         for (Event event : allEvents) {
             Date start_date = event.getStart_date();
-            Long timeDiffernce = start_date.getTime() - new Date().getTime();
-            int days = (int) (timeDiffernce / (1000 * 60 * 60 * 24));
+            Long timeDifference = start_date.getTime() - new Date().getTime();
+            int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
             if (days < 15) {
                 allEvents.remove(event);
             }
@@ -171,9 +267,4 @@ public class EventServiceImpl implements EventService {
         }
         return allEvents;
     }
-
-//    @Override
-//    public List<Event> findByRecommended(User user) {
-//
-//    }
 }

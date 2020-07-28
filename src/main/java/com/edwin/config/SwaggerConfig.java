@@ -10,18 +10,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 
+/**
+ * Swagger configuration for api documentation
+ * Url: http://localhost:9999/swagger-ui.html (Api documentation url)
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
-    public Docket docket(){
+    public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).groupName("Edwin").select().build();
     }
 
-    private ApiInfo apiInfo(){
+    private ApiInfo apiInfo() {
         Contact contact = new Contact("Edwin", "https://github.com/EdwinInAu", "wcs2019inau@gmail.com");
-
         return new ApiInfo(
                 "coding yes slepping no",
                 "back end api documentation",
@@ -33,5 +36,4 @@ public class SwaggerConfig {
                 new ArrayList()
         );
     }
-
 }

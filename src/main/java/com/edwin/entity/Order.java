@@ -9,6 +9,9 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * order table attributes
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

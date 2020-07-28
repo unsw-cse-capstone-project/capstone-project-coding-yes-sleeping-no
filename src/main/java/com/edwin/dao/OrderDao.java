@@ -7,15 +7,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Order dao for order table in database
+ */
 @Mapper
 @Repository
 @Service
 public interface OrderDao {
     Order findByOrderNumber(Integer orderNumber);
-    void  save(Order order);
+
+    void save(Order order);
+
     Order findOne(Integer id);
+
     void update(Order order);
+
     List<Order> findAll(Integer user_id);
+
     List<Order> findByHost(Integer user_id, Integer event_id);
+
     List<Order> findByEventId(Integer event_id);
 }

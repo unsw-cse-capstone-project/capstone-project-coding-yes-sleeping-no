@@ -1,11 +1,12 @@
 package com.edwin.service;
 
-
 import com.edwin.entity.Event;
-import com.edwin.entity.User;
 
 import java.util.List;
 
+/**
+ * Event service interface
+ */
 public interface EventService {
     List<Event> findAll();
 
@@ -22,6 +23,4 @@ public interface EventService {
     List<Event> findByKeyword(String keyword);
 
     List<Event> findIndex();
-
-//    List<Event> findByRecommended(User user);
 }

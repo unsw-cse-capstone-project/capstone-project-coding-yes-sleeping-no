@@ -8,11 +8,14 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
+/**
+ * event_review table attributes
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-@ApiModel("event review database table")
+@ApiModel("event_review database table")
 public class EventReview {
     private Integer id;
     private Integer sender_id;
