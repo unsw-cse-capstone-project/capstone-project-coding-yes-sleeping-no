@@ -204,8 +204,8 @@ public class EventController {
                     }
                 }
             }
-            if (allEvents.size() > 5){
-                for (int i = 0; i < 5; i++) {
+            if (allEvents.size() > 3){
+                for (int i = 0; i < 3; i++) {
                     recommendedEvents.add(allEvents.get(i));
                 }
             }
