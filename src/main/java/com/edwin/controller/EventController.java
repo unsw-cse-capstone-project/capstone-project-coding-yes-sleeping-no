@@ -209,8 +209,16 @@ public class EventController {
             }
             log.info("cdcdcdcdcdcd: [{}]", allEvents.size());
             int length = recommendedEvents.size();
-            for (int i = 0; i < 3 - length; i++) {
-                recommendedEvents.add(allEvents.get(i));
+            if (allEvents.size() < 3){
+                Iterator<Event> iterator4 = allEvents.iterator();
+                while (iterator4.hasNext()){
+                    Event event = iterator4.next();
+                    recommendedEvents.add(event);
+                }
+            }else {
+                for (int i = 0; i < 3 - length; i++) {
+                    recommendedEvents.add(allEvents.get(i));
+                }
             }
             response.put("state", true);
             response.put("msg", "find event success");
