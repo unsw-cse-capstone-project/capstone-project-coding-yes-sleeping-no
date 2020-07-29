@@ -15,4 +15,14 @@
         select `id`, `sender_id`, `receiver_id`, `content`, `updated_at`, `created_at`, `event_id` from `event_review` where `event_id` = #{event_id}
     </select>
 
+    <!--find send reviews-->
+    <select id="findSend" resultType="EventReview">
+        select `id`, `sender_id`, `receiver_id`, `content`, `updated_at`, `created_at`, `event_id` from `event_review` where `event_id` = #{event_id} and `receiver_id` = #{receiver_id}
+    </select>
+
+    <!--find reply reviews-->
+    <select id="findReply" resultType="EventReview">
+        select `id`, `sender_id`, `receiver_id`, `content`, `updated_at`, `created_at`, `event_id` from `event_review` where `event_id` = #{event_id} and `receiver_id` = #{receiver_id}
+    </select>
+
 </mapper>

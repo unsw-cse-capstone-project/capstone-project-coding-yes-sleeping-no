@@ -89,13 +89,20 @@ public class EventServiceImpl implements EventService {
             throw new RuntimeException("event has started, cannot cancel");
         }
         List<Order> ordersByEventId = orderDao.findByEventId(id);
-        if (ordersByEventId.size() == 1) {
-            if (ordersByEventId.get(0).getStatus() != 1) {
-                ordersByEventId.remove(ordersByEventId.get(0));
+        Iterator<Order> iterator = ordersByEventId.iterator();
+        while (iterator.hasNext()) {
+            Order order = iterator.next();
+            if (order.getStatus() != 1) {
+                iterator.remove();
             }
-        } else if (ordersByEventId.size() > 1) {
-            ordersByEventId.removeIf(order -> order.getStatus() != 1);
         }
+//        if (ordersByEventId.size() == 1) {
+//            if (ordersByEventId.get(0).getStatus() != 1) {
+//                ordersByEventId.remove(ordersByEventId.get(0));
+//            }
+//        } else if (ordersByEventId.size() > 1) {
+//            ordersByEventId.removeIf(order -> order.getStatus() != 1);
+//        }
         ArrayList<Integer> usersId = new ArrayList<>();
         ArrayList<BigDecimal> ticketAmounts = new ArrayList<>();
         if (ordersByEventId.size() == 1) {
@@ -152,27 +159,26 @@ public class EventServiceImpl implements EventService {
         if (base64Data == null || "".equals(base64Data)) {
             throw new RuntimeException("image is empty");
         } else {
-//                String[] d = base64Data.split("base64,");
-//                if (d != null && d.length == 2) {
-//                    dataPrix = d[0];
-//                    data = d[1];
-//                } else {
-//                    throw new RuntimeException("image format is invalid");
-//                }
-            data = base64Data;
+            String[] d = base64Data.split("base64,");
+            if (d != null && d.length == 2) {
+                dataPrix = d[0];
+                data = d[1];
+            } else {
+                throw new RuntimeException("image format is invalid");
+            }
         }
-        String suffix = ".png";
-//            if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {
-//                suffix = ".jpg";
-//            } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {
-//                suffix = ".ico";
-//            } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {
-//                suffix = ".gif";
-//            } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {
-//                suffix = ".png";
-//            } else {
-//                throw new RuntimeException("image extension is invalid");
-//            }
+        String suffix = "";
+        if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {
+            suffix = ".jpg";
+        } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {
+            suffix = ".ico";
+        } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {
+            suffix = ".gif";
+        } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {
+            suffix = ".png";
+        } else {
+            throw new RuntimeException("image extension is invalid");
+        }
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         String tempFileName = uuid + suffix;
         String imgFilePath = realPath + tempFileName;
@@ -254,17 +260,29 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> findIndex() {
         List<Event> allEvents = eventDao.findAll(1);
-        for (Event event : allEvents) {
+        Iterator<Event> iterator = allEvents.iterator();
+        while (iterator.hasNext()) {
+            Event event = iterator.next();
             Date start_date = event.getStart_date();
             Long timeDifference = start_date.getTime() - new Date().getTime();
             int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
             if (days < 15) {
-                allEvents.remove(event);
-            }
-            if (event.getAvailable_tickets() <= 1) {
-                allEvents.remove(event);
+                iterator.remove();
+            } else if (event.getAvailable_tickets() <= 1) {
+                iterator.remove();
             }
         }
+//        for (Event event : tmp) {
+//            Date start_date = event.getStart_date();
+//            Long timeDifference = start_date.getTime() - new Date().getTime();
+//            int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
+//            if (days < 15) {
+//                allEvents.remove(event);
+//            }
+//            if (event.getAvailable_tickets() <= 1) {
+//                allEvents.remove(event);
+//            }
+//        }
         return allEvents;
     }
 }

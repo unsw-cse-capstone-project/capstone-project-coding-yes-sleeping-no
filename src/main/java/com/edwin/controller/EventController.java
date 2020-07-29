@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * event status
@@ -74,54 +74,151 @@ public class EventController {
             response.put("msg", "event id is invalid");
             return response;
         }
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(4, 10, 3, TimeUnit.SECONDS, new LinkedBlockingDeque<>(5),
+                Executors.defaultThreadFactory(), new ThreadPoolExecutor.DiscardOldestPolicy());
         String type = eventById.getType();
         List<Event> recommendedEvents = eventDao.findType(type, 1);
         recommendedEvents.remove(eventById);
-        List<EventReview> eventReviewsByEvent = eventReviewDao.findByEvent(id);
-        List<User> users = new ArrayList<>();
+        List<EventReview> eventSendReviews = eventReviewDao.findSend(0, id);
+        List<List<Object>> reviewResult = new ArrayList<>();
+        if (eventSendReviews.size() == 1) {
+            List<Object> tmp = new ArrayList<>();
+            EventReview eventReview = eventSendReviews.get(0);
+            User sender = userDao.findByUserId(eventReview.getSender_id());
+            tmp.add(eventReview);
+            tmp.add(sender);
+            Integer senderId = eventReview.getSender_id();
+            EventReview eventReply = eventReviewDao.findReply(senderId, id);
+            User receiver = userDao.findByUserId(eventReply.getSender_id());
+            tmp.add(eventReply);
+            tmp.add(receiver);
+            reviewResult.add(tmp);
+        } else if (eventSendReviews.size() > 1) {
+            for (EventReview eventReview : eventSendReviews) {
+                List<Object> tmp = new ArrayList<>();
+                Integer senderId = eventReview.getSender_id();
+                User sender = userDao.findByUserId(eventReview.getSender_id());
+                tmp.add(eventReview);
+                tmp.add(sender);
+                EventReview eventReply = eventReviewDao.findReply(senderId, id);
+                User receiver = userDao.findByUserId(eventReply.getSender_id());
+                tmp.add(eventReply);
+                tmp.add(receiver);
+                reviewResult.add(tmp);
+            }
+        }
         log.info("recommended events:[{}]", recommendedEvents.size());
-        if (recommendedEvents.size() == 0) {
+        if (recommendedEvents.size() <= 0) {
+            List<Event> allEvents = eventDao.findAll(1);
+            allEvents.remove(eventById);
+            Iterator<Event> iterator = allEvents.iterator();
+            while (iterator.hasNext()) {
+                Event event = iterator.next();
+                Date startDate = event.getStart_date();
+                Long timeDifference = startDate.getTime() - new Date().getTime();
+                int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
+                if (days < 1) {
+                    iterator.remove();
+                } else if (event.getAvailable_tickets() < 1) {
+                    iterator.remove();
+                }
+            }
+            for (int i = 0; i < 3; i++) {
+                recommendedEvents.add(allEvents.get(i));
+            }
             response.put("state", true);
             response.put("msg", "Find event success");
             response.put("event", eventById);
-//          map.put("eventReviews", eventReviewsByEvent);
-//          map.put("eventReviewUsers", users);
+            response.put("recommended", recommendedEvents);
+            response.put("eventReviews", reviewResult);
             return response;
-        }
-        if (recommendedEvents.size() == 1) {
-            Date start_date = recommendedEvents.get(0).getStart_date();
-            Long timeDifference = start_date.getTime() - new Date().getTime();
+        } else if (recommendedEvents.size() == 1) {
+            Date startDate = recommendedEvents.get(0).getStart_date();
+            Long timeDifference = startDate.getTime() - new Date().getTime();
             int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
             if (days < 1) {
                 recommendedEvents.remove(recommendedEvents.get(0));
             } else if (recommendedEvents.get(0).getAvailable_tickets() < 1) {
                 recommendedEvents.remove(recommendedEvents.get(0));
             }
+            List<Event> allEvents = eventDao.findAll(1);
+            allEvents.remove(eventById);
+            if (recommendedEvents.size() == 1) {
+                allEvents.remove(recommendedEvents.get(0));
+            }
+            log.info("recommended events vvvvvvvvvvv:[{}]", allEvents.size());
+            Iterator<Event> iterator = allEvents.iterator();
+            while (iterator.hasNext()) {
+                Event event = iterator.next();
+                startDate = event.getStart_date();
+                timeDifference = startDate.getTime() - new Date().getTime();
+                days = (int) (timeDifference / (1000 * 60 * 60 * 24));
+                if (days < 1) {
+                    iterator.remove();
+                } else if (event.getAvailable_tickets() < 1) {
+                    iterator.remove();
+                }
+            }
+            log.info("recommended events ccccccccvvvvvvvvvvv:[{}]", recommendedEvents.size());
+            log.info("recommended events ccccccccvvvvvvvvvvv:[{}]", allEvents.get(1));
+            int length = recommendedEvents.size();
+            for (int i = 0; i < 3 - length; i++) {
+                recommendedEvents.add(allEvents.get(i));
+            }
+            log.info("aaaaaaa ccccccccvvvvvvvvvvv:[{}]", recommendedEvents.size());
             response.put("state", true);
             response.put("msg", "find event success");
             response.put("event", eventById);
             response.put("recommended", recommendedEvents);
-            response.put("eventReviews", eventReviewsByEvent);
-            response.put("eventReviewUsers", users);
+            response.put("eventReviews", reviewResult);
+            return response;
+        } else {
+            Iterator<Event> iterator1 = recommendedEvents.iterator();
+            while (iterator1.hasNext()) {
+                Event event = iterator1.next();
+                Date startDate = event.getStart_date();
+                Long timeDifference = startDate.getTime() - new Date().getTime();
+                int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
+                if (days < 1) {
+                    iterator1.remove();
+                } else if (event.getAvailable_tickets() < 1) {
+                    iterator1.remove();
+                }
+            }
+            log.info("aaaa: [{}]", recommendedEvents.size());
+            List<Event> allEvents = eventDao.findAll(1);
+            allEvents.remove(eventById);
+            Iterator<Event> iterator2 = recommendedEvents.iterator();
+            while (iterator2.hasNext()) {
+                Event event = iterator2.next();
+                allEvents.remove(event);
+            }
+            log.info("aaaa: [{}]", allEvents.size());
+            List<Event> t4 = allEvents;
+            Iterator<Event> iterator3 = allEvents.iterator();
+            while (iterator3.hasNext()) {
+                Event event = iterator3.next();
+                Date startDate = event.getStart_date();
+                Long timeDifference = startDate.getTime() - new Date().getTime();
+                int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
+                if (days < 1) {
+                    iterator3.remove();
+                } else if (event.getAvailable_tickets() < 1) {
+                    iterator3.remove();
+                }
+            }
+            log.info("cdcdcdcdcdcd: [{}]", allEvents.size());
+            int length = recommendedEvents.size();
+            for (int i = 0; i < 3 - length; i++) {
+                recommendedEvents.add(allEvents.get(i));
+            }
+            response.put("state", true);
+            response.put("msg", "find event success");
+            response.put("event", eventById);
+            response.put("recommended", recommendedEvents);
+            response.put("eventReviews", reviewResult);
             return response;
         }
-        for (Event event : recommendedEvents) {
-            Date start_date = event.getStart_date();
-            Long timeDifference = start_date.getTime() - new Date().getTime();
-            int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
-            if (days < 1) {
-                recommendedEvents.remove(event);
-            } else if (event.getAvailable_tickets() < 1) {
-                recommendedEvents.remove(event);
-            }
-        }
-        response.put("state", true);
-        response.put("msg", "find event success");
-        response.put("event", eventById);
-        response.put("recommended", recommendedEvents);
-//        map.put("eventReviews", eventReviewsByEvent);
-//        map.put("eventReviewUsers", users);
-        return response;
     }
 
     /**
@@ -139,79 +236,85 @@ public class EventController {
         List<Event> sport = eventDao.findType("Sport", 1);
         try {
             if (liveConcerts.size() > 1) {
-                for (Event event : liveConcerts) {
-                    Date start_date = event.getStart_date();
-                    Long timeDifference = start_date.getTime() - new Date().getTime();
+                Iterator<Event> iterator = liveConcerts.iterator();
+                while (iterator.hasNext()) {
+                    Event event = iterator.next();
+                    Date startDate = event.getStart_date();
+                    Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
                     if (days < 5) {
-                        liveConcerts.remove(event);
+                        iterator.remove();
                     } else if (event.getAvailable_tickets() <= 1) {
-                        liveConcerts.remove(event);
+                        iterator.remove();
                     }
                 }
             }
             if (movies.size() > 1) {
-                for (Event event : movies) {
-                    Date start_date = event.getStart_date();
-                    Long timeDifference = start_date.getTime() - new Date().getTime();
+                Iterator<Event> iterator = movies.iterator();
+                while (iterator.hasNext()) {
+                    Event event = iterator.next();
+                    Date startDate = event.getStart_date();
+                    Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
                     if (days < 5) {
-                        movies.remove(event);
-                    }
-                    if (event.getAvailable_tickets() <= 1) {
-                        movies.remove(event);
+                        iterator.remove();
+                    } else if (event.getAvailable_tickets() <= 1) {
+                        iterator.remove();
                     }
                 }
             }
             if (drama.size() > 1) {
-                for (Event event : drama) {
-                    Date start_date = event.getStart_date();
-                    Long timeDifference = start_date.getTime() - new Date().getTime();
+                Iterator<Event> iterator = drama.iterator();
+                while (iterator.hasNext()) {
+                    Event event = iterator.next();
+                    Date startDate = event.getStart_date();
+                    Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
                     if (days < 5) {
-                        drama.remove(event);
-                    }
-                    if (event.getAvailable_tickets() <= 1) {
-                        drama.remove(event);
+                        iterator.remove();
+                    } else if (event.getAvailable_tickets() <= 1) {
+                        iterator.remove();
                     }
                 }
             }
             if (sport.size() > 1) {
-                for (Event event : sport) {
-                    Date start_date = event.getStart_date();
-                    Long timeDifference = start_date.getTime() - new Date().getTime();
+                Iterator<Event> iterator = sport.iterator();
+                while (iterator.hasNext()) {
+                    Event event = iterator.next();
+                    Date startDate = event.getStart_date();
+                    Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
                     if (days < 5) {
-                        sport.remove(event);
-                    }
-                    if (event.getAvailable_tickets() <= 1) {
-                        sport.remove(event);
+                        iterator.remove();
+                    } else if (event.getAvailable_tickets() <= 1) {
+                        iterator.remove();
                     }
                 }
             }
             List<Event> allEvents = eventDao.findAll(1);
             List<Event> recommendedEvents = new ArrayList<>();
-            if (allEvents.size() > 1){
-                for (Event event: allEvents){
-                    Date start_date = event.getStart_date();
-                    Long timeDifference = start_date.getTime() - new Date().getTime();
+            if (allEvents.size() > 1) {
+                Iterator<Event> iterator = allEvents.iterator();
+                while (iterator.hasNext()) {
+                    Event event = iterator.next();
+                    Date startDate = event.getStart_date();
+                    Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
-                    if (days < 1) {
-                        drama.remove(event);
-                    }
-                    if (event.getAvailable_tickets() <= 1) {
-                        drama.remove(event);
+                    if (days < 5) {
+                        iterator.remove();
+                    } else if (event.getAvailable_tickets() <= 1) {
+                        iterator.remove();
                     }
                 }
             }
-            if (allEvents.size() > 3){
+            if (allEvents.size() > 3) {
                 for (int i = 0; i < 3; i++) {
                     recommendedEvents.add(allEvents.get(i));
                 }
             }
             response.put("state", true);
             response.put("msg", "find event for index page success");
-            response.put("Recommended",recommendedEvents);
+            response.put("Recommended", recommendedEvents);
             response.put("Live Concerts", liveConcerts);
             response.put("Movies", movies);
             response.put("Drama", drama);

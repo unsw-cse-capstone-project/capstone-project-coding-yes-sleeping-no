@@ -37,8 +37,8 @@
 
     <!--find order by user and event id-->
     <!--    `donate`,-->
-    <select id="findByHost" parameterType="Integer" resultType="Order">
-        select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address_1`,`address_2`, `city`, `state`, `postcode`,  `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `user_id` = #{id} and `event_id` = #{event_id}
+    <select id="findByHost"  resultType="Order">
+        select `id`,`order_number`,`ticket_amount`, `total_price`,`first_name`, `last_name`, `email`, `phone`, `address_1`,`address_2`, `city`, `state`, `postcode`,  `status`, `updated_at`, `created_at`,`user_id`, `event_id` from `order` where `user_id` = #{user_id} and `event_id` = #{event_id}
     </select>
 
     <!--find orders by event id-->

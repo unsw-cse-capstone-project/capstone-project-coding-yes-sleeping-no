@@ -101,27 +101,26 @@ public class UserServiceImpl implements UserService {
             if (base64Data == null || "".equals(base64Data)) {
                 throw new RuntimeException("image is empty");
             } else {
-//                String[] d = base64Data.split("base64,");
-//                if (d != null && d.length == 2) {
-//                    dataPrix = d[0];
-//                    data = d[1];
-//                } else {
-//                    throw new RuntimeException("image format is invalid");
-//                }
-                data = base64Data;
+                String[] d = base64Data.split("base64,");
+                if (d != null && d.length == 2) {
+                    dataPrix = d[0];
+                    data = d[1];
+                } else {
+                    throw new RuntimeException("image format is invalid");
+                }
             }
-            String suffix = ".png";
-//            if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {
-//                suffix = ".jpg";
-//            } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {
-//                suffix = ".ico";
-//            } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {
-//                suffix = ".gif";
-//            } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {
-//                suffix = ".png";
-//            } else {
-//                throw new RuntimeException("image extension is invalid");
-//            }
+            String suffix = "";
+            if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {
+                suffix = ".jpg";
+            } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {
+                suffix = ".ico";
+            } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {
+                suffix = ".gif";
+            } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {
+                suffix = ".png";
+            } else {
+                throw new RuntimeException("image extension is invalid");
+            }
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
             String tempFileName = uuid + suffix;
             String imgFilePath = realPath + tempFileName;
