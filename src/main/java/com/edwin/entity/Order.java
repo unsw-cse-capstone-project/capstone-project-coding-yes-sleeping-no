@@ -31,7 +31,7 @@ public class Order {
     private String city;
     private String state;
     private String postcode;
-    private String donate;
+    private Integer donate;
     private Integer status;
     private Date updated_at;
     private Date created_at;

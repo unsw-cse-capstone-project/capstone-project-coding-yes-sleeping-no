@@ -96,13 +96,6 @@ public class EventServiceImpl implements EventService {
                 iterator.remove();
             }
         }
-//        if (ordersByEventId.size() == 1) {
-//            if (ordersByEventId.get(0).getStatus() != 1) {
-//                ordersByEventId.remove(ordersByEventId.get(0));
-//            }
-//        } else if (ordersByEventId.size() > 1) {
-//            ordersByEventId.removeIf(order -> order.getStatus() != 1);
-//        }
         ArrayList<Integer> usersId = new ArrayList<>();
         ArrayList<BigDecimal> ticketAmounts = new ArrayList<>();
         if (ordersByEventId.size() == 1) {
@@ -272,17 +265,6 @@ public class EventServiceImpl implements EventService {
                 iterator.remove();
             }
         }
-//        for (Event event : tmp) {
-//            Date start_date = event.getStart_date();
-//            Long timeDifference = start_date.getTime() - new Date().getTime();
-//            int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
-//            if (days < 15) {
-//                allEvents.remove(event);
-//            }
-//            if (event.getAvailable_tickets() <= 1) {
-//                allEvents.remove(event);
-//            }
-//        }
         return allEvents;
     }
 }
