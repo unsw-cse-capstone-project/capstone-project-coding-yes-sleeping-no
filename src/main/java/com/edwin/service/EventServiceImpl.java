@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -174,7 +175,7 @@ public class EventServiceImpl implements EventService {
         }
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         String tempFileName = uuid + suffix;
-        String imgFilePath = realPath + tempFileName;
+        String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static") + tempFileName;
         Base64.Decoder decoder = Base64.getDecoder();
         event.setCover_image(imgFilePath);
         try {

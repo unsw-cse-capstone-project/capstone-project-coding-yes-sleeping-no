@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -123,7 +124,7 @@ public class UserServiceImpl implements UserService {
             }
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
             String tempFileName = uuid + suffix;
-            String imgFilePath = realPath + tempFileName;
+            String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static").getPath() + "/photos/" + tempFileName;
             Decoder decoder = Base64.getDecoder();
             user.setAvatar(imgFilePath);
             try {
