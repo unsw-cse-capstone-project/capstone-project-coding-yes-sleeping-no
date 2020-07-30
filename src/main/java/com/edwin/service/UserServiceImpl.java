@@ -4,17 +4,16 @@ import com.edwin.dao.UserDao;
 import com.edwin.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ClassUtils;
-import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
+import org.springframework.util.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
@@ -26,6 +25,8 @@ import java.util.Base64.Decoder;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
+    private static String UPLOAD_PATH = "File/image/upload";
 
     @Autowired
     private UserDao userDao;
@@ -124,9 +125,9 @@ public class UserServiceImpl implements UserService {
             }
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
             String tempFileName = uuid + suffix;
-            String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static").getPath() + "/photos/" + tempFileName;
+//            String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static").getPath() + tempFileName;
             Decoder decoder = Base64.getDecoder();
-            user.setAvatar(imgFilePath);
+//            user.setAvatar(imgFilePath);
             try {
                 byte[] b = decoder.decode(data);
                 for (int i = 0; i < b.length; ++i) {
@@ -134,11 +135,63 @@ public class UserServiceImpl implements UserService {
                         b[i] += 256;
                     }
                 }
-                OutputStream out = new FileOutputStream(imgFilePath);
-                out.write(b);
-                out.flush();
-                out.close();
+                File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
+
+                if(!pathRoot.exists()) pathRoot = new File("");
+
+                System.out.println("path:"+pathRoot.getAbsolutePath());
+                File upload = new File(pathRoot.getAbsolutePath(), "static/photos/");
+                if(!upload.exists()) upload.mkdirs();
+                System.out.println("upload url:"+upload.getAbsolutePath());
+//                if (!upload.exists()) upload.mkdirs();
+//                String uploadPath = upload + "\\";
+                File file = new File(upload, tempFileName);
+//                multipartFile.transferTo(file);
+//                FileOutputStream writer = new FileOutputStream(new File(file , tempFileName));
+                FileOutputStream writer = new FileOutputStream(file);
+                writer.write(b);
+                writer.flush();
+                writer.close();
+                user.setAvatar(upload + "/" + tempFileName);
+                // 提交到另一个服务
+//                FileSystemResource remoteFile = new FileSystemResource(file);
+//                // package parameter.
+//                MultiValueMap<String, Object> multiValueMap = new LinkedMultiValueMap<>();
+//                multiValueMap.add("file", remoteFile);
+
+//                String remoteaddr = "http://localhost:12345/test/doupload";
+//
+//                String res = restTemplate.postForObject(remoteaddr, multiValueMap, String.class);
+
+//                if (!pathRoot.exists()) {
+//                    pathRoot = new File("");
+//                }
+//                String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '\\')+"\\static" + "\\" + tempFileName;
+//                String saveFile = pathRoot.getAbsolutePath().replace("%20"," ") +"/static/" + uuid + "/" + tempFileName;
+//                user.setAvatar(saveFile);
+//                File f = new File(saveFile);
+//                if(!f.exists()) {
+//                    f.mkdirs();
+//                }
+//                FileOutputStream writer = new FileOutputStream(new File(f , tempFileName));
+//                writer.write(b);
+//                writer.flush();
+//                writer.close();
+//                File upload = new File(path.getAbsolutePath(), filePath.substring(0,filePath.lastIndexOf("/")+1));
+//                if (!upload.exists()) {
+//                    upload.mkdirs();
+//                }
+//                OutputStream out = new FileOutputStream(imgFilePath);
+//                out.write(b);
+//                out.flush();
+//                out.close();
                 userDao.update(user);
+//                InputStream inputStream = image.getInputStream();
+//                Path directory = Paths.get(UPLOAD_PATH);
+//                if(!Files.exists(directory)){
+//                    Files.createDirectories(directory);
+//                }
+//                long copy = Files.copy(inputStream, directory.resolve(tempFileName));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
