@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.File;
+
 /**
  * Web mvc configuration
  */
@@ -22,9 +24,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-        String s = ResourceUtils.getURL("classpath:").getPath() + "/**";
-        registry.addResourceHandler("/photos/**").addResourceLocations(s);
-//        registry.addResourceHandler("/image/**").addResourceLocations("/Users/edwin/capstone-project-coding-yes-sleeping-no/target/classes/static/photos/");
+
+        File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
+        if(!pathRoot.exists()) {
+            pathRoot = new File("");
+        }
+        String saveFile = "file:" + pathRoot.getAbsolutePath() +"/static/";
+
+//        String s = "file:" + ResourceUtils.getURL("classpath:").getPath() + "/";
+//        registry.addResourceHandler("/photos/**").addResourceLocations(s);
+//        registry.addResourceHandler("/image/**").addResourceLocations(s);
+//        registry.addResourceHandler("/image/**").addResourceLocations("file:/Users/edwin/Desktop/static/");
+
+        registry.addResourceHandler("/photos/**").addResourceLocations(saveFile.toString());
+
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 }

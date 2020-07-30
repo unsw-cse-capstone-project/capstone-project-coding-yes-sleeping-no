@@ -15,13 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -177,7 +175,7 @@ public class EventServiceImpl implements EventService {
         String tempFileName = uuid + suffix;
         String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static") + tempFileName;
         Base64.Decoder decoder = Base64.getDecoder();
-        event.setCover_image(imgFilePath);
+//        event.setCover_image(imgFilePath);
         try {
             byte[] b = decoder.decode(data);
             for (int i = 0; i < b.length; ++i) {
@@ -185,10 +183,25 @@ public class EventServiceImpl implements EventService {
                     b[i] += 256;
                 }
             }
-            OutputStream out = new FileOutputStream(imgFilePath);
-            out.write(b);
-            out.flush();
-            out.close();
+            File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
+            System.out.println("保存的路径pathRoot："+pathRoot.getAbsolutePath());
+            if(!pathRoot.exists()) {
+                pathRoot = new File("");
+            }
+
+
+            String saveFile = pathRoot.getAbsolutePath() +"/static/";
+
+            FileOutputStream writer = new FileOutputStream(new File(saveFile , tempFileName));
+            writer.write(b);
+            writer.flush();
+            writer.close();
+//            OutputStream out = new FileOutputStream(imgFilePath);
+//            out.write(b);
+//            out.flush();
+//            out.close();
+            event.setCover_image(saveFile + tempFileName);
+
             eventDao.save(event);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

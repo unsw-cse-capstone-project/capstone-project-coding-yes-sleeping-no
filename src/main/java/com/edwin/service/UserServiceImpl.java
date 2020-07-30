@@ -152,11 +152,18 @@ public class UserServiceImpl implements UserService {
                 if(!pathRoot.exists()) {
                     pathRoot = new File("");
                 }
+
+
                 String saveFile = pathRoot.getAbsolutePath() +"/static/";
+
+
+
 //                File f = new File(saveFile);
 //                if(!f.exists()) {
 //                    f.mkdirs();
 //                }
+//                FileOutputStream writer = new FileOutputStream(new File(saveFile , tempFileName));
+
                 FileOutputStream writer = new FileOutputStream(new File(saveFile , tempFileName));
                 writer.write(b);
                 writer.flush();
