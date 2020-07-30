@@ -29,7 +29,8 @@
         <div class="curPoi" v-if="Object.keys(user).length !== 0">
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link" style="color: white">
-              <el-avatar src="../assets/img/Jannabi.png" :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0"></el-avatar>
+              <img v-if="imageUrl" :src="imageUrl" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px">
+              <img v-else src="../assets/img/login.png" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
               <span style="line-height: 40px;">{{user.user_name}}</span>
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
@@ -267,6 +268,7 @@ export default {
       confirm_password: null,
       tableData: [],
       keyword: '',
+      imageUrl: ''
     }
   },
   mounted() {},
@@ -284,6 +286,11 @@ export default {
                   });
                   localStorage.setItem("user", JSON.stringify(res));
                   this.dialogVisible = false;
+                  if(this.user.avatar !== null){
+                    let len = this.user.avatar.split('/').length - 1;
+                    const file = this.user.avatar.split('/')[len];
+                    this.imageUrl = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
+                  }
                 }
                 else {
                   this.$message({
@@ -382,6 +389,10 @@ export default {
     let userString = localStorage.getItem("user");
     if(userString){
       this.user =  JSON.parse(userString).user;
+      this.imageUrl = this.getPic(this.user.avatar);
+      // let len = this.user.avatar.split('/').length - 1;
+      // const file = this.user.avatar.split('/')[len];
+      // this.imageUrl = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
     }
     // this.$http.get("/event/findAll").then(
     //         res=>{

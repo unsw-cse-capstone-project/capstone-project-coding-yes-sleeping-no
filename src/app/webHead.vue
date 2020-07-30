@@ -28,9 +28,11 @@
                     <div class="curPoi">
                         <el-dropdown @command="handleCommand">
                             <span class="el-dropdown-link" style="color: black">
-                              <el-avatar src="../assets/img/Jannabi.png" :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0"></el-avatar>
-                              <span style="line-height: 40px;">{{user.user_name}}</span>
-                              <i class="el-icon-arrow-down el-icon--right"></i>
+<!--                              <el-avatar :size="40" alt="" width="40px;" style="vertical-align: middle; margin: 0 10px 0 0" :fit="scale-down"></el-avatar>-->
+                                <img v-if="imageUrl" :src="imageUrl" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
+                                <img v-else src="../assets/img/login.png" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
+                                <span style="line-height: 40px;">{{user.user_name}}</span>
+                                <i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item command="orderMgm">Order Management</el-dropdown-item>
@@ -60,6 +62,7 @@
                 value: [],
                 list: [],
                 keyword: '',
+                imageUrl: '',
             }
         },
         methods: {
@@ -88,6 +91,15 @@
                         });
                 }
             },
+            // getPic(path){
+            //     if(path !== null) {
+            //         let len = path.split('/').length - 1;
+            //         const file = path.split('/')[len];
+            //         // let imagePath = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
+            //         let imagePath = 'http://localhost:9999/photos/'+file;
+            //         return imagePath;
+            //     }
+            // },
             search(keyword) {
                 location.href='#/search/'+keyword;
                 location.reload();
@@ -97,6 +109,11 @@
             let userString = localStorage.getItem("user");
             if(userString){
                 this.user =  JSON.parse(userString).user;
+                console.log(this.user);
+                this.imageUrl = this.getPic(this.user.avatar);
+                // let len = this.user.avatar.split('/').length - 1;
+                // const file = this.user.avatar.split('/')[len];
+                // this.imageUrl = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
             } else{
                 alert("You have not logged in yet, click OK to jump to the login page!");
                 location.href ="/";

@@ -67,7 +67,7 @@
             </el-form>
         </el-col>
         <el-col :span="12">
-            <h1>upload img</h1>
+            <h1>upload poster</h1>
             <el-upload
                     class="avatar-uploader"
                     action="#"
@@ -160,8 +160,8 @@
                 } else {
                     // 转base64
                     this.getBase64(data.file).then(resBase64 => {
-                        this.form.cover_image = resBase64.split(',')[1]　　//直接拿到base64信息
-                        console.log(resBase64.split(',')[1])
+                        this.form.cover_image = resBase64　　//直接拿到base64信息
+                        console.log(resBase64)
                     })
                     this.imageUrl = URL.createObjectURL(data.file);
                     this.$message.success('File upload successfully!');

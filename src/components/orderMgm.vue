@@ -4,64 +4,56 @@
         <el-table
                 ref="filterTable"
                 :data="tableData"
-                :default-sort = "{prop: 'Date', order: 'increasing'}"
+                :default-sort = "{prop: 'order_number', order: 'increasing'}"
                 stripe
                 style="width: 100%"
                 height="650">
             <el-table-column
-                    fixed
                     sortable
-                    prop="title"
-                    label="Event name"
+                    prop="order_number"
+                    label="Order Number"
                     width="150">
             </el-table-column>
+<!--            <el-table-column-->
+<!--                    sortable-->
+<!--                    prop="type"-->
+<!--                    label="Type"-->
+<!--                    width="120"-->
+<!--                    column-key="type"-->
+<!--                    :filters="[{text: 'Live Concerts', value: 'Live Concerts'}, {text: 'Movies', value: 'Movies'}, {text: 'Drama', value: 'Drama'}, {text: 'Sports', value: 'Sports'}]"-->
+<!--                    :filter-method="filterHandler"-->
+<!--            >-->
+<!--            </el-table-column>-->
             <el-table-column
                     sortable
-                    prop="type"
-                    label="Type"
-                    width="120"
-                    column-key="type"
-                    :filters="[{text: 'Live Concerts', value: 'Live Concerts'}, {text: 'Movies', value: 'Movies'}, {text: 'Drama', value: 'Drama'}, {text: 'Sports', value: 'Sports'}]"
-                    :filter-method="filterHandler"
-            >
-            </el-table-column>
-            <el-table-column
-                    sortable
-                    prop="location"
-                    label="Location"
+                    prop="ticket_amount"
+                    label="Ticket Amount"
                     width="200">
             </el-table-column>
             <el-table-column
                     sortable
-                    prop="date"
-                    label="Date"
-                    width="100">
+                    prop="total_price"
+                    label="Total Price"
+                    width="200">
             </el-table-column>
             <el-table-column
                     sortable
-                    prop="time"
-                    label="Time"
-                    width="100">
+                    prop="status"
+                    label="Status"
+                    width="200">
+                <template slot-scope="{row: {status}}">
+                    <span v-if="status === 0">No Pay</span>
+                    <span v-else-if="status === 1">Paid</span>
+                    <span v-else-if="status === 2">Refund</span>
+                </template>
             </el-table-column>
             <el-table-column
                     sortable
-                    prop="price"
-                    label="Price"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    sortable
-                    prop="ticket"
-                    label="Tickets"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    fixed="right"
                     label="Operate"
                     width="120">
                 <template slot-scope="scope">
                     <el-button @click="handleClick(scope.row)" type="text" size="small">View</el-button>
-                    <el-button type="text" size="small" v-if="this.user.status === 1">Cancel</el-button>
+                    <el-button type="text" size="small" v-if="scope.row.status === 1">Cancel</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -79,10 +71,10 @@
             clearFilter() {
                 this.$refs.filterTable.clearFilter();
             },
-            filterHandler(value, row, column) {
-                const property = column['property'];
-                return row[property] === value;
-            }
+            // filterHandler(value, row, column) {
+            //     const property = column['property'];
+            //     return row[property] === value;
+            // }
         },
         data () {
             return {

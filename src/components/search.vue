@@ -26,7 +26,6 @@
                         height="500"
                         max-height="500">
                     <el-table-column
-                            fixed
                             sortable
                             prop="title"
                             label="Event name"
@@ -47,19 +46,21 @@
                             sortable
                             prop="address"
                             label="Location"
-                            width="250">
+                            width="220">
                     </el-table-column>
                     <el-table-column
                             sortable
                             prop="start_date"
                             label="Date"
-                            width="100">
+                            width="110"
+                            :formatter="start_date_f">
                     </el-table-column>
                     <el-table-column
                             sortable
                             prop="start_time"
                             label="Time"
-                            width="100">
+                            width="100"
+                            :formatter="start_time_f">
                     </el-table-column>
                     <el-table-column
                             sortable
@@ -71,7 +72,15 @@
                             sortable
                             prop="available_tickets"
                             label="Inventory"
-                            width="110">
+                            width="120">
+                    </el-table-column>
+                    <el-table-column
+                            sortable
+                            label="Operate"
+                            width="100">
+                        <template slot-scope="scope">
+                            <el-button @click="handleClick(scope.row)" type="text" size="small">View</el-button>
+                        </template>
                     </el-table-column>
                 </el-table>
             </el-row>
@@ -107,9 +116,20 @@
             }
         },
         methods: {
+            start_date_f(row) {
+                return row.start_date.split('T')[0];
+            },
+            start_time_f(row) {
+                return row.start_time.split(/[T.]/)[1];
+            },
             filterHandler(value, row, column) {
                 const property = column['property'];
                 return row[property] === value;
+            },
+            handleClick (row) {
+                console.log(row);
+                let id = row.id;
+                location.href = "#/eventDetail/"+id;
             },
             search() {
                 if (this.keyword !== null && this.keyword !== '' && this.keyword !== undefined) {
@@ -132,10 +152,10 @@
                         console.log(res);
                         if(res.state){
                             this.tableData = res.event;
-                            this.$message({
-                                message: res.msg,
-                                type: 'success'
-                            });
+                            // this.$message({
+                            //     message: res.msg,
+                            //     type: 'success'
+                            // });
                         }
                         else {
                             this.$message({

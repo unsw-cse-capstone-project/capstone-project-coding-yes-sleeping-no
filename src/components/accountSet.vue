@@ -158,6 +158,7 @@
                                 type: 'success'
                             });
                             localStorage.setItem("user", JSON.stringify(res));
+                            location.reload();
                         }
                         else {
                             this.$message({
@@ -203,8 +204,8 @@
                 } else {
                     // 转base64
                     this.getBase64(data.file).then(resBase64 => {
-                        this.user.avatar = resBase64.split(',')[1]　　//直接拿到base64信息
-                        console.log(resBase64.split(',')[1])
+                        this.user.avatar = resBase64;　//直接拿到base64信息
+                        console.log(resBase64);
                     })
                     this.imageUrl = URL.createObjectURL(data.file);
                     this.$message.success('File upload successfully!');
@@ -215,6 +216,10 @@
             let userString = localStorage.getItem("user");
             if(userString){
                 this.user =  JSON.parse(userString).user;
+                this.imageUrl = this.getPic(this.user.avatar);
+                // let len = this.user.avatar.split('/').length - 1;
+                // const file = this.user.avatar.split('/')[len];
+                // this.imageUrl = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
             } else{
                 alert("You have not logged in yet, click OK to jump to the login page!");
                 location.href ="/";

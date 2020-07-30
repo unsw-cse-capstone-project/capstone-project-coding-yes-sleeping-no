@@ -1,11 +1,12 @@
 <template>
 <!--    Scroll down to see the bottom-right button.-->
-    <div class="contour" style="background-color: white">
-        <el-row style="padding: 30px; height: 666px">
-            <el-col :span="16">
+    <div class="contour" style="background-color: white; width: 1280px">
+        <el-row style="padding: 30px;">
+            <el-col :span="18">
                 <el-row :gutter="30">
                     <el-col :span="12">
-                        <img src="../assets/img/Joker2.png" alt="" height="560px" style="border-radius: 15px; display: block; margin: 0 auto" />
+                        <img :src="imageUrl" alt="" width="390px" style="border-radius: 15px; display: block; margin: 0 auto" />
+<!--                        <img src="http://localhost:9999/photos/1168374373e34d9e9fe0b2f573b8a2d9.png" alt="" width="390px" style="border-radius: 15px; display: block; margin: 0 auto" />-->
                     </el-col>
                     <el-col :span="12" style="height: 100%;">
                         <el-row style="text-align: left; padding: 5px">
@@ -70,166 +71,101 @@
                         <el-menu-item index="2"  style="font-size: 20px"><a href="#comment">Review</a></el-menu-item>
                     </el-menu>
                 </el-row>
-
                 <el-row id="description" name="description" style="text-align: left">
                     <h2>Description</h2>
                     <p>{{event.description}}</p>
                 </el-row>
-                <el-row id="comment" name="comment" style="text-align: left">
+                <el-row id="review" name="review" style="text-align: left">
                     <h2>Review</h2>
-                    <div>
+                    <div v-for="(review, index) in this.reviewsList">
+                        <span>{{review}}</span>
                         <el-row>
-                            <el-col :span="18">
-                                <el-col :span="2">
-                                    <el-avatar icon="el-icon-user-solid"></el-avatar>
-                                </el-col>
-                                <el-col :span="22">
-                                    <el-row>username</el-row>
-                                    <el-row>30/06/2020 18:00</el-row>
-                                </el-col>
+                            <el-col :span="3">
+                                <img v-if="review.c_avatar" :src="getPic(review.c_avatar)" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
+                                <img v-else src="../assets/img/login.png" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
                             </el-col>
-                            <el-col :span="6">
-                                <el-rate
-                                        v-model="comment_value"
-                                        disabled
-                                        show-score
-                                        text-color="#ff9900"
-                                        score-template="{value}"
-                                        style="text-align: left; padding: 10px 0">
-                                </el-rate>
+                            <el-col :span="21">
+                                <el-row>{{review.c_user_name}}</el-row>
+                                <el-row>{{review.c_created_at.split('T')[0]}} {{review.c_created_at.split(/[T.]/)[1]}}</el-row>
                             </el-col>
                         </el-row>
                         <el-row>
-                            <p>This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user.</p>
+                            <p>{{review.c_content}}</p>
+                        </el-row>
+                        <el-row v-if="review.h_user_name !== null" style="margin-left: 30px">
+                            <el-row>
+                                <el-col :span="3">
+                                    <img v-if="review.h_avatar" :src="getPic(review.h_avatar)" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
+                                    <img v-else src="../assets/img/login.png" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
+                                </el-col>
+                                <el-col :span="21">
+                                    <el-row>{{review.h_user_name}}</el-row>
+                                    <el-row>{{review.h_created_at.split('T')[0]}} {{review.h_created_at.split(/[T.]/)[1]}}</el-row>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <p>{{review.h_content}}</p>
+                            </el-row>
+                        </el-row>
+                        <el-row v-else style="margin-left: 30px">
+                            <el-col :span="21">
+                                <el-input
+                                        style="margin-top:20px"
+                                        type="textarea"
+                                        :rows="2"
+                                        placeholder="Enter Reply"
+                                        v-model="reply"
+                                >
+                                </el-input>
+                            </el-col>
+                            <el-col :span="3">
+                                <el-button style="margin-top:40px;" type="primary" @click="sendReply" round>Submit</el-button>
+                            </el-col>
                         </el-row>
                     </div>
-                    <div>
-                        <el-row>
-                            <el-col :span="18">
-                                <el-col :span="2">
-                                    <el-avatar icon="el-icon-user-solid"></el-avatar>
-                                </el-col>
-                                <el-col :span="22">
-                                    <el-row>username</el-row>
-                                    <el-row>30/06/2020 18:00</el-row>
-                                </el-col>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-rate
-                                        v-model="comment_value"
-                                        disabled
-                                        show-score
-                                        text-color="#ff9900"
-                                        score-template="{value}"
-                                        style="text-align: left; padding: 10px 0">
-                                </el-rate>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <p>This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user.</p>
-                        </el-row>
-                    </div>
-                    <div>
-                        <el-row>
-                            <el-col :span="18">
-                                <el-col :span="2">
-                                    <el-avatar icon="el-icon-user-solid"></el-avatar>
-                                </el-col>
-                                <el-col :span="22">
-                                    <el-row>username</el-row>
-                                    <el-row>30/06/2020 18:00</el-row>
-                                </el-col>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-rate
-                                        v-model="comment_value"
-                                        disabled
-                                        show-score
-                                        text-color="#ff9900"
-                                        score-template="{value}"
-                                        style="text-align: left; padding: 10px 0">
-                                </el-rate>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <p>This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user. This is the comment of a user.</p>
-                        </el-row>
-                        <el-divider></el-divider>
-                        <el-row>
-                            <el-input
-                                    style="margin-top:20px"
-                                    type="textarea"
-                                    :rows="5"
-                                    placeholder="Enter comment"
-                                    v-model="textarea"
-                            >
-                            </el-input>
-                        </el-row>
-                        <el-row>
-                            <el-button style="margin: 10px 0" type="primary" round>Submit</el-button>
-                        </el-row>
-                    </div>
+                    <el-divider></el-divider>
+                    <el-row>
+                        <el-input
+                                style="margin-top:20px"
+                                type="textarea"
+                                :rows="5"
+                                placeholder="Enter review"
+                                v-model="content"
+                        >
+                        </el-input>
+                    </el-row>
+                    <el-row>
+                        <el-button style="margin-top:40px;" type="primary" @click="sendReview" round>Submit</el-button>
+                    </el-row>
                 </el-row>
             </el-col>
 
-            <el-col :span="8">
-                <div style="text-align: left;">
+            <el-col :span="6">
+                <div style="text-align: center;">
                     <span style="font-size: 24px;">Recommended for you</span>
                 </div>
-                <el-row :gutter="5" style="margin: 15px 0 0 0;">
+                <el-row :gutter="10" style="margin: 15px 0 0 0;" v-for="(recommended, index) in this.recommendeds" :key="recommended.id">
                     <el-col :span="12">
-                        <img src="../assets/img/Joker2.png" alt="" style="width: 150px; border-radius: 5px;"/>
+                        <img v-if="recommended.cover_image" :src="getPic(recommended.cover_image)" alt="" style="width: 150px; border-radius: 5px;"/>
+                        <div v-else style="height: 200px; border-radius: 5px; background-color: #f3f3f3">
+                            <img src="../assets/img/CYSNlogo.png" alt="" style="margin: 80px auto">
+                        </div>
                     </el-col>
                     <el-col :span="12" style="text-align: left">
                         <el-row>
-                            <span style="font-size: 24px">Joker (2019)</span>
+                            <span style="font-size: 24px">{{recommended.title}}</span>
                         </el-row>
                         <el-row>
-                            <span style="color: grey">Description of event...</span>
+                            <span style="color: grey">At {{recommended.address}}</span>
                         </el-row>
                         <el-row>
-                            <span style="color: grey">Date of the event...</span>
+                            <span style="color: grey">Date: {{recommended.start_date.split('T')[0]}}</span>
                         </el-row>
                         <el-row>
-                            <span style="color: red">Price from $200</span>
-                        </el-row>
-                    </el-col>
-                </el-row>
-                <el-row :gutter="5" style="margin: 15px 0 0 0;">
-                    <el-col :span="12">
-                        <img src="../assets/img/Joker2.png" alt="" style="width: 150px; border-radius: 5px;"/>
-                    </el-col>
-                    <el-col :span="12" style="text-align: left">
-                        <el-row>
-                            <span style="font-size: 24px">Joker (2019)</span>
+                            <span style="color: grey">Time: {{recommended.start_time.split(/[T.]/)[1]}}</span>
                         </el-row>
                         <el-row>
-                            <span style="color: grey">Description of event...</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: grey">Date of the event...</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: red">Price from $200</span>
-                        </el-row>
-                    </el-col>
-                </el-row>
-                <el-row :gutter="5" style="margin: 15px 0 0 0;">
-                    <el-col :span="12">
-                        <img src="../assets/img/Joker2.png" alt="" style="width: 150px; border-radius: 5px;"/>
-                    </el-col>
-                    <el-col :span="12" style="text-align: left">
-                        <el-row>
-                            <span style="font-size: 24px">Joker (2019)</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: grey">Description of event...</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: grey">Date of the event...</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: red">Price from $200</span>
+                            <span style="color: red">Price: {{recommended.ticket_price}}</span>
                         </el-row>
                     </el-col>
                 </el-row>
@@ -269,7 +205,7 @@
                             <el-input style="margin-top: 80px; margin-left:15px; width: 280px; " v-model="order.last_name" placeholder="Last name"></el-input>
                             <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line1"></el-input>
                             <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_2" placeholder="Address line2"></el-input>
-<!--                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.address_1" placeholder="Address line"></el-input>-->
+                            <el-input style="margin-top: 20px; width: 580px; " v-model="order.email" placeholder="Email address"></el-input>
                             <el-input style="margin-top: 20px; width: 280px; " v-model="order.city" placeholder="City"></el-input>
                             <el-select style="margin-left:15px; width:280px" v-model="order.state" placeholder="State/Province">
                                 <el-option
@@ -281,46 +217,25 @@
                             </el-select>
                             <el-input style="margin-top: 20px; width: 280px; " v-model="order.postcode" placeholder="Zip code"></el-input>
                             <el-input style="margin-top: 20px; margin-left:15px; width: 280px; " v-model="order.phone" placeholder="Phone number"></el-input>
-                            <el-button style="margin-top: 70px; margin-left:45px; float: left" type="primary" @click="stepTwo">NEXT</el-button>
-                            <el-button style="margin-top: 70px; margin-left:45px; float: left" type="primary" @click="cancelOrder">CANCEL</el-button>
+                            <el-button style="margin-top: 40px; margin-left:45px; float: left" type="primary" @click="stepTwo">NEXT</el-button>
+                            <el-button style="margin-top: 40px; margin-left:45px; float: left" type="primary" @click="cancelOrder">CANCEL</el-button>
                         </el-col>
                         <el-col :span="6">
                             <el-row>
                                 <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;font-size: larger">Summary</span>
                                 <img style="float: left; margin-top: 20px;" src="../assets/img/joker.png" alt="" width="80%" height="100%" />
                             </el-row>
-                            <el-row>
-                                <el-col :span="14">
-                                    <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{event.title}}</span>
-                                    </el-row>
-                                    <el-row>
-                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">Tickets</span>
-                                    </el-row>
-                                    <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">Total</span>
-                                    </el-row>
-                                </el-col>
-                                <el-col :span="10">
-                                    <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black;">{{event.ticket_price}}</span>
-                                    </el-row>
-                                    <el-row>
-                                        <span style="float: left; margin-top: 20px;font-weight: bolder;color: black">{{order.ticket_amount}}</span>
-                                    </el-row>
-                                    <el-row>
-                                        <span style="float: left; margin-top: 40px;font-weight: bolder;color: black">{{amount}}</span>
-                                    </el-row>
-                                </el-col>
-                            </el-row>
+
                         </el-col>
                     </el-tab-pane>
                     <el-tab-pane label="2.Payment Options" name="second">
                         <el-col :span="18" style="height: 100%;margin-top: 50px">
                             <div>
-                                <el-radio v-model.number="order.status" label="1" border style="text-align: left">
-                                    <img src="../assets/img/visa1.png" alt=""  height="18px" />
-                                    <span style="font-size: 20px;margin-left: 5px">Visa/Master</span>
+                                <div style="width: 580px; border: 1px solid #DCDFE6; border-radius: 4px; margin: 0 0 30px 60px; text-align: left">
+                                    <el-radio v-model.number="order.status" label=1 style="margin: 10px 10px 0 10px">
+                                        <img src="../assets/img/visa1.png" alt=""  height="18px" />
+                                        <span style="font-size: 20px;margin-left: 5px">Visa/Master</span>
+                                    </el-radio>
                                     <el-row style="margin-top: 20px;" :gutter="22">
                                         <el-col :span="12">
                                             <el-input style="margin-left: 20px; margin-top: 10px"
@@ -345,11 +260,14 @@
                                                       placeholder="Card Holder Name" v-model="order.card_holder" clearable></el-input>
                                         </el-col>
                                     </el-row>
-                                </el-radio>
-                                <el-radio v-model.number="order.status" label="2" border style="text-align: left; padding: 12px">
+                                </div>
+                                <div style="width: 580px; border: 1px solid #DCDFE6; border-radius: 4px; margin: 0 0 30px 60px; text-align: left">
+                                    <el-radio v-model.number="order.status" label=2 style="text-align: left; padding: 12px">
                                         <img src="../assets/img/Paypal222.png" alt=""  height="18px" />
                                         <span style="font-size: 20px;margin-left: 5px">Paypal</span>
-                                </el-radio>
+                                    </el-radio>
+                                </div>
+
                             </div>
                             <el-row style="text-align: left">
                                 <el-button style="margin-top: 40px;margin-left: 50px; width: 200px" type="primary" @click="pay">Pay Now</el-button>
@@ -357,7 +275,7 @@
                             </el-row>
                         </el-col>
                         <el-col :span="6">
-                            <el-row style="text-align: left; margin: 40px 0;">
+                            <el-row style="text-align: left; margin: 40px 0 0 0;">
                                 <span style="margin-top: 40px;font-weight: bolder;color: black;font-size: larger">Summary</span>
                                 <img style="margin-top: 20px;" src="../assets/img/joker.png" alt="" width="80%" height="100%" />
                             </el-row>
@@ -367,27 +285,27 @@
                                         <span style="font-weight: bolder;color: black">{{event.title}}</span>
                                     </el-row>
                                     <el-row style="text-align: left; margin: 10px 0;">
-                                        <span style="font-weight: bolder;color: black">Tickets</span>
+                                        <span style="font-weight: bolder;color: black">No. Tickets</span>
                                     </el-row>
-                                    <el-row style="text-align: left; margin: 10px 0;">
+                                    <el-row style="text-align: left; margin: 10px 0;line-height: 28px">
                                         <span style="font-weight: bolder;color: black">Donation</span>
                                     </el-row>
                                     <el-row style="text-align: left; margin: 10px 0;">
-                                        <span style="font-weight: bolder;color: black">Total</span>
+                                        <span style="font-weight: bolder;color: black">Amount</span>
                                     </el-row>
                                 </el-col>
                                 <el-col :span="14">
-                                    <el-row style="text-align: left; margin: 10px 0;">
+                                    <el-row style="text-align: left; margin: 10px 0;text-align: center;width: 93px">
                                         <span style="font-weight: bolder;color: black;">${{event.ticket_price}}</span>
                                     </el-row>
-                                    <el-row style="text-align: left; margin: 10px 0;">
+                                    <el-row style="text-align: left; margin: 10px 0;text-align: center;width: 93px">
                                         <span style="font-weight: bolder;color: black">{{order.ticket_amount}}</span>
                                     </el-row>
                                     <el-row>
-                                        $<el-input-number v-model="order.donate" controls-position="right" @change="handleChange_donation" :min="0" :max="1000" size="mini"></el-input-number>
+                                        <el-input-number v-model="order.donate" controls-position="right" @change="handleChange_donation" :min="0" :max="1000" size="mini"></el-input-number>
                                     </el-row>
-                                    <el-row style="text-align: left; margin: 10px 0;">
-                                        <span style="font-weight: bolder;color: black">{{amount}}</span>
+                                    <el-row style="text-align: left; margin: 10px 0;text-align: center;width: 93px">
+                                        <span style="font-weight: bolder;color: red">${{amount}}</span>
                                     </el-row>
                                 </el-col>
                             </el-row>
@@ -436,10 +354,8 @@
                 loc_value: '',
                 date_value: '',
                 time_value: '',
-                comment_value: 4.5,
                 value1: '',
-                textarea: '',
-                rate_value: null,
+                content: '',
                 colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
                 dialogFormVisible: false,
                 input: '',
@@ -448,8 +364,13 @@
                 amount: 0,
                 order: {
                     ticket_amount: 1,
-                    donation: 0
-                }
+                    donate: 0
+                },
+                imageUrl: '',
+                recommendeds: [],
+                reviewsList: [],
+                reply: '',
+                user: {}
             }
         },
         mounted: function () {},
@@ -492,19 +413,105 @@
             },
             cancelOrder(){
                 this.dialogFormVisible = false;
+            },
+            sendReview(){
+                let obj = {
+                    content: this.content,
+                    eventId: this.event.id
+                };
+                this.$http.post("/eventReview/send", obj).then(
+                    res=>{
+                        if(res.state) {
+                            this.$message({
+                                message: res.msg,
+                                type: 'success'
+                            });
+                            location.reload();
+                        } else {
+                            this.$message({
+                                message: res.msg,
+                                type: 'fail'
+                            })
+                        }
+                    }
+                )
+            },
+            sendReply(){
+                let obj = {
+                    content: this.reply,
+                    eventId: this.event.id,
+                    userId: this.user.id
+                }
+                this.$http.post("/eventReview/reply", obj).then(
+                    res=>{
+                        if(res.state) {
+                            this.$message({
+                                message: res.msg,
+                                type: 'success'
+                            });
+                            location.reload();
+                        } else {
+                            this.$message({
+                                message: res.msg,
+                                type: 'fail'
+                            })
+                        }
+                    }
+                )
+            },
+            showReviews(reviews) {
+                console.log(reviews);
+                let i;
+                let res = {}
+                for (i in reviews) {
+                    console.log('review is');
+                    let review = reviews[i];
+                    console.log(review);
+                    res.c_avatar = review[1].avatar;
+                    res.c_user_name = review[1].user_name;
+                    res.c_create_time = review[0].updated_at;
+                    res.c_content = review[0].content;
+                    if (review.length == 4) {
+                        res.h_avatar = review[3].avatar;
+                        res.h_user_name = review[3].user_name;
+                        res.h_create_time = review[2].updated_at
+                        res.h_content = review[1].content;
+                    }
+                    console.log(res);
+                    this.reviewsList.push(res);
+                }
+
             }
+            // getPic(path){
+            //     if(path !== null) {
+            //         let len = path.split('/').length - 1;
+            //         const file = path.split('/')[len];
+            //         // let imagePath = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
+            //         let imagePath = 'http://localhost:9999/photos/'+file;
+            //         return imagePath;
+            //     }
+            // }
         },
         created() {
+            let userString = localStorage.getItem("user");
+            if(userString){
+                this.user =  JSON.parse(userString).user;
+            }
             let id = this.$route.params.id;
             this.$http.get("/event/find/"+id).then(
                 res=>{
-                    // console.log(res);
+                    console.log(res);
                     if(res.state){
                         this.event = res.event;
-                        this.$message({
-                            message: res.msg,
-                            type: 'success'
-                        });
+                        this.recommendeds = res.recommended;
+                        this.showReviews(res.eventReviews);
+                        console.log(this.reviewsList);
+                        this.event.start_date = this.event.start_date.split('T')[0];
+                        this.event.start_time = this.event.start_time.split(/[T.]/)[1];
+                        this.imageUrl = this.getPic(this.event.cover_image);
+                        // let len = this.event.cover_image.split('/').length - 1;
+                        // const file = this.event.cover_image.split('/')[len];
+                        // this.imageUrl = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
                         this.amount = this.event.ticket_price;
                     }
                     else {
@@ -514,7 +521,7 @@
                         })
                     }
                 }
-            )
+            );
         }
     }
 </script>

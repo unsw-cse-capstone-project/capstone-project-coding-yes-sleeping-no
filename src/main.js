@@ -19,8 +19,19 @@ Vue.use(ElementUI, { locale});
 //Vue.use(axios);
 
 Vue.config.productionTip = true;
-Vue.prototype.$http = http;
+Vue.prototype.$http = http
 // Vue.prototype.$axios = axios;
+
+// Global function
+Vue.prototype.getPic = function(path) {
+  if (path !== null) {
+    let len = path.split('/').length - 1;
+    const file = path.split('/')[len];
+    // let imagePath = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
+    let imagePath = 'http://localhost:9999/photos/' + file;
+    return imagePath;
+  }
+}
 
 Vue.filter('dataformat', function (input, str, type, num, t) {
   if (type == 'add') {
