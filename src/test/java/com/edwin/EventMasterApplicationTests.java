@@ -15,18 +15,5 @@ class EventMasterApplicationTests {
 
     @Test
     void contextLoads() throws FileNotFoundException {
-//        System.out.println(ClassUtils.getDefaultClassLoader().getResource("static").getPath());
-//        String filePath = request.getSession().getServletContext().getRealPath("imgupload/")
-//
-//        File path = new File(ResourceUtils.getURL("classpath:").getPath());
-//        if(!path.exists()) {
-//            path = new File("");
-//        }
-//        File upload = new File(path.getAbsolutePath(),"static/upload/");
-//        if(!upload.exists()) {
-//            upload.mkdirs();
-//        }
-//        FileUtils.copyInputStreamToFile(inputStream, uploadFile);
     }
-
 }

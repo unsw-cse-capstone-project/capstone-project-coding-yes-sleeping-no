@@ -30,9 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-
-    @Value("${photo.dir}")
-    private String realPath;
+//
+//    @Value("${photo.dir}")
+//    private String realPath;
 
     /**
      * User register
@@ -125,7 +125,9 @@ public class UserServiceImpl implements UserService {
             }
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
             String tempFileName = uuid + suffix;
-//            String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static").getPath() + tempFileName;
+//            String imgFilePath = realPath + tempFileName;
+//                String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static").getPath() + tempFileName;
+
             Decoder decoder = Base64.getDecoder();
 //            user.setAvatar(imgFilePath);
             try {
@@ -135,24 +137,61 @@ public class UserServiceImpl implements UserService {
                         b[i] += 256;
                     }
                 }
-                File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
-
-                if(!pathRoot.exists()) pathRoot = new File("");
-
-                System.out.println("path:"+pathRoot.getAbsolutePath());
-                File upload = new File(pathRoot.getAbsolutePath(), "static/photos/");
-                if(!upload.exists()) upload.mkdirs();
-                System.out.println("upload url:"+upload.getAbsolutePath());
+//                OutputStream out = new FileOutputStream(imgFilePath);
+//                out.write(b);
+//                out.flush();
+//                out.close();
+//                userDao.update(user);
+/////////////////////////////////////////
+//                File path = new File(ResourceUtils.getURL("classpath:").getPath());
+//                File upload = new File(path.getAbsolutePath(), "static/");
 //                if (!upload.exists()) upload.mkdirs();
-//                String uploadPath = upload + "\\";
-                File file = new File(upload, tempFileName);
-//                multipartFile.transferTo(file);
-//                FileOutputStream writer = new FileOutputStream(new File(file , tempFileName));
-                FileOutputStream writer = new FileOutputStream(file);
+//                File file = new File(upload + tempFileName);
+                File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
+                System.out.println("保存的路径pathRoot："+pathRoot.getAbsolutePath());
+                if(!pathRoot.exists()) {
+                    pathRoot = new File("");
+                }
+                String saveFile = pathRoot.getAbsolutePath() +"/static/";
+//                File f = new File(saveFile);
+//                if(!f.exists()) {
+//                    f.mkdirs();
+//                }
+                FileOutputStream writer = new FileOutputStream(new File(saveFile , tempFileName));
                 writer.write(b);
                 writer.flush();
                 writer.close();
-                user.setAvatar(upload + "/" + tempFileName);
+
+//                //文件路径
+//                filePath = saveFile + "\\" + fileName;
+//                OutputStream out = new FileOutputStream(file);
+//                out.write(b);
+//                out.flush();
+//                out.close();
+                user.setAvatar(saveFile + tempFileName);
+                userDao.update(user);
+
+
+//                String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static").getPath() + tempFileName;
+
+//                File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
+
+//                if(!pathRoot.exists()) pathRoot = new File("");
+//
+//                System.out.println("path:"+pathRoot.getAbsolutePath());
+//                File upload = new File(pathRoot.getAbsolutePath(), "static/photos/");
+//                if(!upload.exists()) upload.mkdirs();
+//                System.out.println("upload url:"+upload.getAbsolutePath());
+//                if (!upload.exists()) upload.mkdirs();
+//                String uploadPath = upload + "\\";
+//                File file = new File(upload, tempFileName);
+//                multipartFile.transferTo(file);
+//                FileOutputStream writer = new FileOutputStream(new File(file , tempFileName));
+//                FileOutputStream writer = new FileOutputStream(file);
+//                writer.write(b);
+//                writer.flush();
+//                writer.close();
+//                user.setAvatar(upload + "/" + tempFileName);
                 // 提交到另一个服务
 //                FileSystemResource remoteFile = new FileSystemResource(file);
 //                // package parameter.
@@ -181,11 +220,7 @@ public class UserServiceImpl implements UserService {
 //                if (!upload.exists()) {
 //                    upload.mkdirs();
 //                }
-//                OutputStream out = new FileOutputStream(imgFilePath);
-//                out.write(b);
-//                out.flush();
-//                out.close();
-                userDao.update(user);
+
 //                InputStream inputStream = image.getInputStream();
 //                Path directory = Paths.get(UPLOAD_PATH);
 //                if(!Files.exists(directory)){

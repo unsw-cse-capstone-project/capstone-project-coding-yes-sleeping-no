@@ -37,8 +37,8 @@ import java.util.Map;
 @Slf4j
 public class UserController {
 
-    @Value("${photo.dir}")
-    private String realPath;
+//    @Value("${photo.dir}")
+//    private String realPath;
 
     @Autowired
     private UserService userService;

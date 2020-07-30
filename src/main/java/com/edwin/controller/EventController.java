@@ -31,8 +31,8 @@ import java.util.concurrent.*;
 @Slf4j
 public class EventController {
 
-    @Value("${photo.dir}")
-    private String realPath;
+//    @Value("${photo.dir}")
+//    private String realPath;
 
     @Autowired
     private EventService eventService;
@@ -323,7 +323,7 @@ public class EventController {
             response.put("state", true);
             response.put("msg", "find event for index page success");
             response.put("Recommended", recommendedEvents);
-            response.put("Live Concerts", liveConcerts);
+            response.put("Live_Concerts", liveConcerts);
             response.put("Movies", movies);
             response.put("Drama", drama);
             response.put("sport", sport);

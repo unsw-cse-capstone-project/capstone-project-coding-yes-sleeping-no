@@ -32,8 +32,8 @@ import java.util.*;
 @Transactional
 public class EventServiceImpl implements EventService {
 
-    @Value("${photo.dir}")
-    private String realPath;
+//    @Value("${photo.dir}")
+//    private String realPath;
 
     @Resource
     private JavaMailSender mailSender;
