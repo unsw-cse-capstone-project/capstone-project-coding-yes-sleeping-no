@@ -10,7 +10,6 @@ import com.edwin.entity.Payment;
 import com.edwin.entity.User;
 import com.edwin.utlis.Consts;
 import com.edwin.utlis.OrderNumber;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -119,11 +118,8 @@ public class OrderServiceImpl implements OrderService {
             payment.setCvv(cvv);
         }
         if (!ObjectUtils.isEmpty(request.get("status"))) {
-            String status = (String) request.get("status");
-//            Integer status = (Integer) request.get("status");
-            Integer s = Integer.valueOf(status);
-//            payment.setStatus(status);
-            payment.setStatus(s);
+            Integer status = (Integer) request.get("status");
+            payment.setStatus(status);
         }
         if (!ObjectUtils.isEmpty(request.get("card_holder"))) {
             String cardHolder = (String) request.get("card_holder");

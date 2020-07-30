@@ -19,25 +19,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedMethods("*");
     }
+
     @SneakyThrows
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-
         File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
-        if(!pathRoot.exists()) {
+        if (!pathRoot.exists()) {
             pathRoot = new File("");
         }
-        String saveFile = "file:" + pathRoot.getAbsolutePath() +"/static/";
-
-//        String s = "file:" + ResourceUtils.getURL("classpath:").getPath() + "/";
-//        registry.addResourceHandler("/photos/**").addResourceLocations(s);
-//        registry.addResourceHandler("/image/**").addResourceLocations(s);
-//        registry.addResourceHandler("/image/**").addResourceLocations("file:/Users/edwin/Desktop/static/");
-
+        String saveFile = "file:" + pathRoot.getAbsolutePath() + "/static/";
         registry.addResourceHandler("/photos/**").addResourceLocations(saveFile.toString());
-
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 }
