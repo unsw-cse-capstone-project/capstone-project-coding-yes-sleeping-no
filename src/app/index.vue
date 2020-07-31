@@ -10,7 +10,7 @@
             <div class="flexNowarp" style="font-size: 14px;">
               <div class="flexItem curPoi">Live Concerts</div>
               <div class="flexItem curPoi">Movies</div>
-              <div class="flexItem curPoi">Drama</div>
+              <div class="flexItem curPoi">Dramas</div>
               <div class="flexItem curPoi">Sport</div>
             </div>
           </el-col>
@@ -47,64 +47,127 @@
     </el-row>
     <el-carousel height="700px" style="background-color: black">
       <el-carousel-item v-for="(item, index) in carouselList" :key="index">
-        <img :src="item.img" alt="" height="100%" />
+        <img :src="item.cover_image" alt="" height="100%" />
       </el-carousel-item>
     </el-carousel>
-    <div>
-      <div style="background-color: white;padding: 80px 50px;">
-        <div style="text-align: left;">
-          <img src="../assets/img/type.png" alt="" width="40px;" />
-          <span style="font-size: 22px;padding-left: 10px;font-style:italic">Live Concerts</span>
-        </div>
-        <el-row style="height: 666px;">
-          <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">
-            <img src="../assets/img/Up&Up.png" alt="" width="100%" height="100%" style="display: block;" />
-          </el-col>
-          <el-col :span="10" style="padding-left: 26px;">
-            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img src="../assets/img/Up&Up.png" alt="" width="100%" height="100%" style="display: block;" /></div>
-            <div style="height: 320px;border-radius: 15px;overflow: hidden;"><img src="../assets/img/Up&Up.png" alt="" width="100%" height="100%" style="display: block;" /></div>
-          </el-col>
-        </el-row>
-        <div class="flexNowarp" style="margin-top: 30px;">
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/FindMeSomeBodyToLove.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Find Me Some Body to Love</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
-          </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/FindMeSomeBodyToLove.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Find Me Some Body to Love</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
-          </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/FindMeSomeBodyToLove.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Find Me Some Body to Love</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
-          </div>
-          <div class="flexItem" style="text-align: left;">
-            <img src="../assets/img/FindMeSomeBodyToLove.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-            <div style="font-size: 20px;color: black;font-weight">Find Me Some Body to Love</div>
-            <div style="font-size: 14px;color: #666;">Introduction</div>
-            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>
-            <div style="font-size: 20px;color: red;">from $200</div>
-          </div>
-        </div>
-        <div style="padding-top: 50px;">
-          <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>
-        </div>
-      </div>
-    </div>
-    <div>
+
+    <div v-if="Object.keys(movies).length !== 0">
       <div style="background-color: white;padding: 80px 50px;">
         <div style="text-align: left;">
           <img src="../assets/img/type.png" alt="" width="40px;" />
           <span style="font-size: 22px;padding-left: 10px;font-style:italic">Movies</span>
+        </div>
+        <el-row style="height: 666px;">
+          <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">
+            <img :src="getPoster(this.movies, 0)" alt="" width="100%" height="100%" style="display: block;" />
+          </el-col>
+          <el-col v-if="Object.keys(movies).length > 1" :span="10" style="padding-left: 26px;">
+            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img :src="getPoster(this.movies, 1)" alt="" width="100%" height="100%" style="display: block;" /></div>
+            <div v-if="Object.keys(movies).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;"><img :src="getPoster(this.movies, 2)" alt="" width="100%" height="100%" style="display: block;" /></div>
+          </el-col>
+        </el-row>
+          <div v-for="(movie, index) in this.movies.slice(3)" class="flexItem" style="text-align: left; display: inline-block; margin-top: 20px">
+            <img :src="getPoster(this.movies, index)" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
+            <div style="font-size: 20px;color: black;font-weight">{{movie.title}}</div>
+            <div style="font-size: 14px;color: #666;">{{movie.description}}</div>
+            <div style="font-size: 14px;color: #666;">{{movie.start_date.split('T')[0]}} {{movie.start_time.split(/[T.]/)[1]}}</div>
+            <div style="font-size: 20px;color: red;">${{movie.ticket_price}}</div>
+          </div>
+<!--        <div style="padding-top: 50px;">-->
+<!--          <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>-->
+<!--        </div>-->
+      </div>
+    </div>
+
+<!--    <div v-if="concerts !== null">-->
+<!--      <div style="background-color: white;padding: 80px 50px;">-->
+<!--        <div style="text-align: left;">-->
+<!--          <img src="../assets/img/type.png" alt="" width="40px;" />-->
+<!--          <span style="font-size: 22px;padding-left: 10px;font-style:italic">Live Concerts</span>-->
+<!--        </div>-->
+<!--        <el-row style="height: 666px;">-->
+<!--          <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">-->
+<!--            <img :src="getPoster(this.concerts, 0)" alt="" width="100%" height="100%" style="display: block;" />-->
+<!--          </el-col>-->
+<!--          <el-col v-if="Object.keys(concerts).length > 1" :span="10" style="padding-left: 26px;">-->
+<!--            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img :src="getPoster(this.concerts, 1)" alt="" width="100%" height="100%" style="display: block;" /></div>-->
+<!--            <div v-if="Object.keys(concerts).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;"><img :src="getPoster(this.concerts, 2)" alt="" width="100%" height="100%" style="display: block;" /></div>-->
+<!--          </el-col>-->
+<!--        </el-row>-->
+<!--        <div v-for="(concert, index) in this.concerts.slice(3)" class="flexItem" style="text-align: left; display: inline-block; margin-top: 20px">-->
+<!--          <img :src="getPoster(this.concerts, index)" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />-->
+<!--          <div style="font-size: 20px;color: black;font-weight">{{concert.title}}</div>-->
+<!--          <div style="font-size: 14px;color: #666;">{{concert.description}}</div>-->
+<!--          <div style="font-size: 14px;color: #666;">{{concert.start_date.split('T')[0]}} {{concert.start_time.split(/[T.]/)[1]}}</div>-->
+<!--          <div style="font-size: 20px;color: red;">${{concert.ticket_price}}</div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        <div style="padding-top: 50px;">&ndash;&gt;-->
+<!--        &lt;!&ndash;          <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div v-if="dramas !== null">-->
+<!--      <div style="background-color: white;padding: 80px 50px;">-->
+<!--        <div style="text-align: left;">-->
+<!--          <img src="../assets/img/type.png" alt="" width="40px;" />-->
+<!--          <span style="font-size: 22px;padding-left: 10px;font-style:italic">Dramas</span>-->
+<!--        </div>-->
+<!--        <el-row style="height: 666px;">-->
+<!--          <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">-->
+<!--            <img :src="getPoster(this.dramas, 0)" alt="" width="100%" height="100%" style="display: block;" />-->
+<!--          </el-col>-->
+<!--          <el-col v-if="Object.keys(dramas).length > 1" :span="10" style="padding-left: 26px;">-->
+<!--            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img :src="getPoster(this.dramas, 1)" alt="" width="100%" height="100%" style="display: block;" /></div>-->
+<!--            <div v-if="Object.keys(dramas).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;"><img :src="getPoster(this.dramas, 2)" alt="" width="100%" height="100%" style="display: block;" /></div>-->
+<!--          </el-col>-->
+<!--        </el-row>-->
+<!--        <div v-for="(drama, index) in this.dramas.slice(3)" class="flexItem" style="text-align: left; display: inline-block; margin-top: 20px">-->
+<!--          <img :src="getPoster(this.dramas, index)" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />-->
+<!--          <div style="font-size: 20px;color: black;font-weight">{{drama.title}}</div>-->
+<!--          <div style="font-size: 14px;color: #666;">{{drama.description}}</div>-->
+<!--          <div style="font-size: 14px;color: #666;">{{drama.start_date.split('T')[0]}} {{drama.start_time.split(/[T.]/)[1]}}</div>-->
+<!--          <div style="font-size: 20px;color: red;">${{drama.ticket_price}}</div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        <div style="padding-top: 50px;">&ndash;&gt;-->
+<!--        &lt;!&ndash;          <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div v-if="sports !== null">-->
+<!--      <div style="background-color: white;padding: 80px 50px;">-->
+<!--        <div style="text-align: left;">-->
+<!--          <img src="../assets/img/type.png" alt="" width="40px;" />-->
+<!--          <span style="font-size: 22px;padding-left: 10px;font-style:italic">Sport</span>-->
+<!--        </div>-->
+<!--        <el-row style="height: 666px;">-->
+<!--          <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">-->
+<!--            <img :src="getPoster(this.sports, 0)" alt="" width="100%" height="100%" style="display: block;" />-->
+<!--          </el-col>-->
+<!--          <el-col v-if="Object.keys(sports).length > 1" :span="10" style="padding-left: 26px;">-->
+<!--            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img :src="getPoster(this.sports, 1)" alt="" width="100%" height="100%" style="display: block;" /></div>-->
+<!--            <div v-if="Object.keys(sports).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;"><img :src="getPoster(this.sports, 2)" alt="" width="100%" height="100%" style="display: block;" /></div>-->
+<!--          </el-col>-->
+<!--        </el-row>-->
+<!--        <div v-for="(sport, index) in this.sports.slice(3)" class="flexItem" style="text-align: left; display: inline-block; margin-top: 20px">-->
+<!--          <img :src="getPoster(this.sports, index)" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />-->
+<!--          <div style="font-size: 20px;color: black;font-weight">{{sport.title}}</div>-->
+<!--          <div style="font-size: 14px;color: #666;">{{sport.description}}</div>-->
+<!--          <div style="font-size: 14px;color: #666;">{{sport.start_date.split('T')[0]}} {{sport.start_time.split(/[T.]/)[1]}}</div>-->
+<!--          <div style="font-size: 20px;color: red;">${{sport.ticket_price}}</div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        <div style="padding-top: 50px;">&ndash;&gt;-->
+<!--        &lt;!&ndash;          <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div>
+      <div style="background-color: white;padding: 80px 50px;">
+        <div style="text-align: left;">
+          <img src="../assets/img/type.png" alt="" width="40px;" />
+          <span style="font-size: 22px;padding-left: 10px;font-style:italic">Live</span>
         </div>
         <el-row style="height: 666px;">
           <el-col :span="16" style="height: 100%;border-radius: 15px;overflow: hidden;">
@@ -148,14 +211,6 @@
         <div style="padding-top: 50px;">
           <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>
         </div>
-      </div>
-    </div>
-    <div style="margin-top: 80px;padding: 90px 0px;background-color: #f6f6f6;">
-      <div style="font-size: 24px;color: #121212;font-family: SourceHanSans-Medium;font-weight: bold;">Subscribe&nbsp;to&nbsp;Out&nbsp;Newsletter</div>
-      <div style="font-size: 16px;color: #666666;padding-top: 20px;text-align: center"> <div style="width: 400px; display: inline-block">Get&nbsp;the&nbsp;latest product updates, company news, and special offers delivered right to your inbox.</div> </div>
-      <div style="padding-top: 40px;">
-        <input type="text" placeholder="Enter your email" style="line-height: 50px;font-size: 16px;border-radius: 25px;border: none;width: 270px;padding-left: 30px;" />
-        <button style="background: #1A1A1A;box-shadow: 0 2px 4px 0 rgba(42,42,42,0.20);border-radius: 25px;line-height: 50px;width: 140px;color: #fff;font-size: 16px;border: none;margin-left: 20px;">SUBSCRIBE</button>
       </div>
     </div>
     <div style="margin-top: 50px;padding: 40px 50px;border-top: 1px solid #121212;">
@@ -254,11 +309,12 @@
 export default {
   data() {
     return {
-      carouselList: [
-        {img: require('../assets/img/ColdplayPara.png')},
-        {img: require('../assets/img/FindMeSomeBodyToLove.png')},
-        {img: require('../assets/img/Joker2.png')}
-      ],
+      // carouselList: [
+      //   {img: require('../assets/img/ColdplayPara.png')},
+      //   {img: require('../assets/img/FindMeSomeBodyToLove.png')},
+      //   {img: require('../assets/img/Joker2.png')}
+      // ],
+      carouselList: [],
       dialogVisible: false,
       user: {},
       register: {
@@ -266,9 +322,12 @@ export default {
       },
       showLogin: true,
       confirm_password: null,
-      tableData: [],
       keyword: '',
-      imageUrl: ''
+      imageUrl: '',
+      concerts: [],
+      movies: [],
+      dramas: [],
+      sports: [],
     }
   },
   mounted() {},
@@ -383,6 +442,16 @@ export default {
     },
     search(keyword) {
       location.href='#/search/'+keyword;
+    },
+    getPoster(picList, index) {
+      let pic = picList[index];
+      if(pic !== undefined && pic.cover_image !== null){
+        return this.getPic(pic.cover_image);
+      } else {
+        let path = "../assets/img/CYSNlogo.png";
+        return path;
+      }
+
     }
   },
   created() {
@@ -394,11 +463,15 @@ export default {
       // const file = this.user.avatar.split('/')[len];
       // this.imageUrl = require('/Users/edgar/Desktop/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/' + file);
     }
-    // this.$http.get("/event/findAll").then(
-    //         res=>{
-    //           console.log(res);
-    //           this.tableData = res;
-    //         })
+    this.$http.get("/event/find/index").then(
+            res=>{
+              console.log(res);
+              this.dramas = res.Drama;
+              this.concerts = res.LiveConcerts;
+              this.movies = res.Movies;
+              this.sports = res.sports;
+              this.carouselList = res.Recommended;
+            })
   }
 }
 </script>

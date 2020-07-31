@@ -5,8 +5,13 @@
             <el-col :span="18">
                 <el-row :gutter="30">
                     <el-col :span="12">
-                        <img :src="imageUrl" alt="" width="390px" style="border-radius: 15px; display: block; margin: 0 auto" />
+                        <div style="width: 390px; height: 600px">
+                            <img v-if="imageUrl" :src="imageUrl" alt="" width="390px" style="border-radius: 15px; display: block; margin: 0 auto" />
 <!--                        <img src="http://localhost:9999/photos/1168374373e34d9e9fe0b2f573b8a2d9.png" alt="" width="390px" style="border-radius: 15px; display: block; margin: 0 auto" />-->
+                            <div v-else style="height: 600px; border-radius: 5px; background-color: #f3f3f3">
+                                <img src="../assets/img/CYSNlogo.png" alt="" style="margin: 280px auto">
+                            </div>
+                        </div>
                     </el-col>
                     <el-col :span="12" style="height: 100%;">
                         <el-row style="text-align: left; padding: 5px">
@@ -25,7 +30,7 @@
                                 <span>Date: </span>
                             </el-col>
                             <el-col :span="18" style="padding: 10px 0px">
-                                <span>{{event.start_date}}</span>
+                                <span>{{getDate(event.start_date)}}</span>
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
@@ -33,7 +38,7 @@
                                 <span>Time: </span>
                             </el-col>
                             <el-col :span="18" style="padding: 10px 0px">
-                                <span>{{event.start_time}}</span>
+                                <span>{{getTime(event.start_time)}}</span>
                             </el-col>
                         </el-row>
                         <el-row style="text-align: left; padding: 10px">
@@ -68,7 +73,7 @@
                 <el-row style="margin: 50px 0">
                     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
                         <el-menu-item index="1"  style="font-size: 20px"><a href="#description">Description</a></el-menu-item>
-                        <el-menu-item index="2"  style="font-size: 20px"><a href="#comment">Review</a></el-menu-item>
+                        <el-menu-item index="2"  style="font-size: 20px"><a href="#review">Review</a></el-menu-item>
                     </el-menu>
                 </el-row>
                 <el-row id="description" name="description" style="text-align: left">
@@ -77,34 +82,33 @@
                 </el-row>
                 <el-row id="review" name="review" style="text-align: left">
                     <h2>Review</h2>
-                    <div v-for="(review, index) in this.reviewsList">
-                        <span>{{review}}</span>
+                    <div v-for="(review, index) in this.reviewsList" style="border: 1px solid #dddddd; border-radius: 5px">
                         <el-row>
                             <el-col :span="3">
-                                <img v-if="review.c_avatar" :src="getPic(review.c_avatar)" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
-                                <img v-else src="../assets/img/login.png" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
+                                <img v-if="review.c_avatar" :src="getPic(review.c_avatar)" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 10px 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
+                                <img v-else src="../assets/img/login.png" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 10px 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
                             </el-col>
                             <el-col :span="21">
                                 <el-row>{{review.c_user_name}}</el-row>
-                                <el-row>{{review.c_created_at.split('T')[0]}} {{review.c_created_at.split(/[T.]/)[1]}}</el-row>
+                                <el-row>{{getDate(review.c_create_time)}} {{getTime(review.c_create_time)}}</el-row>
                             </el-col>
                         </el-row>
-                        <el-row>
-                            <p>{{review.c_content}}</p>
+                        <el-row style="margin-left: 20px">
+                            <p style="word-break:break-word;">{{review.c_content}}</p>
                         </el-row>
-                        <el-row v-if="review.h_user_name !== null" style="margin-left: 30px">
+                        <el-row v-if="review.h_user_name !== null" style="margin-left: 80px; border: 1px solid #dddddd; border-radius: 5px">
                             <el-row>
                                 <el-col :span="3">
-                                    <img v-if="review.h_avatar" :src="getPic(review.h_avatar)" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
-                                    <img v-else src="../assets/img/login.png" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 0 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
+                                    <img v-if="review.h_avatar" :src="getPic(review.h_avatar)" alt="" style="width: 40px; height: 40px; margin: 10px 10px 0 0; vertical-align: middle; border-radius: 20px; border: 1px solid #DCDFE6">
+                                    <img v-else src="../assets/img/login.png" alt="" style="width: 40px; height: 40px; vertical-align: middle; border-radius: 20px; border: 1px solid #DCDFE6">
                                 </el-col>
                                 <el-col :span="21">
                                     <el-row>{{review.h_user_name}}</el-row>
-                                    <el-row>{{review.h_created_at.split('T')[0]}} {{review.h_created_at.split(/[T.]/)[1]}}</el-row>
+                                    <el-row>{{getDate(review.h_create_time)}} {{getTime(review.h_create_time)}}</el-row>
                                 </el-col>
                             </el-row>
-                            <el-row>
-                                <p>{{review.h_content}}</p>
+                            <el-row style="margin-left: 20px">
+                                <p style="word-break:break-word;">{{review.h_content}}</p>
                             </el-row>
                         </el-row>
                         <el-row v-else style="margin-left: 30px">
@@ -159,10 +163,10 @@
                             <span style="color: grey">At {{recommended.address}}</span>
                         </el-row>
                         <el-row>
-                            <span style="color: grey">Date: {{recommended.start_date.split('T')[0]}}</span>
+                            <span style="color: grey">Date: {{getDate(recommended.start_date)}}</span>
                         </el-row>
                         <el-row>
-                            <span style="color: grey">Time: {{recommended.start_time.split(/[T.]/)[1]}}</span>
+                            <span style="color: grey">Time: {{getTime(recommended.start_time)}}</span>
                         </el-row>
                         <el-row>
                             <span style="color: red">Price: {{recommended.ticket_price}}</span>
@@ -232,7 +236,7 @@
                         <el-col :span="18" style="height: 100%;margin-top: 50px">
                             <div>
                                 <div style="width: 580px; border: 1px solid #DCDFE6; border-radius: 4px; margin: 0 0 30px 60px; text-align: left">
-                                    <el-radio v-model.number="order.status" label=1 style="margin: 10px 10px 0 10px">
+                                    <el-radio v-model="order.status" label="1" style="margin: 10px 10px 0 10px">
                                         <img src="../assets/img/visa1.png" alt=""  height="18px" />
                                         <span style="font-size: 20px;margin-left: 5px">Visa/Master</span>
                                     </el-radio>
@@ -262,7 +266,7 @@
                                     </el-row>
                                 </div>
                                 <div style="width: 580px; border: 1px solid #DCDFE6; border-radius: 4px; margin: 0 0 30px 60px; text-align: left">
-                                    <el-radio v-model.number="order.status" label=2 style="text-align: left; padding: 12px">
+                                    <el-radio v-model="order.status" label="2" style="text-align: left; padding: 12px">
                                         <img src="../assets/img/Paypal222.png" alt=""  height="18px" />
                                         <span style="font-size: 20px;margin-left: 5px">Paypal</span>
                                     </el-radio>
@@ -392,6 +396,11 @@
                 this.order.event_id = this.event.id;
             },
             pay(){
+                if(this.order.status === '1') {
+                    this.order.status = 1;
+                } else if(this.order.status === '2') {
+                    this.order.status = 2;
+                }
                 this.$http.post("/order/create", this.order).then(
                     res=>{
                         console.log(res);
@@ -436,6 +445,20 @@
                     }
                 )
             },
+            getDate(date) {
+                let res;
+                if(date !== null && date !== undefined) {
+                    res = date.split('T')[0];
+                }
+                return res;
+            },
+            getTime(time) {
+                let res;
+                if(time !== null && time !== undefined) {
+                    res = time.split(/[T.]/)[1];
+                }
+                return res;
+            },
             sendReply(){
                 let obj = {
                     content: this.reply,
@@ -475,7 +498,7 @@
                         res.h_avatar = review[3].avatar;
                         res.h_user_name = review[3].user_name;
                         res.h_create_time = review[2].updated_at
-                        res.h_content = review[1].content;
+                        res.h_content = review[2].content;
                     }
                     console.log(res);
                     this.reviewsList.push(res);
@@ -506,8 +529,8 @@
                         this.recommendeds = res.recommended;
                         this.showReviews(res.eventReviews);
                         console.log(this.reviewsList);
-                        this.event.start_date = this.event.start_date.split('T')[0];
-                        this.event.start_time = this.event.start_time.split(/[T.]/)[1];
+                        // this.event.start_date = this.event.start_date.split('T')[0];
+                        // this.event.start_time = this.event.start_time.split(/[T.]/)[1];
                         this.imageUrl = this.getPic(this.event.cover_image);
                         // let len = this.event.cover_image.split('/').length - 1;
                         // const file = this.event.cover_image.split('/')[len];

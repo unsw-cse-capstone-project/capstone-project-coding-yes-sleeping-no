@@ -117,10 +117,18 @@
         },
         methods: {
             start_date_f(row) {
-                return row.start_date.split('T')[0];
+                let res;
+                if(row.start_date !== null && row.start_date !== undefined) {
+                    res = row.start_date.split('T')[0];
+                }
+                return res
             },
             start_time_f(row) {
-                return row.start_time.split(/[T.]/)[1];
+                let res;
+                if(row.start_time !== null && row.start_time !== undefined) {
+                    res = row.start_time.split(/[T.]/)[1];
+                }
+                return res
             },
             filterHandler(value, row, column) {
                 const property = column['property'];
