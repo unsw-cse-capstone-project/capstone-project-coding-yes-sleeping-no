@@ -2,6 +2,9 @@ package com.edwin.utlis;
 
 import java.util.Random;
 
+/**
+ * Create 6-digit verification code for user's forget password function
+ */
 public class StringUtil {
 
     public static String giveSixRandom() {

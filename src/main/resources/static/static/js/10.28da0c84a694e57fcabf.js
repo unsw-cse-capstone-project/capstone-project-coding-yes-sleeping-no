@@ -1,0 +1,2 @@
+webpackJsonp([10],{"7biW":function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("el-container",[this._v("\n    Search\n")])},staticRenderFns:[]};var a=t("VU/8")({name:"search"},r,!1,function(e){t("8n/Q")},"data-v-0c0f2ff8",null);n.default=a.exports},"8n/Q":function(e,n){}});
+//# sourceMappingURL=10.28da0c84a694e57fcabf.js.map

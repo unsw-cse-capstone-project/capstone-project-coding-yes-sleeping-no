@@ -9,6 +9,9 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * order table attributes
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,10 +26,12 @@ public class Order {
     private String last_name;
     private String email;
     private String phone;
-    private String address;
+    private String address_1;
+    private String address_2;
     private String city;
     private String state;
     private String postcode;
+    private Integer donate;
     private Integer status;
     private Date updated_at;
     private Date created_at;
