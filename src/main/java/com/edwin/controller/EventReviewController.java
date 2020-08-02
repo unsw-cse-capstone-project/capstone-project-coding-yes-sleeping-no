@@ -47,7 +47,7 @@ public class EventReviewController {
             response.put("msg", "send event review success");
         } catch (Exception e) {
             e.printStackTrace();
-            response.put("state", true);
+            response.put("state", false);
             response.put("msg", e.getMessage());
         }
         return response;
@@ -72,7 +72,7 @@ public class EventReviewController {
             response.put("msg", "reply to customer's event review success");
         } catch (Exception e) {
             e.printStackTrace();
-            response.put("state", true);
+            response.put("state", false);
             response.put("msg", e.getMessage());
         }
         return response;
