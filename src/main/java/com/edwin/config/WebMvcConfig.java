@@ -24,12 +24,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-        File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
-        if (!pathRoot.exists()) {
-            pathRoot = new File("");
-        }
-        String saveFile = "file:" + pathRoot.getAbsolutePath() + "/static/";
-        registry.addResourceHandler("/photos/**").addResourceLocations(saveFile.toString());
+//        File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
+//        if (!pathRoot.exists()) {
+//            pathRoot = new File("");
+//        }
+//        String saveFile = "file:" + pathRoot.getAbsolutePath() + "/static/";
+        registry.addResourceHandler("/photos/**").addResourceLocations("file:/Users/edwin/capstone-project-coding-yes-sleeping-no/src/main/resources/static/photos/");
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 }

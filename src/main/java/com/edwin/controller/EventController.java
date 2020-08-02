@@ -255,7 +255,7 @@ public class EventController {
                     Date startDate = event.getStart_date();
                     Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
-                    if (days < 5) {
+                    if (days < 1) {
                         iterator.remove();
                     } else if (event.getAvailable_tickets() <= 1) {
                         iterator.remove();
@@ -269,7 +269,7 @@ public class EventController {
                     Date startDate = event.getStart_date();
                     Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
-                    if (days < 5) {
+                    if (days < 1) {
                         iterator.remove();
                     } else if (event.getAvailable_tickets() <= 1) {
                         iterator.remove();
@@ -283,7 +283,7 @@ public class EventController {
                     Date startDate = event.getStart_date();
                     Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
-                    if (days < 5) {
+                    if (days < 1) {
                         iterator.remove();
                     } else if (event.getAvailable_tickets() <= 1) {
                         iterator.remove();
@@ -297,7 +297,7 @@ public class EventController {
                     Date startDate = event.getStart_date();
                     Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
-                    if (days < 5) {
+                    if (days < 1) {
                         iterator.remove();
                     } else if (event.getAvailable_tickets() <= 1) {
                         iterator.remove();
@@ -313,7 +313,7 @@ public class EventController {
                     Date startDate = event.getStart_date();
                     Long timeDifference = startDate.getTime() - new Date().getTime();
                     int days = (int) (timeDifference / (1000 * 60 * 60 * 24));
-                    if (days < 5) {
+                    if (days < 1) {
                         iterator.remove();
                     } else if (event.getAvailable_tickets() <= 1) {
                         iterator.remove();
@@ -331,7 +331,7 @@ public class EventController {
             response.put("Live_Concerts", liveConcerts);
             response.put("Movies", movies);
             response.put("Drama", drama);
-            response.put("sport", sport);
+            response.put("Sport", sport);
         } catch (Exception e) {
             e.printStackTrace();
             response.put("state", false);

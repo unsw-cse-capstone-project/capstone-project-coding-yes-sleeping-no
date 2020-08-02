@@ -8,6 +8,7 @@ import com.edwin.entity.Order;
 import com.edwin.entity.User;
 import com.edwin.utlis.Consts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ import java.util.*;
 @Service
 @Transactional
 public class EventServiceImpl implements EventService {
+
+    @Value("${photo.dir}")
+    private String realPath;
 
     @Resource
     private JavaMailSender mailSender;
@@ -167,10 +171,34 @@ public class EventServiceImpl implements EventService {
         } else {
             throw new RuntimeException("image extension is invalid");
         }
+//        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+//        String tempFileName = uuid + suffix;
+//        String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static") + tempFileName;
+//        Base64.Decoder decoder = Base64.getDecoder();
+//        try {
+//            byte[] b = decoder.decode(data);
+//            for (int i = 0; i < b.length; ++i) {
+//                if (b[i] < 0) {
+//                    b[i] += 256;
+//                }
+//            }
+//            File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
+//            System.out.println("pathRoot：" + pathRoot.getAbsolutePath());
+//            if (!pathRoot.exists()) {
+//                pathRoot = new File("");
+//            }
+//            String saveFile = pathRoot.getAbsolutePath() + "/static/";
+//            FileOutputStream writer = new FileOutputStream(new File(saveFile, tempFileName));
+//            writer.write(b);
+//            writer.flush();
+//            writer.close();
+//            event.setCover_image(saveFile + tempFileName);
+//            eventDao.save(event);
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         String tempFileName = uuid + suffix;
-        String imgFilePath = ClassUtils.getDefaultClassLoader().getResource("static") + tempFileName;
+        String imgFilePath = realPath + tempFileName;
         Base64.Decoder decoder = Base64.getDecoder();
+        event.setCover_image(imgFilePath);
         try {
             byte[] b = decoder.decode(data);
             for (int i = 0; i < b.length; ++i) {
@@ -178,17 +206,10 @@ public class EventServiceImpl implements EventService {
                     b[i] += 256;
                 }
             }
-            File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
-            System.out.println("pathRoot：" + pathRoot.getAbsolutePath());
-            if (!pathRoot.exists()) {
-                pathRoot = new File("");
-            }
-            String saveFile = pathRoot.getAbsolutePath() + "/static/";
-            FileOutputStream writer = new FileOutputStream(new File(saveFile, tempFileName));
-            writer.write(b);
-            writer.flush();
-            writer.close();
-            event.setCover_image(saveFile + tempFileName);
+            OutputStream out = new FileOutputStream(imgFilePath);
+            out.write(b);
+            out.flush();
+            out.close();
             eventDao.save(event);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
