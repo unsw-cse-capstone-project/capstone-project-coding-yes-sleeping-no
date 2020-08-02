@@ -11,7 +11,6 @@ import com.edwin.utlis.Consts;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -88,10 +87,13 @@ public class EventController {
             tmp.add(eventReview);
             tmp.add(sender);
             Integer senderId = eventReview.getSender_id();
+            log.info("sender id:[{}]", senderId);
             EventReview eventReply = eventReviewDao.findReply(senderId, id);
-            User receiver = userDao.findByUserId(eventReply.getSender_id());
-            tmp.add(eventReply);
-            tmp.add(receiver);
+            if (eventReply != null) {
+                User receiver = userDao.findByUserId(eventReply.getSender_id());
+                tmp.add(eventReply);
+                tmp.add(receiver);
+            }
             reviewResult.add(tmp);
         } else if (eventSendReviews.size() > 1) {
             for (EventReview eventReview : eventSendReviews) {
@@ -100,10 +102,13 @@ public class EventController {
                 User sender = userDao.findByUserId(eventReview.getSender_id());
                 tmp.add(eventReview);
                 tmp.add(sender);
+                log.info("sender id:[{}]", senderId);
                 EventReview eventReply = eventReviewDao.findReply(senderId, id);
-                User receiver = userDao.findByUserId(eventReply.getSender_id());
-                tmp.add(eventReply);
-                tmp.add(receiver);
+                if (eventReply != null) {
+                    User receiver = userDao.findByUserId(eventReply.getSender_id());
+                    tmp.add(eventReply);
+                    tmp.add(receiver);
+                }
                 reviewResult.add(tmp);
             }
         }
@@ -209,13 +214,13 @@ public class EventController {
             }
             log.info("cdcdcdcdcdcd: [{}]", allEvents.size());
             int length = recommendedEvents.size();
-            if (allEvents.size() < 3){
+            if (allEvents.size() < 3) {
                 Iterator<Event> iterator4 = allEvents.iterator();
-                while (iterator4.hasNext()){
+                while (iterator4.hasNext()) {
                     Event event = iterator4.next();
                     recommendedEvents.add(event);
                 }
-            }else {
+            } else {
                 for (int i = 0; i < 3 - length; i++) {
                     recommendedEvents.add(allEvents.get(i));
                 }

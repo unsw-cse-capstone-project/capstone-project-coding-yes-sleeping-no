@@ -44,14 +44,14 @@ public class EventReviewServiceImpl implements EventReviewService {
      */
     @Override
     public void sendReview(Map<String, Object> request, User currentUser) {
-        if (currentUser == null){
+        if (currentUser == null) {
             throw new RuntimeException("current user is empty");
         }
         String content = (String) request.get("content");
         Integer eventId = (Integer) request.get("eventId");
         Integer senderId = currentUser.getId();
         Event currentEvent = eventDao.findOne(eventId, 1);
-        if (currentEvent == null){
+        if (currentEvent == null) {
             throw new RuntimeException("no event found");
         }
         Date startDate = currentEvent.getStart_date();
@@ -61,22 +61,22 @@ public class EventReviewServiceImpl implements EventReviewService {
             throw new RuntimeException("event is not over, cannot send event review");
         }
         List<Order> orders = orderDao.findByHost(currentUser.getId(), eventId);
-        if (orders.size() == 0){
+        if (orders.size() == 0) {
             throw new RuntimeException("not book this event before, fail to send event review");
         }
-        if (orders.size() == 1){
-            if (orders.get(0).getStatus() == 2){
+        if (orders.size() == 1) {
+            if (orders.get(0).getStatus() == 2) {
                 throw new RuntimeException("cancel order before, fail to send event review");
             }
         }
         Iterator<Order> iterator = orders.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Order order = iterator.next();
-            if (order.getStatus() == 2){
+            if (order.getStatus() == 2) {
                 iterator.remove();
             }
         }
-        if (orders.size() <= 0){
+        if (orders.size() <= 0) {
             throw new RuntimeException("cancel order before, fail to send event review");
         }
         EventReview eventReview = new EventReview();
@@ -91,12 +91,13 @@ public class EventReviewServiceImpl implements EventReviewService {
 
     /**
      * Host reply to customer's event review
+     *
      * @param request
      * @param currentUser
      */
     @Override
     public void reply(Map<String, Object> request, User currentUser) {
-        if (currentUser == null){
+        if (currentUser == null) {
             throw new RuntimeException("current user is empty");
         }
         String content = (String) request.get("content");
@@ -104,10 +105,10 @@ public class EventReviewServiceImpl implements EventReviewService {
         Integer receiverId = (Integer) request.get("userId");
         Integer senderId = currentUser.getId();
         Event currentEvent = eventDao.findOne(eventId, 1);
-        if (currentEvent == null){
+        if (currentEvent == null) {
             throw new RuntimeException("no event found");
         }
-        if (currentUser == null){
+        if (currentUser == null) {
             throw new RuntimeException("no user found");
         }
         Date startDate = currentEvent.getStart_date();
@@ -116,7 +117,7 @@ public class EventReviewServiceImpl implements EventReviewService {
         if (days <= 0) {
             throw new RuntimeException("event is not over, cannot send event review");
         }
-        if (currentEvent.getUser_id() != currentUser.getId()){
+        if (currentEvent.getUser_id() != currentUser.getId()) {
             throw new RuntimeException("not host, cannot reply to customer");
         }
         EventReview eventReview = new EventReview();

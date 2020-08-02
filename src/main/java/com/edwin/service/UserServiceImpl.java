@@ -126,12 +126,12 @@ public class UserServiceImpl implements UserService {
                     }
                 }
                 File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
-                System.out.println("pathRoot："+pathRoot.getAbsolutePath());
-                if(!pathRoot.exists()) {
+                System.out.println("pathRoot：" + pathRoot.getAbsolutePath());
+                if (!pathRoot.exists()) {
                     pathRoot = new File("");
                 }
-                String saveFile = pathRoot.getAbsolutePath() +"/static/";
-                FileOutputStream writer = new FileOutputStream(new File(saveFile , tempFileName));
+                String saveFile = pathRoot.getAbsolutePath() + "/static/";
+                FileOutputStream writer = new FileOutputStream(new File(saveFile, tempFileName));
                 writer.write(b);
                 writer.flush();
                 writer.close();

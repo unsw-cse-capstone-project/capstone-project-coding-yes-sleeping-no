@@ -30,6 +30,7 @@ public class EventReviewController {
 
     /**
      * Customer sends event review to past event
+     *
      * @param request
      * @param session
      * @return
@@ -54,6 +55,7 @@ public class EventReviewController {
 
     /**
      * Host replies to customer
+     *
      * @param request
      * @param session
      * @return
