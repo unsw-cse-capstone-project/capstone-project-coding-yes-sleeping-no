@@ -199,7 +199,6 @@ public class EventController {
                 allEvents.remove(event);
             }
             log.info("aaaa: [{}]", allEvents.size());
-            List<Event> t4 = allEvents;
             Iterator<Event> iterator3 = allEvents.iterator();
             while (iterator3.hasNext()) {
                 Event event = iterator3.next();
