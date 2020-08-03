@@ -47,7 +47,7 @@
             </el-row>
         </el-header>
         <el-container>
-            <router-view></router-view>
+            <router-view :key="$route.fullPath"></router-view>   <!-- for the problem that after using router-link, URL changed but the page don't reload. -->
         </el-container>
     </el-container>
 </template>

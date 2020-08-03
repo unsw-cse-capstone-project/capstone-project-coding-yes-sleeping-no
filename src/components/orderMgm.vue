@@ -53,7 +53,7 @@
                     width="120">
                 <template slot-scope="scope">
                     <el-button @click="handleClick(scope.row)" type="text" size="small">View</el-button>
-                    <el-button type="text" size="small" v-if="scope.row.status === 1">Cancel</el-button>
+                    <el-button type="text" size="small" v-if="scope.row.status === 1 && user.status === 1" @click="cancelOrder(scope.row)">Cancel</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -64,9 +64,27 @@
     export default {
         methods: {
             handleClick (row) {
-                console.log(row);
-                let id = row.id;
+                let id = row.event_id;
                 location.href = "#/eventDetail/"+id;
+            },
+            cancelOrder(row) {
+                let id = row.event_id;
+                this.$http.get("/order/cancel/"+id).then(
+                    res=>{
+                        if(res.state){
+                            this.$message({
+                                message: res.msg,
+                                type: 'success'
+                            });
+                            location.reload();
+                        }
+                        else {
+                            this.$message({
+                                message: res.msg,
+                                type: 'fail'
+                            })
+                        }
+                    })
             },
             clearFilter() {
                 this.$refs.filterTable.clearFilter();
@@ -102,7 +120,7 @@
                 this.$http.get("/order/get/host").then(
                     res=>{
                         // console.log(res);
-                        this.tableData = res.allOrders;
+                        this.tableData = res.orders;
                     })
             }
 

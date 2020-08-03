@@ -96,7 +96,7 @@
                         <el-row style="margin-left: 20px">
                             <p style="word-break:break-word;">{{review.c_content}}</p>
                         </el-row>
-                        <el-row v-if="review.h_user_name !== null" style="margin-left: 80px; border: 1px solid #dddddd; border-radius: 5px">
+                        <el-row v-if="review.h_user_name !== null && review.h_user_name !== undefined" style="margin-left: 80px; border: 1px solid #dddddd; border-radius: 5px">
                             <el-row>
                                 <el-col :span="3">
                                     <img v-if="review.h_avatar" :src="getPic(review.h_avatar)" alt="" style="width: 40px; height: 40px; margin: 10px 10px 0 0; vertical-align: middle; border-radius: 20px; border: 1px solid #DCDFE6">
@@ -149,29 +149,31 @@
                     <span style="font-size: 24px;">Recommended for you</span>
                 </div>
                 <el-row :gutter="10" style="margin: 15px 0 0 0;" v-for="(recommended, index) in this.recommendeds" :key="recommended.id">
-                    <el-col :span="12">
-                        <img v-if="recommended.cover_image" :src="getPic(recommended.cover_image)" alt="" style="width: 150px; border-radius: 5px;"/>
-                        <div v-else style="height: 200px; border-radius: 5px; background-color: #f3f3f3">
-                            <img src="../assets/img/CYSNlogo.png" alt="" style="margin: 80px auto">
-                        </div>
-                    </el-col>
-                    <el-col :span="12" style="text-align: left">
-                        <el-row>
-                            <span style="font-size: 24px">{{recommended.title}}</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: grey">At {{recommended.address}}</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: grey">Date: {{getDate(recommended.start_date)}}</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: grey">Time: {{getTime(recommended.start_time)}}</span>
-                        </el-row>
-                        <el-row>
-                            <span style="color: red">Price: {{recommended.ticket_price}}</span>
-                        </el-row>
-                    </el-col>
+                    <router-link :to="{name: 'eventDetail', params: {id: recommended.id}}" :key="$route.fullPath">
+                        <el-col :span="12">
+                            <img v-if="recommended.cover_image" :src="getPic(recommended.cover_image)" alt="" style="width: 150px; border-radius: 5px;"/>
+                            <div v-else style="height: 200px; border-radius: 5px; background-color: #f3f3f3">
+                                <img src="../assets/img/CYSNlogo.png" alt="" style="margin: 80px auto">
+                            </div>
+                        </el-col>
+                        <el-col :span="12" style="text-align: left">
+                            <el-row>
+                                <span style="font-size: 24px">{{recommended.title}}</span>
+                            </el-row>
+                            <el-row>
+                                <span style="color: grey">At {{recommended.address}}</span>
+                            </el-row>
+                            <el-row>
+                                <span style="color: grey">Date: {{getDate(recommended.start_date)}}</span>
+                            </el-row>
+                            <el-row>
+                                <span style="color: grey">Time: {{getTime(recommended.start_time)}}</span>
+                            </el-row>
+                            <el-row>
+                                <span style="color: red">Price: {{recommended.ticket_price}}</span>
+                            </el-row>
+                        </el-col>
+                    </router-link>
                 </el-row>
             </el-col>
         </el-row>
@@ -483,13 +485,11 @@
                 )
             },
             showReviews(reviews) {
-                console.log(reviews);
                 let i;
-                let res = {}
-                for (i in reviews) {
+                for (i = 0; i < reviews.length; i++) {
+                    let res = {}
                     console.log('review is');
                     let review = reviews[i];
-                    console.log(review);
                     res.c_avatar = review[1].avatar;
                     res.c_user_name = review[1].user_name;
                     res.c_create_time = review[0].updated_at;
@@ -500,7 +500,6 @@
                         res.h_create_time = review[2].updated_at
                         res.h_content = review[2].content;
                     }
-                    console.log(res);
                     this.reviewsList.push(res);
                 }
 

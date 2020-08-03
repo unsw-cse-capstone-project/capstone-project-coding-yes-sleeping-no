@@ -6,8 +6,7 @@
                 :data="tableData"
                 :default-sort = "{prop: 'Date', order: 'increasing'}"
                 stripe
-                style="width: 100%"
-                height="650">
+                style="width: 100%">
             <el-table-column
                     fixed
                     sortable
@@ -16,6 +15,7 @@
                     width="150">
             </el-table-column>
             <el-table-column
+                    fixed
                     sortable
                     prop="type"
                     label="Type"
@@ -26,34 +26,39 @@
             >
             </el-table-column>
             <el-table-column
+                    fixed
                     sortable
                     prop="address"
                     label="Location"
-                    width="200">
+                    width="140">
             </el-table-column>
             <el-table-column
+                    fixed
                     sortable
                     prop="start_date"
                     label="Date"
-                    width="100">
+                    width="110">
             </el-table-column>
             <el-table-column
+                    fixed
                     sortable
                     prop="start_time"
                     label="Time"
                     width="100">
             </el-table-column>
             <el-table-column
+                    fixed
                     sortable
                     prop="ticket_price"
                     label="Price"
                     width="100">
             </el-table-column>
             <el-table-column
+                    fixed
                     sortable
                     prop="available_tickets"
                     label="Inventory"
-                    width="110">
+                    width="120">
             </el-table-column>
             <el-table-column
                     fixed="right"
@@ -87,20 +92,34 @@
                 const property = column['property'];
                 return row[property] === value;
             },
+            getDate(date) {
+                let res;
+                if(date !== null && date !== undefined) {
+                    res = date.split('T')[0];
+                }
+                return res;
+            },
+            getTime(time) {
+                let res;
+                if(time !== null && time !== undefined) {
+                    res = time.split(/[T.]/)[1];
+                }
+                return res;
+            },
             del_event(row) {
                 let id = row.id;
                 this.$http.get("/event/delete/"+id).then(
                     res=>{
                         if(res.state){
                             this.$message({
-                                message: res.msg,
+                                message: res.hint,
                                 type: 'success'
                             });
                             location.href ="#/eventMgm";
                         }
                         else {
                             this.$message({
-                                message: res.msg,
+                                message: res.hint,
                                 type: 'fail'
                             });
                         }
@@ -125,6 +144,11 @@
                 res=>{
                     // console.log(res);
                     this.tableData = res.event;
+                    for(let i = 0; i <this.tableData.length; i++) {
+                        this.tableData[i].start_date = this.getDate(this.tableData[i].start_date);
+                        this.tableData[i].start_time = this.getTime(this.tableData[i].start_time);
+                    }
+                    console.log(this.tableData);
                 })
         }
     }

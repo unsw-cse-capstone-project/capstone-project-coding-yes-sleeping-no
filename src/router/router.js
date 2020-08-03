@@ -66,7 +66,7 @@ const routers = [
       {
         path: '/eventDetail/:id',
         component: eventDetail,
-        name: 'eventDetail'
+        name: 'eventDetail',
       },
       {
         path: '/search/:keyword',
