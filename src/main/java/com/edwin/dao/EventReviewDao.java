@@ -24,4 +24,6 @@ public interface EventReviewDao {
 
     EventReview findReply(@Param("receiver_id") Integer receiver_id, @Param("event_id") Integer event_id);
 
+    EventReview findOne(@Param("id") Integer id);
+
 }

@@ -100,11 +100,16 @@ public class EventReviewServiceImpl implements EventReviewService {
         if (currentUser == null) {
             throw new RuntimeException("current user is empty");
         }
+        Integer reviewId = (Integer) request.get("reviewId");
         String content = (String) request.get("content");
-        Integer eventId = (Integer) request.get("eventId");
-        Integer receiverId = (Integer) request.get("userId");
+//        Integer eventId = (Integer) request.get("eventId");
+//        Integer receiverId = (Integer) request.get("userId");
         Integer senderId = currentUser.getId();
-        Event currentEvent = eventDao.findOne(eventId, 1);
+        EventReview review = eventReviewDao.findOne(reviewId);
+        if (review == null){
+            throw new RuntimeException("no event review found");
+        }
+        Event currentEvent = eventDao.findOne(review.getEvent_id(), 1);
         if (currentEvent == null) {
             throw new RuntimeException("no event found");
         }
@@ -123,8 +128,8 @@ public class EventReviewServiceImpl implements EventReviewService {
         EventReview eventReview = new EventReview();
         eventReview.setContent(content);
         eventReview.setSender_id(senderId);
-        eventReview.setReceiver_id(receiverId);
-        eventReview.setEvent_id(eventId);
+        eventReview.setReceiver_id(review.getSender_id());
+        eventReview.setEvent_id(review.getEvent_id());
         eventReview.setCreated_at(new Date());
         eventReview.setUpdated_at(new Date());
         eventReviewDao.save(eventReview);
