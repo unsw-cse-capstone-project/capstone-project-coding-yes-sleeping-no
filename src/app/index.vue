@@ -59,12 +59,21 @@
         </div>
         <el-row style="height: 666px;">
           <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">
-
-            <img :src="getPoster(movies, 0)" alt="" width="100%" height="100%" style="display: block;" />
+            <router-link :to="{name:'eventDetail', params:{id: movies[0].id}}">
+              <img :src="getPoster(movies, 0)" alt="" width="100%" height="100%" style="display: block;" />
+            </router-link>
           </el-col>
           <el-col v-if="Object.keys(movies).length > 1" :span="10" style="padding-left: 26px;">
-            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img :src="getPoster(movies, 1)" alt="" width="100%" height="100%" style="display: block;" /></div>
-            <div v-if="Object.keys(movies).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;"><img :src="getPoster(movies, 2)" alt="" width="100%" height="100%" style="display: block;" /></div>
+            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;">
+              <router-link :to="{name:'eventDetail', params:{id: movies[1].id}}">
+                <img :src="getPoster(movies, 1)" alt="" width="100%" height="100%" style="display: block;" />
+              </router-link>
+            </div>
+            <div v-if="Object.keys(movies).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;">
+              <router-link :to="{name:'eventDetail', params:{id: movies[2].id}}">
+                <img :src="getPoster(movies, 2)" alt="" width="100%" height="100%" style="display: block;" />
+              </router-link>
+            </div>
           </el-col>
         </el-row>
         <div style="text-align: left">
@@ -91,11 +100,21 @@
         </div>
         <el-row style="height: 666px;">
           <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">
-            <img :src="getPoster(concerts, 0)" alt="" width="100%" height="100%" style="display: block;" />
+            <router-link :to="{name:'eventDetail', params:{id: concerts[0].id}}">
+              <img :src="getPoster(concerts, 0)" alt="" width="100%" height="100%" style="display: block;" />
+            </router-link>
           </el-col>
           <el-col v-if="Object.keys(concerts).length > 1" :span="10" style="padding-left: 26px;">
-            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img :src="getPoster(concerts, 1)" alt="" width="100%" height="100%" style="display: block;" /></div>
-            <div v-if="Object.keys(concerts).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;"><img :src="getPoster(concerts, 2)" alt="" width="100%" height="100%" style="display: block;" /></div>
+            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;">
+              <router-link :to="{name:'eventDetail', params:{id: concerts[1].id}}">
+                <img :src="getPoster(concerts, 1)" alt="" width="100%" height="100%" style="display: block;" />
+              </router-link>
+            </div>
+            <div v-if="Object.keys(concerts).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;">
+              <router-link :to="{name:'eventDetail', params:{id: concerts[2].id}}">
+                <img :src="getPoster(concerts, 2)" alt="" width="100%" height="100%" style="display: block;" />
+              </router-link>
+            </div>
           </el-col>
         </el-row>
         <div style="text-align: left">
@@ -123,11 +142,21 @@
         </div>
         <el-row style="height: 666px;">
           <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">
-            <img :src="getPoster(dramas, 0)" alt="" width="100%" height="100%" style="display: block;" />
+            <router-link :to="{name:'eventDetail', params:{id: dramas[0].id}}">
+              <img :src="getPoster(dramas, 0)" alt="" width="100%" height="100%" style="display: block;" />
+            </router-link>
           </el-col>
           <el-col v-if="Object.keys(dramas).length > 1" :span="10" style="padding-left: 26px;">
-            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img :src="getPoster(dramas, 1)" alt="" width="100%" height="100%" style="display: block;" /></div>
-            <div v-if="Object.keys(dramas).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;"><img :src="getPoster(dramas, 2)" alt="" width="100%" height="100%" style="display: block;" /></div>
+            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;">
+              <router-link :to="{name:'eventDetail', params:{id: dramas[1].id}}">
+                <img :src="getPoster(dramas, 1)" alt="" width="100%" height="100%" style="display: block;" />
+              </router-link>
+            </div>
+            <div v-if="Object.keys(dramas).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;">
+              <router-link :to="{name:'eventDetail', params:{id: dramas[2].id}}">
+                <img :src="getPoster(dramas, 2)" alt="" width="100%" height="100%" style="display: block;" />
+              </router-link>
+            </div>
           </el-col>
         </el-row>
         <div style="text-align: left">
@@ -155,11 +184,21 @@
         </div>
         <el-row style="height: 666px;">
           <el-col :span="14" style="height: 100%;border-radius: 15px;overflow: hidden;">
-            <img :src="getPoster(sports, 0)" alt="" width="100%" height="100%" style="display: block;" />
+            <router-link :to="{name:'eventDetail', params:{id: sports[0].id}}">
+              <img :src="getPoster(sports, 0)" alt="" width="100%" height="100%" style="display: block;" />
+            </router-link>
           </el-col>
           <el-col v-if="Object.keys(sports).length > 1" :span="10" style="padding-left: 26px;">
-            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img :src="getPoster(sports, 1)" alt="" width="100%" height="100%" style="display: block;" /></div>
-            <div v-if="Object.keys(sports).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;"><img :src="getPoster(sports, 2)" alt="" width="100%" height="100%" style="display: block;" /></div>
+            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;">
+              <router-link :to="{name:'eventDetail', params:{id: sports[1].id}}">
+                <img :src="getPoster(sports, 1)" alt="" width="100%" height="100%" style="display: block;" />
+              </router-link>
+            </div>
+            <div v-if="Object.keys(sports).length > 2" style="height: 320px;border-radius: 15px;overflow: hidden;">
+              <router-link :to="{name:'eventDetail', params:{id: sports[2].id}}">
+                <img :src="getPoster(sports, 2)" alt="" width="100%" height="100%" style="display: block;" />
+              </router-link>
+            </div>
           </el-col>
         </el-row>
         <div style="text-align: left">

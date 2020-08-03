@@ -82,7 +82,7 @@
                 </el-row>
                 <el-row id="review" name="review" style="text-align: left">
                     <h2>Review</h2>
-                    <div v-for="(review, index) in this.reviewsList" style="border: 1px solid #dddddd; border-radius: 5px">
+                    <div v-for="(review, index) in reviewsList" style="border: 1px solid #dddddd; border-radius: 5px">
                         <el-row>
                             <el-col :span="3">
                                 <img v-if="review.c_avatar" :src="getPic(review.c_avatar)" alt="" style="width: 40px; height: 40px; vertical-align: middle; margin: 10px 10px 0 0; border-radius: 20px; border: 1px solid #DCDFE6">
@@ -111,19 +111,19 @@
                                 <p style="word-break:break-word;">{{review.h_content}}</p>
                             </el-row>
                         </el-row>
-                        <el-row v-else style="margin-left: 30px">
+                        <el-row v-else-if="user.status === 2" style="margin-left: 30px">
                             <el-col :span="21">
                                 <el-input
                                         style="margin-top:20px"
                                         type="textarea"
                                         :rows="2"
                                         placeholder="Enter Reply"
-                                        v-model="reply"
+                                        v-model="review['h_content_'+index]"
                                 >
                                 </el-input>
                             </el-col>
                             <el-col :span="3">
-                                <el-button style="margin-top:40px;" type="primary" @click="sendReply" round>Submit</el-button>
+                                <el-button style="margin-top:40px;" type="primary" @click="sendReply(review, index)" round>Submit</el-button>
                             </el-col>
                         </el-row>
                     </div>
@@ -375,7 +375,6 @@
                 imageUrl: '',
                 recommendeds: [],
                 reviewsList: [],
-                reply: '',
                 user: {}
             }
         },
@@ -461,12 +460,12 @@
                 }
                 return res;
             },
-            sendReply(){
+            sendReply(item, i){
                 let obj = {
-                    content: this.reply,
-                    eventId: this.event.id,
-                    userId: this.user.id
+                    content: item['h_content_'+i],
+                    reviewId: i,
                 }
+                console.log(item['h_content_'+i]);
                 this.$http.post("/eventReview/reply", obj).then(
                     res=>{
                         if(res.state) {
@@ -497,8 +496,14 @@
                     if (review.length == 4) {
                         res.h_avatar = review[3].avatar;
                         res.h_user_name = review[3].user_name;
-                        res.h_create_time = review[2].updated_at
+                        res.h_create_time = review[2].updated_at;
+                    }
+                    if (review[2]){
                         res.h_content = review[2].content;
+                        res['h_content_'+i] = review[2].content;
+                    } else{
+                        res.h_content = '';
+                        res['h_content_'+i] = '';
                     }
                     this.reviewsList.push(res);
                 }
