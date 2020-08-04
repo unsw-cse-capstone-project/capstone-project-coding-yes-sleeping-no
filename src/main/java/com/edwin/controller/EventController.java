@@ -199,6 +199,7 @@ public class EventController {
                 allEvents.remove(event);
             }
             log.info("aaaa: [{}]", allEvents.size());
+
             Iterator<Event> iterator3 = allEvents.iterator();
             while (iterator3.hasNext()) {
                 Event event = iterator3.next();
@@ -224,10 +225,19 @@ public class EventController {
                     recommendedEvents.add(allEvents.get(i));
                 }
             }
+            List<Event> recommended = new ArrayList<>();
+            if (recommendedEvents.size() > 6){
+                for (int i = 0; i < 6; i++) {
+                    recommended.add(recommendedEvents.get(i));
+                }
+            }else {
+                recommended = recommendedEvents;
+            }
+
             response.put("state", true);
             response.put("msg", "find event success");
             response.put("event", eventById);
-            response.put("recommended", recommendedEvents);
+            response.put("recommended", recommended);
             response.put("eventReviews", reviewResult);
             return response;
         }

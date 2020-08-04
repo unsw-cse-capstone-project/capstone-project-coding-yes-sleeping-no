@@ -67,6 +67,11 @@ public class EventReviewController {
         User currentUser = (User) session.getAttribute(Consts.CURRENT_USER);
         Map<String, Object> response = new HashMap<>();
         try {
+            Integer reviewId = (Integer) request.get("reviewId");
+            String content = (String) request.get("content");
+            log.info("sender id:[{}]", reviewId);
+            log.info("sender id:[{}]", content);
+
             eventReviewService.reply(request, currentUser);
             response.put("state", true);
             response.put("msg", "reply to customer's event review success");

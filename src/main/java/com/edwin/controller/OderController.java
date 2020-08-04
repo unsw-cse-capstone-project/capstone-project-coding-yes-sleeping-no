@@ -121,9 +121,10 @@ public class OderController {
         Map<String, Object> response = new HashMap<>();
         User currentUser = (User) session.getAttribute(Consts.CURRENT_USER);
         try {
+            log.info("aaaa: [{}]", orderId);
             Order cancelOrder = orderService.cancel(orderId, currentUser);
             response.put("state", true);
-            response.put("msg", "confirm order payment success");
+            response.put("msg", "cancel order success");
             response.put("cancelOrder", cancelOrder);
         } catch (Exception e) {
             e.printStackTrace();
