@@ -10,4 +10,16 @@ Week 3
 Week 4
 -Set up the back-end development environment.
 -Completed user register,login and logout functions for the website back-end coding.
-
+Week 5
+-Fixed database structure.
+-Completed upload user profile, user forget password and reset password functions for the website back-end coding.
+Week 6
+-Completed find event details, create event, upload event cover image, book tickets and cancel event functions for the website back-end coding.
+Week 7
+-Completed find recommended events, find events for index page and payment functions for the website back-end coding.
+Week 8
+-Completed find customer order, find host order and cancel order functions for the website back-end coding.
+Week 9
+-Completed customer sends event review and host replies to customer's review functions for the website back-end coding.
+Week 10
+-Test all website basic functions and debug.
