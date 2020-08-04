@@ -68,7 +68,7 @@
                 location.href = "#/eventDetail/"+id;
             },
             cancelOrder(row) {
-                let id = row.event_id;
+                let id = row.id;
                 this.$http.get("/order/cancel/"+id).then(
                     res=>{
                         if(res.state){

@@ -11,7 +11,7 @@
               <div class="flexItem curPoi"><a href="#concerts">Live Concerts</a></div>
               <div class="flexItem curPoi"><a href="#movies">Movies</a></div>
               <div class="flexItem curPoi"><a href="#dramas">Dramas</a></div>
-              <div class="flexItem curPoi"><a href="#sports">sport</a></div>
+              <div class="flexItem curPoi"><a href="#sports">Sport</a></div>
             </div>
           </el-col>
           <el-col :span="8" style="padding: 0;line-height: 40px;">
@@ -47,7 +47,9 @@
     </el-row>
     <el-carousel height="700px" style="background-color: black">
       <el-carousel-item v-for="(item, index) in carouselList" :key="index">
-        <img :src="getPoster(carouselList, index)" alt="" height="100%" />
+        <router-link :to="{name:'eventDetail', params:{id: item.id}}">
+          <img :src="getPoster(carouselList, index)" alt="" height="100%" />
+        </router-link>
       </el-carousel-item>
     </el-carousel>
 
@@ -80,8 +82,8 @@
           <div v-for="(movie, index) in movies" v-if="index > 2" class="flexItem" style="text-align: left; display: inline-block; margin-top: 20px">
             <router-link :to="{name:'eventDetail', params:{id: movie.id}}">
               <img :src="getPoster(movies, index)" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-              <div style="font-size: 20px;color: black;font-weight: 900">{{movie.title}}</div>
-              <div style="font-size: 14px;color: #666;">{{movie.description}}</div>
+              <div style="font-size: 20px;color: black;font-weight: 900; width: 285px">{{movie.title}}</div>
+              <div style="font-size: 14px;color: #666; width: 285px">{{movie.description}}</div>
               <div style="font-size: 14px;color: #666;">{{movie.start_date.split('T')[0]}} {{movie.start_time.split(/[T.]/)[1]}}</div>
               <div style="font-size: 20px;color: red;">${{movie.ticket_price}}</div>
             </router-link>
@@ -121,8 +123,8 @@
           <div v-for="(concert, index) in concerts" v-if="index > 2" class="flexItem" style="text-align: left; display: inline-block; margin-top: 20px">
             <router-link :to="{name:'eventDetail', params:{id: concert.id}}">
               <img :src="getPoster(concerts, index)" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-              <div style="font-size: 20px;color: black; font-weight: 900">{{concert.title}}</div>
-              <div style="font-size: 14px;color: #666;">{{concert.description}}</div>
+              <div style="font-size: 20px;color: black; font-weight: 900; width: 285px">{{concert.title}}</div>
+              <div style="font-size: 14px;color: #666; width: 285px">{{concert.description}}</div>
               <div style="font-size: 14px;color: #666;">{{concert.start_date.split('T')[0]}} {{concert.start_time.split(/[T.]/)[1]}}</div>
               <div style="font-size: 20px;color: red;">${{concert.ticket_price}}</div>
             </router-link>
@@ -163,8 +165,8 @@
           <div v-for="(drama, index) in dramas" v-if="index > 2" class="flexItem" style="text-align: left; display: inline-block; margin-top: 20px">
             <router-link :to="{name:'eventDetail', params:{id: drama.id}}">
               <img :src="getPoster(dramas, index)" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-              <div style="font-size: 20px;color: black;font-weight: 900">{{drama.title}}</div>
-              <div style="font-size: 14px;color: #666;">{{drama.description}}</div>
+              <div style="font-size: 20px;color: black;font-weight: 900; width: 285px">{{drama.title}}</div>
+              <div style="font-size: 14px;color: #666; width: 285px">{{drama.description}}</div>
               <div style="font-size: 14px;color: #666;">{{drama.start_date.split('T')[0]}} {{drama.start_time.split(/[T.]/)[1]}}</div>
               <div style="font-size: 20px;color: red;">${{drama.ticket_price}}</div>
             </router-link>
@@ -205,8 +207,8 @@
           <div v-for="(sport, index) in sports" v-if="index > 2" class="flexItem" style="text-align: left; display: inline-block; margin-top: 20px">
             <router-link :to="{name:'eventDetail', params:{id: sport.id}}">
               <img :src="getPoster(sports, index)" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />
-              <div style="font-size: 20px;color: black;font-weight: 900">{{sport.title}}</div>
-              <div style="font-size: 14px;color: #666;">{{sport.description}}</div>
+              <div style="font-size: 20px;color: black;font-weight: 900; width: 285px">{{sport.title}}</div>
+              <div style="font-size: 14px;color: #666; width: 285px">{{sport.description}}</div>
               <div style="font-size: 14px;color: #666;">{{sport.start_date.split('T')[0]}} {{sport.start_time.split(/[T.]/)[1]}}</div>
               <div style="font-size: 20px;color: red;">${{sport.ticket_price}}</div>
             </router-link>
@@ -218,56 +220,7 @@
       </div>
     </div>
 
-<!--    <div>-->
-<!--      <div style="background-color: white;padding: 80px 50px;">-->
-<!--        <div style="text-align: left;">-->
-<!--          <img src="../assets/img/type.png" alt="" width="40px;" />-->
-<!--          <span style="font-size: 22px;padding-left: 10px;font-style:italic">Live</span>-->
-<!--        </div>-->
-<!--        <el-row style="height: 666px;">-->
-<!--          <el-col :span="16" style="height: 100%;border-radius: 15px;overflow: hidden;">-->
-<!--            <img src="../assets/img/StarWars.png" alt="" width="100%" height="100%" style="display: block;" />-->
-<!--          </el-col>-->
-<!--          <el-col :span="8" style="padding-left: 26px;">-->
-<!--            <div style="height: 320px;border-radius: 15px;margin-bottom: 26px;overflow: hidden;"><img src="../assets/img/StarWars.png" alt="" width="100%" height="100%" style="display: block;" /></div>-->
-<!--            <div style="height: 320px;border-radius: 15px;overflow: hidden;"><img src="../assets/img/StarWars.png" alt="" width="100%" height="100%" style="display: block;" /></div>-->
-<!--          </el-col>-->
-<!--        </el-row>-->
-<!--        <div class="flexNowarp" style="margin-top: 30px;">-->
-<!--          <div class="flexItem" style="text-align: left;">-->
-<!--            <img src="../assets/img/joker.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />-->
-<!--            <div style="font-size: 20px;color: black;font-weight">Joker</div>-->
-<!--            <div style="font-size: 14px;color: #666;">Introduction</div>-->
-<!--            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>-->
-<!--            <div style="font-size: 20px;color: red;">from $200</div>-->
-<!--          </div>-->
-<!--          <div class="flexItem" style="text-align: left;">-->
-<!--            <img src="../assets/img/joker.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />-->
-<!--            <div style="font-size: 20px;color: black;font-weight">Joker</div>-->
-<!--            <div style="font-size: 14px;color: #666;">Introduction</div>-->
-<!--            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>-->
-<!--            <div style="font-size: 20px;color: red;">from $200</div>-->
-<!--          </div>-->
-<!--          <div class="flexItem" style="text-align: left;">-->
-<!--            <img src="../assets/img/joker.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />-->
-<!--            <div style="font-size: 20px;color: black;font-weight">Joker</div>-->
-<!--            <div style="font-size: 14px;color: #666;">Introduction</div>-->
-<!--            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>-->
-<!--            <div style="font-size: 20px;color: red;">from $200</div>-->
-<!--          </div>-->
-<!--          <div class="flexItem" style="text-align: left;">-->
-<!--            <img src="../assets/img/joker.png" alt="" width="286px;" height="400px;" style="border-radius:15px;overflow: hidden;" />-->
-<!--            <div style="font-size: 20px;color: black;font-weight">Joker</div>-->
-<!--            <div style="font-size: 14px;color: #666;">Introduction</div>-->
-<!--            <div style="font-size: 14px;color: #666;">4/6/2020 Saturday 18:30</div>-->
-<!--            <div style="font-size: 20px;color: red;">from $200</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div style="padding-top: 50px;">-->
-<!--          <button style="background-color: #fff;border: 1px solid #e5e5e5;border-radius: 22px;padding: 15px 25px;cursor: pointer;">Load More</button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+
     <div style="margin-top: 50px;padding: 40px 50px;border-top: 1px solid #121212;">
       <el-row>
         <el-col :span="8" style="text-align: left;font-size: 16px;color: #121212;">
@@ -301,7 +254,7 @@
           <div v-if="showLogin">
             <el-row style="padding: 50px 40px;">
               <el-col :span="12" class="curDefault" style="font-size: 22px;font-weight: bold;text-align: left;">Sign In to CYSN</el-col>
-              <el-col :span="12" class="curPoi" style="font-size: 14px;color: blue;text-align: right;" @click.native="showLogin=false"><span>Sign&nbsp;up</span></el-col><!-- @click="checkType" -->
+              <el-col :span="12" class="curPoi" style="font-size: 14px;color: blue;text-align: right;" @click.native="showLogin=false"><span style="color: black;">Sign&nbsp;up</span></el-col><!-- @click="checkType" -->
             </el-row>
             <el-input placeholder="Email" v-model="user.email" style="margin: 0px 50px;width: 80%;" :clearable="true">
               <template slot="prepend">
@@ -316,7 +269,7 @@
             <button class="curPoi" @click="login" style="line-height: 44px;width: 80%;margin: 30px auto 0px;font-size: 15px;background-color: black;color: #fff;border-radius: 5px;border: none;">Sign&nbsp;in</button>
             <div class="curPoi" style="text-align: right;padding: 10px 50px 0px 0px;color: #4386F5;">
               <router-link to="/forgetPwd" style="text-decoration: none;">
-                <span style="line-height: 40px;">Forget password?</span>
+                <span style="line-height: 40px; color: black">Forget password?</span>
               </router-link>
             </div>
           </div>
