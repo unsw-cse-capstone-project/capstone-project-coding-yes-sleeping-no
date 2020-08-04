@@ -23,7 +23,7 @@ Press Start Import to import the data from the SQL file
 
 You can check the tables were created after refreshing in the Schemas tab on the left navigator pane
 You can then check the data was imported by selecting 10 rows from the event table using the following command:
-SELECT * FROM event_master.event LIMIT 10;
+SELECT * FROM event_master.event LIMIT 10
 
 --------------------------------------------------------------------------
 EXECUTE JAR FILE
