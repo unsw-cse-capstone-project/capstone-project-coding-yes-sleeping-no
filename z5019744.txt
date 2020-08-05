@@ -21,3 +21,29 @@ Week 4
 -didn't get frontend connected to backend which is disappointing but can be achieved in week 5
 -We also didnt get the functionality for hosts to create events working
 -We were slow to begin and learning about the framework and getting set up took too long. We will have a better idea going forward however
+
+Week 5
+-Finished 1st sprint
+-Held retrospective meeting immediately after demonstration
+-Connected frontend to backend 
+-Implemented user profile pages including resetting password
+
+Week 6
+-Implemented evetn details page and wrote the retrospective report
+
+Week 7
+-Begin to structure the final report and list the Third-party tools that we have used
+
+Week 8
+-Finish 2nd sprint and present our demonstration
+-Held the retrospective meeting immediately after demonstration
+-Wrote retrospective report
+
+Week 9
+-Implemented review features
+-Worked on report for most of the week. Almosted finished, but received extension until wednesday
+
+Week 10
+-Test all functions and debug
+-Finished report
+-Did final presentation
