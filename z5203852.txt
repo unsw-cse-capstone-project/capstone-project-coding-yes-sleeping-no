@@ -16,4 +16,15 @@ study about java ,framework spring boot.
 week 5 :
 Set up the back-end development environment with chongshi
 Completed user register,login and logout functions for the website back-end coding.
-finish all mysql database according to ER.
+finish all mysql database according to ER model.
+Week 6:
+finish find event details, create event, upload event cover image, book tickets and cancel event functions for the website back-end coding.
+Week 7
+finish the part of events index page and payment function.
+Week 8
+finish find customer order, find host order and cancel order functions for the website back-end coding.
+Week 9
+study about Elastic Compute Service, try to use Alibaba Cloud to make our website can use at anywhere.
+Set up the back-end development environment at Alibaba Cloud (java,springboot,mysql,tomcat)
+Week 10
+Test all website basic functions and debug with front-end.
