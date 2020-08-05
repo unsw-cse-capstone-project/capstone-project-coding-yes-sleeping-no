@@ -18,15 +18,35 @@ Participate in modifying the database structure.
 
 ----------Week 4----------
 Start learning vue for the project and how to design components with front-end teammate.
+Design the detail of the Main page.
 
 ----------Week 5----------
+Create the detail of events as demo.
 Finish demo about home page and login page. Try to connect the front and back ends.
+Implement the Main page and Login&Register page.
 
 ----------Week 6----------
 Determine the current stage tasks. Modify the user page, and add new attributes to communicate with the background.
+Design profile prototype.
+Set up a proxy to allow remote access to the page.
 
 ----------Week 7----------
 Complete the password reset and password recovery functions.
+Design the static Event Management & Order Management page.
 
 ----------Week 8----------
-Participate in the preparation of the second stage of the demo, participate in the completion of the creation and management of the event page
+Participate in the preparation of the second stage of the demo, participate in the completion of the creation and management of the event page.
+Add comment and rating function.
+Design the payment page.
+Discuss the business logic of modifying the publishing activity and canceling the activity.
+
+----------Week 9----------
+Build search page.
+Deal with bugs, update page optimization.
+Help with report.
+
+----------Week 10---------
+Deployment server.
+Prepare the final demo.
+Add the data and pictures needed for the demo to the database.
+Deal with bugs, update page optimization.
