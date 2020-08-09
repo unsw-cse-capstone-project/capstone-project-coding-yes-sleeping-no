@@ -59,3 +59,7 @@ Dezhao Fang (Z5128650)
 * Complete the data of recommendation function to transfer with back end.
 * Complete the data of review function to transfer with back end.
 * Fix some bugs.
+
+== Week 10 ==
+* Testing all kinds of functions of our website.
+* Fix all bugs we found it.
